@@ -12,6 +12,7 @@
     "coverage": "vitest --coverage --run",
     "prepare": "husky install",
     "prettier:fix": "prettier --write",
+    "prettier:check": "prettier --check",
     "lint:fix": "eslint --fix",
     "format": "yarn prettier:fix"
   },

@@ -20,4 +20,4 @@ jobs:
       - run: npm ci
         name: Install modules from npm
       - name: Check formatting with Prettier
-        run: npm run format:check
+        run: npm run prettier:check
