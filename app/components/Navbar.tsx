@@ -3,30 +3,48 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IoLogoGithub, IoSunnyOutline, IoMoon } from "react-icons/io5";
 import { useTheme } from "next-themes";
+import { clsx } from "clsx";
+
+const links = [
+  { name: "Articles", href: "/articles" },
+  { name: "Projects", href: "/projects" },
+  { name: "BookShelf", href: "/bookshelf" },
+  { name: "Contact Me", href: "/contact" },
+];
 
 export const Navbar = () => {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+
   return (
-    <nav className="flex justify-between items-center">
-      <Link className="text-3xl font-bold" href="/">
-        Soufiane chaoufi
-      </Link>
+    <nav className="flex justify-end items-center">
       <ul className="flex items-center gap-6 font-semibold">
-        <li>
-          <Link href="/articles">Articles</Link>
-        </li>
-        <li>
-          <Link href="/projects">Project</Link>
-        </li>
-        <li>
-          <Link href="/contact">Contact Me</Link>
-        </li>
-        <IoLogoGithub className=" w-6 h-6" />
+        {links.map((link, index) => {
+          return (
+            <li
+              key={index}
+              className={clsx(
+                "p-2 border-b-2 border-greenyLight border-opacity-0 hover:border-opacity-100 hover:text-greenyLight duration-200 cursor-pointer"
+              )}
+            >
+              <Link href={link.href}>{link.name}</Link>
+            </li>
+          );
+        })}
+
+        <Link href={"https://github.com/gitsoufiane"} target="_blank">
+          <IoLogoGithub className=" w-7 h-7  hover:text-greenyLight  cursor-pointer" />
+        </Link>
         {theme === "dark" ? (
-          <IoSunnyOutline className=" w-6 h-6" onClick={() => setTheme("light")} />
+          <IoSunnyOutline
+            className=" w-7 h-7 hover:text-greenyLight  cursor-pointer"
+            onClick={() => setTheme("light")}
+          />
         ) : (
-          <IoMoon className=" w-6 h-6" onClick={() => setTheme("dark")} />
+          <IoMoon
+            className=" w-7 h-7 hover:text-greenyLight  cursor-pointer"
+            onClick={() => setTheme("dark")}
+          />
         )}
       </ul>
     </nav>
