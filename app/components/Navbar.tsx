@@ -9,6 +9,7 @@ const links = [
   { name: "Articles", href: "/articles" },
   { name: "Projects", href: "/projects" },
   { name: "BookShelf", href: "/bookshelf" },
+  { name: "TechStack", href: "/techstack" },
   { name: "Contact Me", href: "/contact" },
 ];
 
@@ -24,7 +25,7 @@ export const Navbar = () => {
             <li
               key={index}
               className={clsx(
-                "p-2 border-b-2 border-greenyLight border-opacity-0 hover:border-opacity-100 hover:text-greenyLight duration-200 cursor-pointer"
+                "p-2 border-b-2 border-secondaryGreen border-opacity-0 hover:border-opacity-100 hover:text-secondaryGreen duration-200 cursor-pointer"
               )}
             >
               <Link href={link.href}>{link.name}</Link>
@@ -33,16 +34,16 @@ export const Navbar = () => {
         })}
 
         <Link href={"https://github.com/gitsoufiane"} target="_blank">
-          <IoLogoGithub className=" w-7 h-7  hover:text-greenyLight  cursor-pointer" />
+          <IoLogoGithub className=" w-7 h-7  hover:text-secondaryGreen  cursor-pointer" />
         </Link>
         {theme === "dark" ? (
           <IoSunnyOutline
-            className=" w-7 h-7 hover:text-greenyLight  cursor-pointer"
+            className=" w-7 h-7 hover:text-secondaryGreen  cursor-pointer"
             onClick={() => setTheme("light")}
           />
         ) : (
           <IoMoon
-            className=" w-7 h-7 hover:text-greenyLight  cursor-pointer"
+            className=" w-7 h-7 hover:text-secondaryGreen  cursor-pointer"
             onClick={() => setTheme("dark")}
           />
         )}

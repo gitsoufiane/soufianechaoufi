@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body
-        className={`${inter.className} bg-white text-black dark:bg-black dark:text-white py-12 px-48 mx-auto`}
+        className={`${inter.className}  bg-white text-black dark:bg-black dark:text-white container py-12 mx-auto max-w-7xl`}
       >
         <Providers>
           <Navbar />

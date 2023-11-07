@@ -10,12 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        greeny: "#003D37",
-        greenyLight: "#00d08a",
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        primaryGreen: "#003D37",
+        secondaryGreen: "#00d08a",
       },
     },
   },
