@@ -27,7 +27,6 @@
           "sibling", // Sibling directories (e.g., ./)
           "index" // index files
         ],
-        "newlines-between": "always", // Ensures new lines between import groups
         "alphabetize": { "order": "asc", "caseInsensitive": true } // Alphabetize imports
       }
     ]

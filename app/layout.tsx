@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
+
 import "./globals.css";
+import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "SOUFIANE CHAOUFI",
@@ -16,7 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>{children}</body>
+      <body className={`antialiased`}>
+        <ThemeProvider attribute="class">
+          <Navbar />
+          <main>{children}</main>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
