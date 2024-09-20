@@ -1,0 +1,28 @@
+# Ignore build output
+.next/
+out/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore static files
+public/
+static/
+
+# Ignore test coverage files
+coverage/
+
+# Ignore environment variable files
+.env
+.env.* # If you have environment-specific .env files
+
+# Ignore Prettier configuration (if applicable)
+.prettierrc
+.prettierignore
+
+# Ignore ESLint configuration (if applicable)
+.eslintrc
+.eslintignore
+
+# Ignore miscellaneous files
+.DS_Store

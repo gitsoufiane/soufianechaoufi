@@ -1,3 +1,35 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:import/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["unused-imports"],
+  "rules": {
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    // Remove unused variables
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-vars": "warn",
+
+    // Remove unused imports automatically
+    "unused-imports/no-unused-imports": "warn",
+
+    // Enforce import order
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "builtin", // Built-in imports like fs, path, etc.
+          "external", // External libraries like react, next, etc.
+          "internal", // Internal imports from your project
+          "parent", // Parent directories (e.g., ../)
+          "sibling", // Sibling directories (e.g., ./)
+          "index" // index files
+        ],
+        "newlines-between": "always", // Ensures new lines between import groups
+        "alphabetize": { "order": "asc", "caseInsensitive": true } // Alphabetize imports
+      }
+    ]
+  }
 }
