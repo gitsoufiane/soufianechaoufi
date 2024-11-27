@@ -6,6 +6,7 @@
   ],
   "plugins": ["import", "unused-imports"],
   "rules": {
+    "@typescript-eslint/no-requite-imports": "off",
     "prettier/prettier": ["error"],
     // Import Sorting
     "import/order": [
