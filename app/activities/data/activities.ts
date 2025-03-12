@@ -1,13 +1,4 @@
-export interface Activity {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  images?: string[];
-  location?: string;
-  category: 'photography' | 'hiking' | 'cooking';
-  tags?: string[];
-}
+import { Activity } from "@/types/activity";
 
 export const activities: Activity[] = [
   {
@@ -17,6 +8,7 @@ export const activities: Activity[] = [
     date: '2024-03',
     category: 'photography',
     tags: ['Landscape', 'Nature', 'Mountains'],
+    coverImage: '/images/mountain-photography.jpg'
   },
   {
     id: '2',
@@ -26,6 +18,7 @@ export const activities: Activity[] = [
     location: 'North Vancouver, BC',
     category: 'hiking',
     tags: ['Mountain', 'Trail', 'Fitness'],
+    coverImage: '/images/grouse-grind.jpg'
   },
   {
     id: '3',
@@ -34,6 +27,7 @@ export const activities: Activity[] = [
     date: '2024-01',
     category: 'cooking',
     tags: ['Italian', 'Pasta', 'Cooking Class'],
+    coverImage: '/images/italian-cuisine.jpg'
   }
 ];
 

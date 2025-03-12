@@ -3,27 +3,25 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-export async function generateMetadata() {
-  return {
-    title: 'Home - Soufiane Chaoufi',
-    description: 'Personal website of Soufiane Chaoufi showcasing projects, tools, and activities',
-    keywords: ['portfolio', 'developer', 'projects', 'tools', 'activities'],
-    openGraph: {
-      title: 'Home - Soufiane Chaoufi',
-      description: 'Personal website of Soufiane Chaoufi showcasing projects, tools, and activities',
-      url: 'https://soufianechaoufi.com',
-      siteName: 'Soufiane Chaoufi',
-      images: [
-        {
-          url: 'https://soufianechaoufi.com/og-image.png',
-          width: 1200,
-          height: 630,
-        },
-      ],
-      locale: 'en_US',
-      type: 'website',
-    },
-  }
+export const metadata = {
+  title: 'Soufiane Chaoufi | IT Engineer',
+  description: 'Personal website showcasing my projects, technical skills, and experience in software development and technology.',
+  keywords: ['portfolio', 'developer', 'projects', 'tools', 'activities'],
+  openGraph: {
+    title: 'Soufiane Chaoufi | IT Engineer',
+    description: 'Personal website showcasing my projects, technical skills, and experience in software development and technology.',
+    url: 'https://soufianechaoufi.com',
+    siteName: 'Soufiane Chaoufi',
+    images: [
+      {
+        url: 'https://soufianechaoufi.com/og-image.png',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 }
 
 export default function Home() {

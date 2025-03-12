@@ -1,7 +1,7 @@
-import { Activity } from '@/lib/activities';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CalendarDays, MapPin } from 'lucide-react';
+import { Activity } from '@/types/activity';
 
 interface ActivityCardProps {
   activity: Activity;
@@ -11,6 +11,13 @@ export function ActivityCard({ activity }: ActivityCardProps) {
   return (
     <Card className="h-full">
       <CardHeader>
+        {activity.coverImage && (
+          <img
+            src={activity.coverImage}
+            alt={activity.title}
+            className="w-full h-32 object-cover mb-2"
+          />
+        )}
         <CardTitle className="flex items-start justify-between">
           <span>{activity.title}</span>
         </CardTitle>

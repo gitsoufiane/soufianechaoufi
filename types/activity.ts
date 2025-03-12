@@ -1,13 +1,11 @@
-export type Activity = {
+export interface Activity {
   id: string;
   title: string;
-  organization: string;
-  role: string;
-  date: string;
   description: string;
-  skills: string[];
-  links?: {
-    website?: string;
-    certificate?: string;
-  };
-};
+  date: string;
+  images?: string[];
+  location?: string;
+  category: 'photography' | 'hiking' | 'cooking';
+  tags?: string[];
+  coverImage?: string;
+}

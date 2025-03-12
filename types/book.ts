@@ -9,4 +9,5 @@ export interface Book {
   review?: string;
   amazonLink?: string;
   tags?: string[];
+  category: string;
 }

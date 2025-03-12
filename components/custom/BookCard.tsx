@@ -27,6 +27,7 @@ export function BookCard({ book }: BookCardProps) {
   return (
     <Card className="flex flex-col h-full">
       <CardHeader>
+        <img src={book.coverImage} alt={book.title} className="w-full h-32 object-cover mb-2" />
         <CardTitle className="line-clamp-2">{book.title}</CardTitle>
         <p className="text-sm text-muted-foreground">by {book.author}</p>
       </CardHeader>

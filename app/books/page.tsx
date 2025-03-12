@@ -1,4 +1,4 @@
-import { books } from '@/lib/books';
+import { books } from './data/books';
 import { BookCard } from '@/components/custom/BookCard';
 
 export const metadata = {
@@ -7,6 +7,8 @@ export const metadata = {
 };
 
 export default function BooksPage() {
+  const categories = [...new Set(books.map((book) => book.category))];
+
   return (
     <div className="container mx-auto py-8 max-w-7xl">
       <div className="space-y-4">
@@ -16,11 +18,18 @@ export default function BooksPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-        {books.map((book) => (
-          <BookCard key={book.id} book={book} />
-        ))}
-      </div>
+      {categories.map((category) => (
+        <div key={category} className="space-y-4 mt-8">
+          <h2 className="text-2xl font-bold">{category}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {books
+              .filter((book) => book.category === category)
+              .map((book) => (
+                <BookCard key={book.id} book={book} />
+              ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

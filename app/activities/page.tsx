@@ -1,9 +1,9 @@
 'use client';
 
-import { activities, categoryNames, ActivityCategory } from '@/lib/activities';
 import { ActivityCard } from '@/components/custom/ActivityCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Camera, Mountain, Utensils } from 'lucide-react';
+import { activities, categoryNames, ActivityCategory } from './data/activities';
 
 const categoryIcons = {
   photography: <Camera className="w-4 h-4" />,
