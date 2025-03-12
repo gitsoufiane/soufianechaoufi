@@ -5,7 +5,22 @@ export default function ContactPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Contact Me</h1>
-        <ContactForm />
+        
+        <div className="mb-8 space-y-4">
+          <div className="space-y-2">
+            <h2 className="text-xl font-semibold">Professional Contact Information</h2>
+            <div className="space-y-1 text-muted-foreground">
+              <p>Email: professional@example.com</p>
+              <p>Phone: +1 (123) 456-7890</p>
+              <p>Location: Vancouver, Canada</p>
+            </div>
+          </div>
+          
+          <div className="border-t pt-4">
+            <h2 className="text-xl font-semibold mb-4">Send a Message</h2>
+            <ContactForm />
+          </div>
+        </div>
       </div>
     </div>
   );

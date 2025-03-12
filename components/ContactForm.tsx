@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
+import emailjs from 'emailjs-com';
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -28,6 +30,7 @@ const formSchema = z.object({
 });
 
 export function ContactForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,8 +40,27 @@ export function ContactForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: values.name,
+          from_email: values.email,
+          message: values.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_USER_ID!
+      );
+
+
+      form.reset();
+    } catch (error) {
+
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
