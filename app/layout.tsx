@@ -33,7 +33,11 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <Navbar />
-          <main className="min-h-screen p-4">{children}</main>
+          <main className="min-h-screen">
+            <div className="container px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+              {children}
+            </div>
+          </main>
           <Footer />
           <Toaster />
         </ThemeProvider>

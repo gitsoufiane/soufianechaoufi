@@ -1,7 +1,8 @@
 export interface Tool {
-  id: number;
+  id: string;
   name: string;
-  category: string;
   description: string;
-  tags: string[];
+  url: string;
+  category: string;
+  icon?: string;
 }

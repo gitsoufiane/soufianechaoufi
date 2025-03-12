@@ -10,8 +10,7 @@ export default function ContactPage() {
           <div className="space-y-2">
             <h2 className="text-xl font-semibold">Professional Contact Information</h2>
             <div className="space-y-1 text-muted-foreground">
-              <p>Email: professional@example.com</p>
-              <p>Phone: +1 (123) 456-7890</p>
+              <p>Email: <a href="mailto:soufiane.chaoufi@gmail.com" className="text-primary hover:underline">soufiane.chaoufi@gmail.com</a></p>
               <p>Location: Vancouver, Canada</p>
             </div>
           </div>
