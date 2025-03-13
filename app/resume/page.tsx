@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Download } from "lucide-react";
 import { resumeData } from "./data/resume";
 
 export const metadata = {
@@ -12,7 +13,8 @@ export default function ResumePage() {
   return (
     <div className="container mx-auto py-8 max-w-7xl">
       {/* Contact Information */}
-      <section className="mb-12 flex flex-wrap gap-6 items-center text-muted-foreground">
+      <section className="mb-12 flex flex-wrap gap-6 items-center justify-between">
+        <div className="flex flex-wrap gap-6 text-muted-foreground">
         <a 
           href="mailto:soufiane.chaoufi@gmail.com"
           className="flex items-center gap-2 hover:text-foreground transition-colors"
@@ -38,6 +40,16 @@ export default function ResumePage() {
           <Linkedin className="w-5 h-5" />
           <span>linkedin.com/in/soufianechaoufi</span>
         </a>
+        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => window.open('/resume.pdf', '_blank')}
+          className="flex items-center gap-2"
+        >
+          <Download className="w-4 h-4" />
+          <span>Download Resume</span>
+        </Button>
       </section>
       {/* Work Experience Section */}
       <section className="mb-12">

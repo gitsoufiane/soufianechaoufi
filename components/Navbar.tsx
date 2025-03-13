@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { Sun, Moon, Menu, X, Download } from 'lucide-react';
+import { Sun, Moon, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
@@ -58,18 +58,6 @@ export default function Navbar({ className }: NavbarProps) {
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Download Resume Button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="hidden md:flex items-center gap-2"
-            onClick={() => window.open('/resume.pdf', '_blank')}
-            aria-label="Download Resume"
-          >
-            <Download className="w-4 h-4" />
-            <span>Resume</span>
-          </Button>
-
           {/* Theme toggle */}
           <Button
             variant="ghost"
@@ -99,14 +87,6 @@ export default function Navbar({ className }: NavbarProps) {
                   {item.name}
                 </Link>
               ))}
-              {/* Mobile Resume Download */}
-              <button
-                onClick={() => window.open('/resume.pdf', '_blank')}
-                className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
-              >
-                <Download className="w-4 h-4" />
-                Resume
-              </button>
             </div>
           </div>
         )}
