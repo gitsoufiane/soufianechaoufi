@@ -18,17 +18,17 @@ interface FooterProps {
 const defaultSocialLinks: SocialLink[] = [
   {
     name: 'GitHub',
-    url: 'https://github.com/yourusername',
+    url: 'https://github.com/gitsoufiane',
     icon: <Github className="w-5 h-5 hover:scale-110 transition-transform" />,
   },
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/in/yourusername',
+    url: 'https://linkedin.com/in/soufianechaoufi',
     icon: <Linkedin className="w-5 h-5 hover:scale-110 transition-transform" />,
   },
   {
     name: 'Email',
-    url: 'mailto:your.email@example.com',
+    url: 'mailto:soufiane.chaoufi@gmail.com',
     icon: <Mail className="w-5 h-5 hover:scale-110 transition-transform" />,
   },
 ];
@@ -55,24 +55,6 @@ export default function Footer({
             </p>
           </div>
 
-          {/* Newsletter */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Stay Updated</h3>
-            <form className="flex gap-2">
-              <Input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="flex-1"
-              />
-              <Button type="submit" size="sm">
-                <Send className="w-4 h-4 mr-2" />
-                Subscribe
-              </Button>
-            </form>
-            <p className="text-xs text-muted-foreground">
-              We'll never share your email. Unsubscribe anytime.
-            </p>
-          </div>
 
           {/* Social Links */}
           <div className="space-y-4">

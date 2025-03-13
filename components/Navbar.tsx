@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import { Sun, Moon, Menu, X, Download } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
@@ -18,9 +18,8 @@ interface NavbarProps {
 
 const defaultNavItems: NavItem[] = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
   { name: 'Projects', href: '/projects' },
-  { name: 'Tech Stack', href: '/tech-stack' },
+  { name: 'Resume', href: '/resume' },
   { name: 'Books', href: '/books' },
   { name: 'Activities', href: '/activities' },
   { name: 'Contact', href: '/contact' },
@@ -58,24 +57,38 @@ export default function Navbar({ className }: NavbarProps) {
           ))}
         </div>
 
-        {/* Theme toggle */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? (
-            <Sun className="w-5 h-5" />
-          ) : (
-            <Moon className="w-5 h-5" />
-          )}
-        </Button>
+        <div className="flex items-center gap-2">
+          {/* Download Resume Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="hidden md:flex items-center gap-2"
+            onClick={() => window.open('/resume.pdf', '_blank')}
+            aria-label="Download Resume"
+          >
+            <Download className="w-4 h-4" />
+            <span>Resume</span>
+          </Button>
+
+          {/* Theme toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
+          </Button>
+        </div>
 
         {/* Mobile menu */}
         {isMobileMenuOpen && (
           <div className="absolute top-16 left-0 right-0 bg-background md:hidden border-t">
-            <div className="flex flex-col space-y-2 p-4">
+            <div className="flex flex-col space-y-2 p-4 pb-6">
               {defaultNavItems.map((item) => (
                 <Link
                   key={item.href}
@@ -86,6 +99,14 @@ export default function Navbar({ className }: NavbarProps) {
                   {item.name}
                 </Link>
               ))}
+              {/* Mobile Resume Download */}
+              <button
+                onClick={() => window.open('/resume.pdf', '_blank')}
+                className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+              >
+                <Download className="w-4 h-4" />
+                Resume
+              </button>
             </div>
           </div>
         )}
