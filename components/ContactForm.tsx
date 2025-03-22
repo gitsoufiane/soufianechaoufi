@@ -2,9 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { useState } from "react";
-import emailjs from 'emailjs-com';
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,23 +14,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import { contactFormSchema, type ContactFormValues } from "@/lib/validations/contact";
 
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
-  }),
-});
+
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -40,24 +30,46 @@ export function ContactForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: ContactFormValues) {
     setIsSubmitting(true);
     try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        {
-          from_name: values.name,
-          from_email: values.email,
-          message: values.message,
+      // Make a POST request to our API route
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        process.env.NEXT_PUBLIC_EMAILJS_USER_ID!
-      );
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          message: values.message,
+        }),
+      });
 
-
+      if (!response.ok) {
+        const errorData = await response.json();
+        if (errorData.issues) {
+          // Handle validation errors from the server
+          const fieldErrors = errorData.issues;
+          Object.keys(fieldErrors).forEach((key) => {
+            if (key !== '_errors' && fieldErrors[key]?._errors?.length) {
+              form.setError(key as any, {
+                type: 'server',
+                message: fieldErrors[key]._errors[0],
+              });
+            }
+          });
+          throw new Error('Please check the form for errors');
+        } else {
+          throw new Error(errorData.error || 'Failed to send email');
+        }
+      }
+      
+      toast.success('Your message has been sent successfully!');
       form.reset();
     } catch (error) {
-
+      console.error('Error sending email:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to send your message. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -73,9 +85,15 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Your name" {...field} />
+                <Input 
+                  placeholder="Your name" 
+                  {...field} 
+                  aria-required="true"
+                  aria-invalid={!!form.formState.errors.name}
+                  aria-describedby={form.formState.errors.name ? "name-error" : undefined}
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage id="name-error" />
             </FormItem>
           )}
         />
@@ -86,9 +104,15 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="your.email@example.com" {...field} />
+                <Input 
+                  placeholder="your.email@example.com" 
+                  {...field} 
+                  aria-required="true"
+                  aria-invalid={!!form.formState.errors.email}
+                  aria-describedby={form.formState.errors.email ? "email-error" : undefined}
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage id="email-error" />
             </FormItem>
           )}
         />
@@ -103,14 +127,21 @@ export function ContactForm() {
                   placeholder="Your message..."
                   className="min-h-[150px]"
                   {...field}
+                  aria-required="true"
+                  aria-invalid={!!form.formState.errors.message}
+                  aria-describedby={form.formState.errors.message ? "message-error" : undefined}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage id="message-error" />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full sm:w-auto">
-          Send Message
+        <Button 
+          type="submit" 
+          className="w-full sm:w-auto" 
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Sending...' : 'Send Message'}
         </Button>
       </form>
     </Form>
