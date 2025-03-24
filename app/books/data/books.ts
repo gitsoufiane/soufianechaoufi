@@ -18,6 +18,6 @@ export const books: Book[] = [
     link: "https://example.com/book",
     category: ["Programming", "Web Development"],
     readDate: "2024-01",
-    rating: 5
-  }
+    rating: 5,
+  },
 ];

@@ -17,6 +17,7 @@ This document provides comprehensive guidance for GitHub Copilot while working o
 ## Technology Stack
 
 ### Next.js 15 with TypeScript
+
 - Use App Router for all new pages and features
 - Implement Server Components for data fetching operations
 - Utilize Server Actions for form handling
@@ -26,30 +27,35 @@ This document provides comprehensive guidance for GitHub Copilot while working o
 - Create proper type definitions for API responses and data models
 
 ### Shadcn UI Components
+
 - Import only necessary components to minimize bundle size
 - Follow the established theming system in the project
 - Extend component variants using the project's convention
 - Use Lucide Icons for consistent iconography
 
 ### Tailwind CSS v4
+
 - Follow the project's custom design tokens and color scheme
 - Use the established breakpoints: sm, md, lg, xl, 2xl
 - Implement responsive designs using Tailwind's utilities
 - Use the project's custom utility classes when available
 
 ### Form Handling
+
 - Use React Hook Form for all form implementations
 - Implement Zod schemas for validation following project patterns
 - Handle form errors and success states consistently
 - Follow accessibility best practices for forms
 
 ### Animation and Effects
+
 - Use Framer Motion for complex animations
 - Implement consistent motion variants across the project
 - Add proper accessibility considerations for animations
 - Use Three.js (@react-three/fiber) for 3D elements
 
 ### AI Features
+
 - Implement Vercel AI SDK for AI-powered features
 - Follow established patterns for streaming responses
 - Implement proper error handling and fallbacks
@@ -66,9 +72,9 @@ import ProductCard from "@/components/product-card";
 export default async function ProductsPage() {
   // Fetch products with proper error handling
   const products = await getProducts();
-  
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
@@ -85,7 +91,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -168,7 +181,7 @@ interface User {
   id: string;
   name: string;
   email: string;
-  role: 'admin' | 'user' | 'guest';
+  role: "admin" | "user" | "guest";
 }
 
 // Use proper return type annotations
@@ -182,9 +195,12 @@ interface UserCardProps {
   showEmail?: boolean;
 }
 
-export default function UserCard({ user, showEmail = false }: UserCardProps): React.ReactElement {
+export default function UserCard({
+  user,
+  showEmail = false,
+}: UserCardProps): React.ReactElement {
   return (
-    <div className="p-4 border rounded">
+    <div className="rounded border p-4">
       <h3 className="text-lg font-bold">{user.name}</h3>
       <p className="text-sm text-gray-500">{user.role}</p>
       {showEmail && <p className="text-sm">{user.email}</p>}

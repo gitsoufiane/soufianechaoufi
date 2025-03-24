@@ -5,7 +5,7 @@ export interface Activity {
   date: string;
   images?: string[];
   location?: string;
-  category: 'photography' | 'hiking' | 'cooking';
+  category: "photography" | "hiking" | "cooking";
   tags?: string[];
   coverImage?: string;
 }

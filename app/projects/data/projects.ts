@@ -16,6 +16,6 @@ export const projects: Project[] = [
     imageUrl: "/projects/example.png",
     liveUrl: "https://example.com",
     githubUrl: "https://github.com/yourusername/project",
-    featured: true
-  }
+    featured: true,
+  },
 ];

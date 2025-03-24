@@ -3,17 +3,19 @@ import { Badge } from "@/components/ui/badge";
 import { projects } from "./data/projects";
 
 export const metadata = {
-  title: 'Projects | Soufiane Chaoufi',
-  description: 'A showcase of my projects, including web development, software engineering, and other technical endeavors.',
+  title: "Projects | Soufiane Chaoufi",
+  description:
+    "A showcase of my projects, including web development, software engineering, and other technical endeavors.",
 };
 
 export default function ProjectsPage() {
   return (
-    <div className="container mx-auto py-8 max-w-7xl">
-      <div className="space-y-4 mb-8">
+    <div className="container mx-auto max-w-7xl py-8">
+      <div className="mb-8 space-y-4">
         <h1 className="text-3xl font-bold">Projects</h1>
         <p className="text-muted-foreground">
-          A selection of projects that highlight my skills and experience in software development.
+          A selection of projects that highlight my skills and experience in
+          software development.
         </p>
       </div>
 
@@ -24,7 +26,9 @@ export default function ProjectsPage() {
               <CardTitle>{project.title}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="mb-4 text-muted-foreground">{project.description}</p>
+              <p className="text-muted-foreground mb-4">
+                {project.description}
+              </p>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, i) => (
                   <Badge key={i} variant="secondary">

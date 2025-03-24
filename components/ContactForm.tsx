@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,9 +15,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { contactFormSchema, type ContactFormValues } from "@/lib/validations/contact";
-
-
+import {
+  contactFormSchema,
+  type ContactFormValues,
+} from "@/lib/validations/contact";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,10 +35,10 @@ export function ContactForm() {
     setIsSubmitting(true);
     try {
       // Make a POST request to our API route
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
+      const response = await fetch("/api/send-email", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: values.name,
@@ -52,24 +53,28 @@ export function ContactForm() {
           // Handle validation errors from the server
           const fieldErrors = errorData.issues;
           Object.keys(fieldErrors).forEach((key) => {
-            if (key !== '_errors' && fieldErrors[key]?._errors?.length) {
+            if (key !== "_errors" && fieldErrors[key]?._errors?.length) {
               form.setError(key as any, {
-                type: 'server',
+                type: "server",
                 message: fieldErrors[key]._errors[0],
               });
             }
           });
-          throw new Error('Please check the form for errors');
+          throw new Error("Please check the form for errors");
         } else {
-          throw new Error(errorData.error || 'Failed to send email');
+          throw new Error(errorData.error || "Failed to send email");
         }
       }
-      
-      toast.success('Your message has been sent successfully!');
+
+      toast.success("Your message has been sent successfully!");
       form.reset();
     } catch (error) {
-      console.error('Error sending email:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to send your message. Please try again later.');
+      console.error("Error sending email:", error);
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to send your message. Please try again later.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -77,7 +82,10 @@ export function ContactForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mx-auto max-w-2xl space-y-6"
+      >
         <FormField
           control={form.control}
           name="name"
@@ -85,12 +93,14 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input 
-                  placeholder="Your name" 
-                  {...field} 
+                <Input
+                  placeholder="Your name"
+                  {...field}
                   aria-required="true"
                   aria-invalid={!!form.formState.errors.name}
-                  aria-describedby={form.formState.errors.name ? "name-error" : undefined}
+                  aria-describedby={
+                    form.formState.errors.name ? "name-error" : undefined
+                  }
                 />
               </FormControl>
               <FormMessage id="name-error" />
@@ -104,12 +114,14 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input 
-                  placeholder="your.email@example.com" 
-                  {...field} 
+                <Input
+                  placeholder="your.email@example.com"
+                  {...field}
                   aria-required="true"
                   aria-invalid={!!form.formState.errors.email}
-                  aria-describedby={form.formState.errors.email ? "email-error" : undefined}
+                  aria-describedby={
+                    form.formState.errors.email ? "email-error" : undefined
+                  }
                 />
               </FormControl>
               <FormMessage id="email-error" />
@@ -129,19 +141,21 @@ export function ContactForm() {
                   {...field}
                   aria-required="true"
                   aria-invalid={!!form.formState.errors.message}
-                  aria-describedby={form.formState.errors.message ? "message-error" : undefined}
+                  aria-describedby={
+                    form.formState.errors.message ? "message-error" : undefined
+                  }
                 />
               </FormControl>
               <FormMessage id="message-error" />
             </FormItem>
           )}
         />
-        <Button 
-          type="submit" 
-          className="w-full sm:w-auto" 
+        <Button
+          type="submit"
+          className="w-full sm:w-auto"
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Sending...' : 'Send Message'}
+          {isSubmitting ? "Sending..." : "Send Message"}
         </Button>
       </form>
     </Form>

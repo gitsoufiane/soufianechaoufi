@@ -2,7 +2,7 @@ interface Activity {
   title: string;
   description: string;
   date: string;
-  type: 'conference' | 'workshop' | 'meetup' | 'hackathon' | 'other';
+  type: "conference" | "workshop" | "meetup" | "hackathon" | "other";
   location?: string;
   imageUrl?: string;
   link?: string;
@@ -16,6 +16,6 @@ export const activities: Activity[] = [
     type: "conference",
     location: "Virtual",
     imageUrl: "/activities/example.jpg",
-    link: "https://example.com/activity"
-  }
+    link: "https://example.com/activity",
+  },
 ];

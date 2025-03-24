@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { CalendarDays, MapPin } from 'lucide-react';
-import { Activity } from '@/types/activity';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { CalendarDays, MapPin } from "lucide-react";
+import { Activity } from "@/types/activity";
 
 interface ActivityCardProps {
   activity: Activity;
@@ -15,13 +15,13 @@ export function ActivityCard({ activity }: ActivityCardProps) {
           <img
             src={activity.coverImage}
             alt={activity.title}
-            className="w-full h-32 object-cover mb-2"
+            className="mb-2 h-32 w-full object-cover"
           />
         )}
         <CardTitle className="flex items-start justify-between">
           <span>{activity.title}</span>
         </CardTitle>
-        <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+        <div className="text-muted-foreground flex items-center space-x-4 text-sm">
           <div className="flex items-center">
             <CalendarDays className="mr-1 h-4 w-4" />
             <span>{activity.date}</span>

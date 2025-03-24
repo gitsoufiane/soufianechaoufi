@@ -1,10 +1,16 @@
-'use client';
+"use client";
 
-import { Book } from '@/types/book';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Book } from "@/types/book";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface BookCardProps {
   book: Book;
@@ -17,23 +23,29 @@ export function BookCard({ book }: BookCardProps) {
       .map((_, index) => (
         <Star
           key={index}
-          className={`w-4 h-4 ${
-            index < book.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
+          className={`h-4 w-4 ${
+            index < book.rating
+              ? "fill-yellow-400 text-yellow-400"
+              : "text-gray-300"
           }`}
         />
       ));
   };
 
   return (
-    <Card className="flex flex-col h-full">
+    <Card className="flex h-full flex-col">
       <CardHeader>
-        <img src={book.coverImage} alt={book.title} className="w-full h-32 object-cover mb-2" />
+        <img
+          src={book.coverImage}
+          alt={book.title}
+          className="mb-2 h-32 w-full object-cover"
+        />
         <CardTitle className="line-clamp-2">{book.title}</CardTitle>
-        <p className="text-sm text-muted-foreground">by {book.author}</p>
+        <p className="text-muted-foreground text-sm">by {book.author}</p>
       </CardHeader>
       <CardContent className="flex-grow">
-        <p className="text-sm text-muted-foreground mb-4">{book.description}</p>
-        <div className="flex items-center space-x-1 mb-4">{renderStars()}</div>
+        <p className="text-muted-foreground mb-4 text-sm">{book.description}</p>
+        <div className="mb-4 flex items-center space-x-1">{renderStars()}</div>
         <div className="flex flex-wrap gap-2">
           {book.tags?.map((tag) => (
             <Badge key={tag} variant="secondary">
@@ -42,10 +54,16 @@ export function BookCard({ book }: BookCardProps) {
           ))}
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between items-center">
-        <span className="text-sm text-muted-foreground">Read: {book.readDate}</span>
+      <CardFooter className="flex items-center justify-between">
+        <span className="text-muted-foreground text-sm">
+          Read: {book.readDate}
+        </span>
         {book.amazonLink && (
-          <Button variant="outline" size="sm" onClick={() => window.open(book.amazonLink, '_blank')}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => window.open(book.amazonLink, "_blank")}
+          >
             View on Amazon
           </Button>
         )}

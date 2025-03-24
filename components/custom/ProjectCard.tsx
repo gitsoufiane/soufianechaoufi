@@ -1,15 +1,15 @@
-import { Project } from '@/types/project'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { Project } from "@/types/project";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface ProjectCardProps {
-  project: Project
+  project: Project;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-      <h2 className="text-xl font-semibold mb-2">{project.title}</h2>
+    <div className="rounded-lg border p-4 transition-shadow hover:shadow-md">
+      <h2 className="mb-2 text-xl font-semibold">{project.title}</h2>
       <p className="text-muted-foreground mb-4">{project.description}</p>
       <div className="flex gap-2">
         {project.liveUrl && (
@@ -28,5 +28,5 @@ export function ProjectCard({ project }: ProjectCardProps) {
         )}
       </div>
     </div>
-  )
+  );
 }
