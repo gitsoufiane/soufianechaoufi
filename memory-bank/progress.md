@@ -1,31 +1,37 @@
 # Progress
 
 ## Completed Features
-- Home page with personal introduction
-- Projects showcase with filtering
-- Activities timeline
-- Bookshelf with reading list
-- Contact form with email integration
-- Resume download functionality
-- Theme switching (light/dark mode)
-- Tech stack icons display
-- Responsive design implementation
+
+- Basic Next.js project setup
+- Tailwind CSS configuration
+- shadcn/ui components integration
+- Contact form with React Hook Form and Zod validation
+- Email sending via Resend API
+- Dark/Light theme support
+- Responsive navigation
+- Project showcase section
+- Book recommendations section
+- Activity timeline section
+- Resume section
 
 ## In Progress
-- Blog section implementation
-- Search functionality
-- Analytics integration
+
+- Unit tests with Vitest
+- E2E tests with Playwright
+- Accessibility improvements
 - Performance optimizations
 
 ## Known Issues
-- Contact form validation needs edge case handling
-- Theme switching animation could be smoother
-- Tech stack icons loading could be optimized
-- Resume PDF needs accessibility improvements
+
+- Some form validation messages need better UX
+- Theme toggle animation could be smoother
+- Mobile menu needs better touch handling
+- Some images need better lazy loading
 
 ## Next Steps
-1. Implement Contentlayer for blog content
-2. Set up Algolia search integration
-3. Add Plausible analytics
-4. Optimize images with next/image
-5. Implement API rate limiting
+
+1. Complete test coverage
+2. Implement CI/CD pipeline
+3. Add content management system
+4. Add blog section
+5. Add analytics integration

@@ -1,51 +1,32 @@
 # System Patterns
 
-## Architecture Overview
-```mermaid
-flowchart TD
-    A[Next.js App Router] --> B[Pages]
-    A --> C[API Routes]
-    B --> D[Layout System]
-    B --> E[Data Fetching]
-    C --> F[Email API]
-    D --> G[Theme Provider]
-    D --> H[Global Styles]
-    E --> I[Static Data]
-    E --> J[Dynamic Data]
-```
+## Architecture
 
-## Key Design Patterns
-1. Atomic Component Design
-   - Atoms: Basic UI elements (buttons, inputs)
-   - Molecules: Combined atoms (forms, cards)
-   - Organisms: Complex components (navbars, footers)
+- Next.js App Router architecture
+- Server-side rendering for static pages
+- Client-side rendering for interactive components
+- API routes for backend functionality
 
-2. Data Flow
-   - Static data through TS files
-   - Dynamic data through API routes
-   - Client-side state with React hooks
-   - Form state with React Hook Form
+## Key Technical Decisions
 
-3. Styling Approach
-   - Tailwind utility classes
-   - Component variants with clsx
-   - Theme support through next-themes
-   - Animation with tailwindcss-animate
-
-4. API Patterns
-   - RESTful endpoints
-   - Type-safe request/response
-   - Rate limiting
-   - Email integration through Resend
+- TypeScript for type safety
+- Tailwind CSS for styling
+- shadcn/ui for base components
+- React Hook Form for form management
+- Zod for form validation
+- Resend for email sending
 
 ## Component Relationships
+
 ```mermaid
 flowchart TD
-    Layout --> Navbar
+    Layout[App Layout] --> Navbar
     Layout --> Footer
-    Layout --> ThemeProvider
-    Page --> ActivityCard
-    Page --> BookCard
-    Page --> ProjectCard
+    Layout --> MainContent
+    MainContent --> Pages
+    Pages --> ContactPage
     ContactPage --> ContactForm
-    ContactForm --> Validation
+    ContactForm --> FormValidation
+    ContactForm --> EmailAPI
+    EmailAPI --> EmailTemplate
+```

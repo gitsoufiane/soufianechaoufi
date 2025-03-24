@@ -1,28 +1,30 @@
 # Active Context
 
-## Current Focus
-- Implementing blog section
-- Adding search functionality
-- Setting up analytics
-- Performance optimizations
+## Current Work Focus
+
+- Implementing contact form functionality
+- Setting up email templates
+- Integrating form validation
+- Configuring email sending API route
 
 ## Recent Changes
-- Added email API integration
-- Implemented theme switching
-- Improved contact form validation
-- Added resume download functionality
-- Optimized tech stack icons
+
+- Added ContactForm component
+- Created email-template component
+- Set up Zod validation schemas
+- Configured send-email API route
+
+## Next Steps
+
+1. Complete email template styling
+2. Add form submission handling
+3. Implement error states
+4. Add success/error notifications
+5. Write tests for contact flow
 
 ## Active Decisions
-- Using Contentlayer for blog content
-- Implementing Algolia for search
-- Using Plausible for analytics
-- Optimizing images with next/image
-- Implementing API rate limiting
 
-## Considerations
-- Blog content structure
-- Search performance
-- Analytics privacy
-- Image optimization strategy
-- API security
+- Using React Hook Form for form management
+- Zod for validation schemas
+- Resend for email sending
+- Sonner for notifications
