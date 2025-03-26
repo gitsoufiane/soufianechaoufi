@@ -2,10 +2,19 @@
 
 ## Architecture
 
-- Next.js App Router architecture
-- Server-side rendering for static pages
-- Client-side rendering for interactive components
-- API routes for backend functionality
+- Next.js 15 App Router with React Server Components
+- Hybrid rendering strategy:
+  - SSG for content pages (projects, activities, books)
+  - SSR for dynamic pages (contact form, resume)
+  - ISR for frequently updated content
+- API routes handling:
+  - Email sending via Resend
+  - Static data validation
+  - CORS-protected endpoints
+- Three-tier architecture:
+  - Presentation (Components)
+  - Application Logic (Hooks/Utils)
+  - Data (API routes + external services)
 
 ## Key Technical Decisions
 

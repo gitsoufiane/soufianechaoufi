@@ -1,35 +1,110 @@
+# Technical Patterns and Rules (v1.3)
+
+## Architecture Rules
+
+1. Hybrid rendering strategy:
+   - SSG for static content
+   - SSR for dynamic pages
+   - ISR for frequent updates
+2. API routes use Edge runtime
+3. React Server Components for data fetching
+4. Client components for interactivity
+
+## Core Technology Implementation
+
+```mermaid
+flowchart TD
+    NextJS["Next.js 15"] -->|App Router| React19["React 19"]
+    NextJS -->|Bundling| Turbopack
+    React19 -->|State| ServerActions
+    React19 -->|3D| R3F["React Three Fiber"]
+    NextJS -->|Styling| Tailwind4["Tailwind 4"]
+    Tailwind4 -->|Components| shadcn08["shadcn/ui 0.8"]
+```
+
+## Component Patterns
+
+1. Atomic design structure:
+   - Atoms: Basic UI elements
+   - Molecules: Component groups
+   - Organisms: Complex components
+   - Templates: Page layouts
+2. Accessibility-first with Radix primitives
+3. Mobile-first responsive design
+4. Dark/light theme support
+
+## Performance Rules
+
+1. Lazy-load 3D components
+2. Image optimization with Next.js
+3. Code splitting per route
+4. Bundle analysis for components >50kB
+
+## Development Practices
+
+```mermaid
+flowchart LR
+    Dev[Development] --> Lint[ESLint]
+    Dev --> Format[Prettier]
+    Dev --> Test[Testing]
+    Test --> E2E[Playwright]
+    Test --> Unit[Vitest]
+    Test --> A11y[Accessibility]
+```
+
+1. Turbopack required for dev mode
+2. Automated accessibility checks in CI
+3. Type-safe API integrations
+4. Document all patterns in memory-bank
+
+## Updated Dependency Rules
+
+1. Security audits weekly
+2. Major updates require:
+   - Peer review
+   - Impact analysis
+   - Rollback plan
+3. Lockfile must match package.json
+4. Document deprecations in techContext.md
+
 # Technical Patterns and Rules
 
 ## Core Technology Rules
+
 1. Use Next.js 15.2.2 for all routing and server-side rendering
 2. Use React 19.0.0 with functional components and hooks
 3. TypeScript is mandatory - no implicit any types allowed
 4. Tailwind CSS for all styling - avoid custom CSS when possible
 
 ## Component Patterns
+
 1. Use shadcn/ui components as base components
 2. Custom components should extend shadcn/ui patterns
 3. Use Radix primitives for accessible components
 4. Follow atomic design principles for component structure
 
 ## State Management
+
 1. Use React hooks for local state
 2. Use React Hook Form for form management
 3. Use Zod for form validation schemas
 
 ## Styling Rules
+
 1. Use Tailwind utility classes as primary styling method
 2. Use tailwind-merge for conditional class names
 3. Use clsx for complex class name logic
 4. Use tailwindcss-animate for animations
 
 ## Development Practices
+
 1. Use Yarn as package manager
 2. Follow ESLint and Prettier rules
 3. Write tests using Playwright and Vitest
 4. Use TypeScript types for all props and state
 
 ## Dependency Management
+
 1. Keep dependencies updated to latest stable versions
 2. Use specific version numbers in package.json
 3. Document all major dependencies in techContext.md
