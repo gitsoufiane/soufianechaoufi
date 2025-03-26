@@ -4,7 +4,7 @@
 
 - Next.js 15 App Router with React Server Components
 - Hybrid rendering strategy:
-  - SSG for content pages (projects, activities, books)
+  - SSG for content pages (projects, books)
   - SSR for dynamic pages (contact form, resume)
   - ISR for frequently updated content
 - API routes handling:

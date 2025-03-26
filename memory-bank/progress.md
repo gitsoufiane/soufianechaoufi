@@ -11,7 +11,6 @@
 - Responsive navigation
 - Project showcase section
 - Book recommendations section
-- Activity timeline section
 - Resume section
 
 ## In Progress

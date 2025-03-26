@@ -7,7 +7,7 @@ export const metadata = {
   title: "Soufiane Chaoufi | Senior Frontend Developer",
   description:
     "Senior Frontend Developer with 5+ years of experience delivering high-quality, scalable web applications. Proven ability in React, TypeScript, and design systems.",
-  keywords: ["portfolio", "developer", "projects", "tools", "activities"],
+  keywords: ["portfolio", "developer", "projects", "tools"],
   openGraph: {
     title: "Soufiane Chaoufi | Senior Frontend Developer",
     description:
@@ -52,9 +52,6 @@ export default function Home() {
         </Button>
         <Button asChild variant="outline">
           <Link href="/books">Books</Link>
-        </Button>
-        <Button asChild variant="outline">
-          <Link href="/activities">Activities</Link>
         </Button>
         <Button asChild variant="outline">
           <Link href="/contact">Contact</Link>
