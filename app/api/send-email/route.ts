@@ -35,7 +35,6 @@ export async function POST(request: NextRequest) {
       react: EmailTemplate({
         name,
         email,
-        message,
       }),
     });
 
