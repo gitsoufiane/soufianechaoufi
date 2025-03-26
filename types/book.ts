@@ -2,7 +2,7 @@ export interface Book {
   id: string;
   title: string;
   author: string;
-  coverImage?: string;
+  coverImage: string;
   description: string;
   readDate: string;
   rating: number;
