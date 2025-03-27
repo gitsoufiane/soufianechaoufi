@@ -8,7 +8,14 @@ import {
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { books } from "./data/books";
-import { Star } from "lucide-react";
+import { Book } from "@/types/book";
+import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export const metadata = {
   title: "Books | Soufiane Chaoufi",
@@ -17,6 +24,21 @@ export const metadata = {
 };
 
 export default function BooksPage() {
+  // Group books by category
+  const booksByCategory = books.reduce(
+    (acc, book) => {
+      const category = book.category || "Uncategorized";
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(book);
+      return acc;
+    },
+    {} as Record<string, Book[]>,
+  );
+
+  const categories = Object.keys(booksByCategory).sort(); // Sort categories alphabetically
+
   return (
     <div className="container mx-auto max-w-7xl py-8">
       <div className="mb-8 space-y-4">
@@ -27,44 +49,70 @@ export default function BooksPage() {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {books.map((book, index) => (
-          <Card
-            key={index}
-            className="flex h-full flex-col transition-all hover:-translate-y-1 hover:shadow-lg"
-          >
-            <CardHeader className="flex-1">
-              <CardTitle>{book.title}</CardTitle>
-              <p className="text-muted-foreground">by {book.author}</p>
-            </CardHeader>
-            <CardContent className="flex justify-center">
-              <Image
-                src={book.coverImage}
-                alt={`${book.title} cover`}
-                width={200}
-                height={300}
-                className="rounded-md object-cover shadow-md transition-transform hover:scale-105"
-              />
-            </CardContent>
-            <CardFooter className="flex flex-col items-start gap-2">
-              <p className="text-muted-foreground text-sm">
-                {book.readDate} • {book.category}
-              </p>
-              {book.rating && (
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-4 w-4 ${i < book.rating ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground"}`}
-                    />
-                  ))}
-                </div>
-              )}
-              <Button variant="link" className="p-0 text-sm">
-                View Details
-              </Button>
-            </CardFooter>
-          </Card>
+      <div className="space-y-12">
+        {categories.map((category) => (
+          <section key={category}>
+            <h2 className="mb-6 text-2xl font-semibold">{category}</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {booksByCategory[category].map((book) => (
+                <Card
+                  key={book.id}
+                  className="flex h-full flex-col transition-all hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <CardHeader className="flex-1">
+                    <CardTitle>{book.title}</CardTitle>
+                    <p className="text-muted-foreground">by {book.author}</p>
+                  </CardHeader>
+                  {/* Wrap CardContent with Tooltip components */}
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <CardContent className="flex justify-center">
+                          <Image
+                            src={book.coverImage}
+                            alt={`${book.title} cover`}
+                            width={200}
+                            height={300}
+                            className="cursor-help rounded-md object-cover shadow-md transition-transform hover:scale-105" // Added cursor-help
+                          />
+                        </CardContent>
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        {" "}
+                        {/* Constrain width */}
+                        <p>{book.description}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <CardFooter className="flex flex-col items-start gap-2">
+                    {/* Tags */}
+                    {book.tags && book.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1">
+                        {book.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Amazon Link Button */}
+                    {book.amazonLink && (
+                      <a
+                        href={book.amazonLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button variant="link" className="p-0 text-sm">
+                          View on Amazon
+                        </Button>
+                      </a>
+                    )}
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </section>
         ))}
       </div>
     </div>

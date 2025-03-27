@@ -4,7 +4,6 @@ export interface Book {
   author: string;
   coverImage: string;
   description: string;
-  readDate: string;
   rating: number;
   review?: string;
   amazonLink?: string;
