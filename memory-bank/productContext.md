@@ -30,13 +30,7 @@ Create a professional online presence showcasing:
    - Detailed project descriptions
    - Live demos and code links
 
-3. **Experience Section**
-
-   - Professional timeline
-   - Key achievements
-   - Technical skills applied
-
-4. **Contact Form**
+3. **Contact Form** // Renumbered from 4
    - Easy communication channel
    - Email integration
    - Form validation

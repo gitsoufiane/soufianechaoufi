@@ -10,7 +10,7 @@ Personal portfolio website showcasing professional experience, projects, and ski
 - Clean, modern UI using shadcn/ui components
 - Sections for:
   - About/Introduction
-  - Professional Experience
+    // - Professional Experience (Removed)
   - Projects Showcase
   - Skills/Technologies
   - Contact Form

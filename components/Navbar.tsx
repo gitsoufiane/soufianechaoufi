@@ -19,7 +19,7 @@ interface NavbarProps {
 const defaultNavItems: NavItem[] = [
   { name: "Home", href: "/" },
   { name: "Projects", href: "/projects" },
-  { name: "Resume", href: "/resume" },
+  // { name: "Resume", href: "/resume" }, // Removed
   { name: "Books", href: "/books" },
   { name: "Contact", href: "/contact" },
 ];

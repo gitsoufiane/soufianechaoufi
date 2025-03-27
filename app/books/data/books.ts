@@ -28,19 +28,6 @@ export const books: Book[] = [
     tags: ["focus", "work"],
   },
   {
-    id: "4",
-    title: "Mind Control Marketing",
-    author: "Drew Eric Whitman",
-    coverImage: "/books/mind-control-marketing.jpg",
-    description:
-      "Drew Eric Whitman reveals the psychological triggers that drive consumer behavior. Learn ethical persuasion techniques rooted in human psychology to create effective marketing campaigns.",
-    rating: 4,
-    amazonLink:
-      "https://www.amazon.com/Mind-Control-Marketing-What-Buy-ebook/dp/B00BQ5QJ5G",
-    category: "Marketing",
-    tags: ["psychology", "persuasion"],
-  },
-  {
     id: "8",
     title: "مزرعة الحيوانات",
     author: "جورج أورويل (George Orwell), ترجمة: شامل أباظة",
@@ -136,19 +123,6 @@ export const books: Book[] = [
     rating: 4,
     amazonLink: "https://www.amazon.com/dp/B0006925551",
     category: "Fiction",
-    tags: ["favorite"],
-  },
-  {
-    id: "16",
-    title:
-      "إذا كان الحب لعبة فهذه هي قوانينها: عشرة قوانين للتوصل إلى الحب وتوطيد علاقات صادقة تدوم إلى الأبد",
-    author: "Cherie Carter-Scott",
-    coverImage: "/books/if-love-is-a-game.jpg",
-    description:
-      "دليل عملي لفهم ديناميكيات العلاقات الإنسانية، يقدم رؤى نفسية عميقة وعشر قوانين أساسية لبناء علاقات حب صحية ومستدامة في الحياة.",
-    rating: 4,
-    amazonLink: "https://www.amazon.com/dp/B0007992994",
-    category: "Self-Improvement",
     tags: ["favorite"],
   },
   {

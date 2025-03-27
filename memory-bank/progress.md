@@ -11,7 +11,7 @@
 - Responsive navigation
 - Project showcase section
 - Book recommendations section
-- Resume section
+  // - Resume section (Removed)
 
 ## In Progress
 
