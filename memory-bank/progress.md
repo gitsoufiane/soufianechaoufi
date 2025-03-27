@@ -9,12 +9,14 @@
 - Email sending via Resend API
 - Dark/Light theme support
 - Responsive navigation
-- Project showcase section
+  // - Project showcase section (Moved to In Progress)
 - Book recommendations section
   // - Resume section (Removed)
 
 ## In Progress
 
+- Project showcase section (Under Construction)
+- Tech Stack section (Under Construction)
 - Unit tests with Vitest
 - E2E tests with Playwright
 - Accessibility improvements
