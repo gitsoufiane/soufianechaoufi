@@ -24,6 +24,8 @@ export const techStack: TechCategory[] = [
     name: "Frameworks & Libraries",
     items: [
       { name: "React", icon: "react" },
+      { name: "Next.js" }, // No icon defined in script yet
+      { name: "React Native", icon: "react-native" },
       { name: "Django", icon: "django" },
       { name: "React Router", icon: "react-router" },
     ],
