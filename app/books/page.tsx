@@ -63,27 +63,15 @@ export default function BooksPage() {
                     <CardTitle>{book.title}</CardTitle>
                     <p className="text-muted-foreground">by {book.author}</p>
                   </CardHeader>
-                  {/* Wrap CardContent with Tooltip components */}
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <CardContent className="flex justify-center">
-                          <Image
-                            src={book.coverImage}
-                            alt={`${book.title} cover`}
-                            width={200}
-                            height={300}
-                            className="cursor-help rounded-md object-cover shadow-md transition-transform hover:scale-105" // Added cursor-help
-                          />
-                        </CardContent>
-                      </TooltipTrigger>
-                      <TooltipContent className="max-w-xs">
-                        {" "}
-                        {/* Constrain width */}
-                        <p>{book.description}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <CardContent className="flex justify-center">
+                    <Image
+                      src={book.coverImage}
+                      alt={`${book.title} cover`}
+                      width={200}
+                      height={300}
+                      className="rounded-md object-cover shadow-md transition-transform hover:scale-105"
+                    />
+                  </CardContent>
                   <CardFooter className="flex flex-col items-start gap-2">
                     {/* Tags */}
                     {book.tags && book.tags.length > 0 && (
@@ -94,19 +82,6 @@ export default function BooksPage() {
                           </Badge>
                         ))}
                       </div>
-                    )}
-
-                    {/* Amazon Link Button */}
-                    {book.amazonLink && (
-                      <a
-                        href={book.amazonLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Button variant="link" className="p-0 text-sm">
-                          View on Amazon
-                        </Button>
-                      </a>
                     )}
                   </CardFooter>
                 </Card>
