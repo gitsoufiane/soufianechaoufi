@@ -1,44 +1,99 @@
-# Technical Patterns and Rules (v1.3)
+# Technical Patterns and Rules (v2.0)
 
 ## Architecture Rules
 
-1. Hybrid rendering strategy:
-   - SSG for static content
-   - SSR for dynamic pages
-   - ISR for frequent updates
-2. API routes use Edge runtime
-3. React Server Components for data fetching
-4. Client components for interactivity
+1. Next.js App Router architecture:
+   - Use React Server Components (RSC) by default
+   - Mark client components explicitly with "use client" directive
+   - Follow the folder-based routing structure
+   - Leverage route groups for organization without affecting URL structure
+   - Use page.tsx for route UI, layout.tsx for shared layouts, loading.tsx for suspense
+
+2. Rendering strategies:
+   - Static rendering for content that doesn't change frequently
+   - Dynamic rendering for user-specific or frequently updated content
+   - Streaming for improved UX and progressive loading
+   - Implement revalidation strategies (ISR) for semi-dynamic content
+
+3. Data fetching:
+   - Use Server Components for data fetching whenever possible
+   - Implement proper caching strategies with Next.js cache()
+   - Use React Query for client-side data fetching when necessary
 
 ## Core Technology Implementation
 
 ```mermaid
 flowchart TD
-    NextJS["Next.js 15"] -->|App Router| React19["React 19"]
+    NextJS["Next.js 15.2+"] -->|App Router| React19["React 19+"]
     NextJS -->|Bundling| Turbopack
-    React19 -->|State| ServerActions
+    NextJS -->|Data Fetching| ServerComponents[Server Components]
+    NextJS -->|Client Actions| ServerActions[Server Actions]
+    React19 -->|Forms| ReactHookForm[React Hook Form]
+    ReactHookForm -->|Validation| Zod
     React19 -->|3D| R3F["React Three Fiber"]
     NextJS -->|Styling| Tailwind4["Tailwind 4"]
-    Tailwind4 -->|Components| shadcn08["shadcn/ui 0.8"]
+    Tailwind4 -->|Components| shadcnUI["shadcn/ui"]
 ```
 
 ## Component Patterns
 
-1. Atomic design structure:
-   - Atoms: Basic UI elements
-   - Molecules: Component groups
-   - Organisms: Complex components
-   - Templates: Page layouts
-2. Accessibility-first with Radix primitives
-3. Mobile-first responsive design
-4. Dark/light theme support
+1. Component organization:
+   - UI components in /components/ui/ (from shadcn)
+   - Feature components in /components/[feature]/
+   - Layout components in /components/layout/
+   - Custom hooks in /hooks/
+   - Utility functions in /lib/utils.ts
+
+2. UI principles:
+   - Accessibility-first approach with Radix UI primitives
+   - Mobile-first responsive design
+   - Dark/light theme support via next-themes
+   - Use data-* attributes for styling variants
+   - Implement keyboard navigation and focus management
+
+3. Form implementation:
+   - React Hook Form for all form state management
+   - Zod for schema validation
+   - Use FormField components for consistent UI
+   - Implement proper error handling and feedback
+   - Add accessibility attributes (aria-*) to all form elements
+
+## Type Safety
+
+1. TypeScript requirements:
+   - Strict mode enabled
+   - No any types unless absolutely necessary
+   - Use interfaces for object shapes
+   - Use type for unions and complex types
+   - Implement path aliases (@/)
+   - Define explicit return types for functions
+
+2. API type safety:
+   - Use Zod for API request/response validation
+   - Create shared types for frontend/backend
+   - Implement proper error handling with type narrowing
+   - Use discriminated unions for state management
 
 ## Performance Rules
 
-1. Lazy-load 3D components
-2. Image optimization with Next.js
-3. Code splitting per route
-4. Bundle analysis for components >50kB
+1. Image optimization:
+   - Use Next.js Image component for all images
+   - Implement proper sizing, quality, and formats
+   - Use responsive images with multiple sizes
+   - Optimize SVGs and use as components when appropriate
+
+2. Code optimization:
+   - Lazy load non-critical components
+   - Implement code splitting with dynamic imports
+   - Use bundle analyzer for components >30kB
+   - Prefetch critical routes
+   - Implement proper suspense boundaries
+
+3. 3D and interactive content:
+   - Lazy-load Three.js components
+   - Implement proper disposal of 3D resources
+   - Use React Three Fiber's best practices
+   - Consider using React Suspense for 3D loading
 
 ## Development Practices
 
@@ -46,66 +101,94 @@ flowchart TD
 flowchart LR
     Dev[Development] --> Lint[ESLint]
     Dev --> Format[Prettier]
+    Dev --> Types[TypeScript]
     Dev --> Test[Testing]
     Test --> E2E[Playwright]
     Test --> Unit[Vitest]
     Test --> A11y[Accessibility]
 ```
 
-1. Turbopack required for dev mode
-2. Automated accessibility checks in CI
-3. Type-safe API integrations
-4. Document all patterns in memory-bank
+1. Development workflow:
+   - Use Turbopack for development
+   - Run lint and type checks before commits
+   - Follow conventional commits format
+   - Document complex implementations in comments
 
-## Updated Dependency Rules
+2. Code quality:
+   - ESLint with Next.js config and additional rules
+   - Prettier for code formatting
+   - Husky for pre-commit hooks
+   - Format code automatically on save
 
-1. Security audits weekly
-2. Major updates require:
-   - Peer review
-   - Impact analysis
-   - Rollback plan
-3. Lockfile must match package.json
-4. Document deprecations in techContext.md
-
-# Technical Patterns and Rules
-
-## Core Technology Rules
-
-1. Use Next.js 15.2.2 for all routing and server-side rendering
-2. Use React 19.0.0 with functional components and hooks
-3. TypeScript is mandatory - no implicit any types allowed
-4. Tailwind CSS for all styling - avoid custom CSS when possible
-
-## Component Patterns
-
-1. Use shadcn/ui components as base components
-2. Custom components should extend shadcn/ui patterns
-3. Use Radix primitives for accessible components
-4. Follow atomic design principles for component structure
-
-## State Management
-
-1. Use React hooks for local state
-2. Use React Hook Form for form management
-3. Use Zod for form validation schemas
-
-## Styling Rules
-
-1. Use Tailwind utility classes as primary styling method
-2. Use tailwind-merge for conditional class names
-3. Use clsx for complex class name logic
-4. Use tailwindcss-animate for animations
-
-## Development Practices
-
-1. Use Yarn as package manager
-2. Follow ESLint and Prettier rules
-3. Write tests using Playwright and Vitest
-4. Use TypeScript types for all props and state
+3. Testing strategy:
+   - Component tests with Vitest and Testing Library
+   - E2E tests with Playwright
+   - Accessibility testing with axe
+   - Visual regression testing for UI components
 
 ## Dependency Management
 
-1. Keep dependencies updated to latest stable versions
-2. Use specific version numbers in package.json
-3. Document all major dependencies in techContext.md
-4. Regularly audit dependencies for security updates
+1. Package management:
+   - Use Yarn as package manager
+   - Keep dependencies updated to latest stable versions
+   - Use specific version numbers in package.json
+   - Run security audits weekly
+
+2. Core dependencies:
+   - Next.js 15.2+
+   - React 19+
+   - TypeScript 5.8+
+   - Tailwind CSS 4.0+
+   - React Hook Form 7.54+
+   - Zod 3.24+
+   - shadcn/ui components (latest)
+   - Radix UI primitives (latest)
+
+3. Dependency updates:
+   - Major updates require peer review
+   - Document breaking changes
+   - Create migration plans for major updates
+   - Keep dependencies aligned with Next.js compatibility
+
+## Styling Guidelines
+
+1. Tailwind implementation:
+   - Use Tailwind utility classes as primary styling method
+   - Follow the project's design tokens
+   - Use tailwind-merge for conditional class names
+   - Use clsx for complex class name logic
+   - Leverage tailwindcss-animate for animations
+
+2. Design system:
+   - Follow spacing and sizing scale
+   - Use CSS variables for theme values
+   - Implement a11y-friendly color contrast
+   - Use consistent component sizing
+
+3. Responsive design:
+   - Mobile-first approach
+   - Use breakpoints consistently
+   - Test across device sizes
+   - Implement proper touch targets on mobile
+
+## Security Best Practices
+
+1. Form security:
+   - Implement CSRF protection
+   - Validate all inputs with Zod
+   - Sanitize data on server-side
+   - Use proper rate limiting
+
+2. API security:
+   - Validate request data
+   - Implement proper authentication
+   - Use environment variables for secrets
+   - Follow least privilege principle
+
+## Documentation
+
+1. Keep documentation in memory-bank/ directory
+2. Document component usage with examples
+3. Create pattern library for reusable solutions
+4. Document architecture decisions
+5. Maintain changelog for major updates
