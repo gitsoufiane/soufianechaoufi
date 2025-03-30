@@ -7,5 +7,12 @@ export interface Book {
   review?: string;
   amazonLink?: string;
   tags?: string[];
-  category: string;
+  category: BookCategory;
 }
+
+type BookCategory =
+  | "Fiction"
+  | "Self-Improvement"
+  | "Productivity"
+  | "Psychology"
+  | "Business";

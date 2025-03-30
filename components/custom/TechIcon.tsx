@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { TechItem } from "@/app/tech-stack/data/tech"; // Adjust path as needed
+import { TechItem } from "@/app/tech-stack/tech"; // Adjust path as needed
 
 interface TechIconProps {
   item: TechItem;

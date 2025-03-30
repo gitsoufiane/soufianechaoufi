@@ -5,7 +5,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { techStack, TechCategory, TechItem } from "./data/tech"; // Import the data
+import { techStack, TechCategory, TechItem } from "./tech"; // Import the data
 import { TechIcon } from "@/components/custom/TechIcon"; // Import the new client component
 
 export const metadata = {
