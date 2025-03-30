@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { books } from "./data/books";
+import { books } from "./books";
 import { Book } from "@/types/book";
 import { Badge } from "@/components/ui/badge";
 import {
