@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Sun, Moon, Menu, X } from "lucide-react";
@@ -19,12 +20,14 @@ interface NavbarProps {
 const defaultNavItems: NavItem[] = [
   { name: "Home", href: "/" },
   { name: "Projects", href: "/projects" },
-  // { name: "Resume", href: "/resume" }, // Removed
+  { name: "Blog", href: "/blog" },
   { name: "Books", href: "/books" },
+  { name: "Tech Stack", href: "/tech-stack" },
   { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar({ className }: NavbarProps) {
+  const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -51,13 +54,23 @@ export default function Navbar({ className }: NavbarProps) {
         {/* Desktop navigation */}
         <div className="mx-auto hidden items-center space-x-6 md:flex">
           {defaultNavItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
-            >
-              {item.name}
-            </Link>
+            <div key={item.href} className="relative">
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "text-sm font-medium transition-colors",
+                  pathname === item.href
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {item.name}
+                {pathname === item.href && (
+                  <span className="bg-foreground animate-underline absolute -bottom-1 left-0 h-0.5 w-full" />
+                )}
+              </Link>
+            </div>
           ))}
         </div>
 
@@ -82,14 +95,24 @@ export default function Navbar({ className }: NavbarProps) {
           <div className="bg-background absolute top-16 right-0 left-0 border-t md:hidden">
             <div className="flex flex-col space-y-2 p-4 pb-6">
               {defaultNavItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-muted-foreground hover:text-foreground py-2 text-sm font-medium transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
+                <div className="relative">
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "py-2 text-sm font-medium transition-colors",
+                      pathname === item.href
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                    {pathname === item.href && (
+                      <span className="bg-foreground animate-underline absolute -bottom-1 left-0 h-0.5 w-full" />
+                    )}
+                  </Link>
+                </div>
               ))}
             </div>
           </div>
