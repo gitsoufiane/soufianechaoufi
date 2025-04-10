@@ -2,6 +2,7 @@
 export interface TechItem {
   name: string;
   icon?: string; // Corresponds to the key in download script's iconUrls
+  iconUrl?: string; // URL to the icon (populated at runtime)
 }
 
 export interface TechCategory {

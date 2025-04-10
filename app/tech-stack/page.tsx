@@ -14,7 +14,15 @@ export const metadata = {
     "Overview of the technologies, tools, and languages I use in software development.",
 };
 
-// getIconPath function removed as we now use direct iconUrl from tech.ts
+// Convert icon key to a path
+function getIconPath(icon?: string): string | undefined {
+  if (!icon) return undefined;
+  
+  // Since we can't check file existence on the client side,
+  // we'll return the path with .svg extension as most icons are SVGs
+  // The Image component's error handling will take care of missing files
+  return `/tech-stack/${icon}.svg`;
+}
 export default function TechStackPage() {
   return (
     <div className="container mx-auto max-w-4xl py-12">
@@ -35,8 +43,8 @@ export default function TechStackPage() {
               <TooltipProvider delayDuration={100}>
                 <ul className="flex flex-wrap gap-4">
                   {category.items.map((item: TechItem) => {
-                    // Directly use item.iconUrl if available
-                    const iconUrl = item.iconUrl;
+                    // Get the icon path from the icon key
+                    const iconUrl = getIconPath(item.icon);
                     return (
                       <li key={item.name}>
                         <Tooltip>
