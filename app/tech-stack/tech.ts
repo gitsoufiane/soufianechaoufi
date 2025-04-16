@@ -35,6 +35,7 @@ export const techStack: TechCategory[] = [
     name: "State Management",
     items: [
       { name: "Redux", icon: "redux" },
+      { name: "Redux Toolkit", icon: "redux" },
       { name: "XState", icon: "xstate" },
     ],
   },
@@ -65,7 +66,7 @@ export const techStack: TechCategory[] = [
       { name: "Jest", icon: "jest" },
       { name: "Vitest", icon: "vitest" },
       { name: "React Testing Library", icon: "testing-library" },
-      { name: "PlayWright", icon: "playwright" },
+      { name: "Playwright", icon: "playwright" },
     ],
   },
   {
