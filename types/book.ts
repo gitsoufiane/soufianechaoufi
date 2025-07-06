@@ -6,7 +6,7 @@ export interface Book {
   review?: string;
   tags?: string[];
   category: BookCategory;
-  rating?: number;
+  rating: number;
   description?: string;
   readDate?: string;
   amazonLink?: string;

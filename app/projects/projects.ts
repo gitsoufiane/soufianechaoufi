@@ -6,16 +6,11 @@ interface Project {
   liveUrl?: string;
   githubUrl?: string;
   featured?: boolean;
+  category?: string;
+  year?: string;
+  status?: 'completed' | 'in-progress' | 'planning';
 }
 
 export const projects: Project[] = [
-  {
-    title: "Example Project",
-    description: "A description of your project.",
-    technologies: ["React", "TypeScript", "TailwindCSS"],
-    imageUrl: "/projects/example.png",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/yourusername/project",
-    featured: true,
-  },
+
 ];

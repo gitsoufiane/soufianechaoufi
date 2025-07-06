@@ -129,9 +129,6 @@
   .animate-underline {
     @apply transition-all duration-300;
     transform-origin: left;
-    transform: scaleX(0);
-  }
-  .animate-underline {
     transform: scaleX(1);
   }
 }
