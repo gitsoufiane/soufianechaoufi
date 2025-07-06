@@ -55,4 +55,18 @@ export const books: Book[] = [
     amazonLink:
       "https://www.amazon.com/Social-Animal-Story-Success-Happens/dp/0812979370",
   },
+  {
+    id: "19",
+    title: "Same as Ever",
+    author: "Morgan Housel",
+    coverImage: "/books/same-as-ever.jpg",
+    category: "Psychology",
+    tags: ["human behavior", "timeless", "decision making"],
+    rating: 5,
+    description:
+      "A guide to what never changes about human behavior and decision-making throughout history",
+    readDate: "2024-01-15",
+    amazonLink:
+      "https://www.amazon.com/Same-Ever-Guide-What-Changes/dp/0593332709",
+  },
 ];
