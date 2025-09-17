@@ -22,9 +22,8 @@ export const personSchema = {
   image: "https://soufianechaoufi.com/profil.png",
   url: "https://soufianechaoufi.com",
   sameAs: [
-    "https://github.com/soufianechaoufi",
+    "https://github.com/gitsoufiane",
     "https://linkedin.com/in/soufianechaoufi",
-    "https://twitter.com/soufianechaoufi",
   ],
   jobTitle: "Senior Frontend Developer",
   workLocation: {

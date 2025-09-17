@@ -69,10 +69,10 @@ export function ContactForm() {
           // Handle validation errors from the server
           const fieldErrors = responseData.issues;
           Object.keys(fieldErrors).forEach((key) => {
-            if (key !== "_errors" && fieldErrors[key]?._errors?.length) {
+            if (fieldErrors[key]?.length) {
               form.setError(key as any, {
                 type: "server",
-                message: fieldErrors[key]._errors[0],
+                message: fieldErrors[key][0],
               });
             }
           });

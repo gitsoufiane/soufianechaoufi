@@ -1,8 +1,21 @@
-export interface ApiResponse<T = any> {
+export interface ZodIssue {
+  path: (string | number)[];
+  message: string;
+  code: string;
+}
+
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;
-  issues?: any; // Zod's format() return type is complex, using any for simplicity
+  issues?: Record<string, string[]>; // Formatted Zod errors by field
 }
 
-export type ContactApiResponse = ApiResponse<any>;
+export interface ContactFormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+export type ContactApiResponse = ApiResponse<{ message: string }>;

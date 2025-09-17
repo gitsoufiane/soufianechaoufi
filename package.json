@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -34,10 +36,14 @@
     "zod": "^4.0.17"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.4.6",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^20.19.4",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.4.6",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.13",
     "shadcn": "^3.2.1",
