@@ -11,29 +11,6 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { ArrowRight, Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 
-export const metadata = {
-  title: "Soufiane Chaoufi | Senior Frontend Developer",
-  description:
-    "Senior Frontend Developer with 5+ years of experience delivering high-quality, scalable web applications. Proven ability in React, TypeScript, and design systems.",
-  keywords: ["portfolio", "developer", "projects", "tools"],
-  openGraph: {
-    title: "Soufiane Chaoufi | Senior Frontend Developer",
-    description:
-      "Senior Frontend Developer with 5+ years of experience delivering high-quality, scalable web applications. Proven ability in React, TypeScript, and design systems.",
-    url: "https://soufianechaoufi.com",
-    siteName: "Soufiane Chaoufi",
-    images: [
-      {
-        url: "https://soufianechaoufi.com/og-image.png",
-        width: 1200,
-        height: 630,
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-};
-
 export default function Home() {
 
   return (
@@ -47,6 +24,7 @@ export default function Home() {
                 src="/profil.png"
                 alt="Soufiane Chaoufi"
                 fill
+                sizes="(max-width: 768px) 128px, 128px"
                 className="border-primary/10 rounded-full border-4 object-cover"
                 priority
               />

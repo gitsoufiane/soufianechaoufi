@@ -3,41 +3,44 @@ import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations/contact";
 import { EmailTemplate } from "@/components/email-template";
 import type { ContactApiResponse } from "@/types/api";
+import { LRUCache } from 'lru-cache';
+import { env } from '@/lib/env';
 
-// Initialize Resend with API key
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// Simple in-memory rate limiting
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+// Initialize Resend with validated API key
+const resend = new Resend(env.RESEND_API_KEY);
 
 // Rate limiting configuration
 const RATE_LIMIT_MAX_REQUESTS = 5; // Maximum requests per window
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
-function checkRateLimit(ip: string): boolean {
+// LRU cache-based rate limiting to prevent memory leaks
+const rateLimiter = new LRUCache<string, { count: number; resetTime: number }>({
+  max: 500, // Maximum number of items in cache
+  ttl: RATE_LIMIT_WINDOW_MS, // 15 minutes TTL
+});
+
+function checkRateLimit(identifier: string): { success: boolean; remaining: number } {
   const now = Date.now();
-  const userLimit = rateLimitMap.get(ip);
+  const limit = rateLimiter.get(identifier);
 
-  if (!userLimit) {
-    // First request from this IP
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-    return true;
+  if (!limit || now > limit.resetTime) {
+    // First request or window expired - reset count
+    rateLimiter.set(identifier, {
+      count: 1,
+      resetTime: now + RATE_LIMIT_WINDOW_MS
+    });
+    return { success: true, remaining: RATE_LIMIT_MAX_REQUESTS - 1 };
   }
 
-  if (now > userLimit.resetTime) {
-    // Window has expired, reset
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-    return true;
-  }
-
-  if (userLimit.count >= RATE_LIMIT_MAX_REQUESTS) {
+  if (limit.count >= RATE_LIMIT_MAX_REQUESTS) {
     // Rate limit exceeded
-    return false;
+    return { success: false, remaining: 0 };
   }
 
   // Increment count
-  userLimit.count++;
-  return true;
+  limit.count++;
+  rateLimiter.set(identifier, limit);
+  return { success: true, remaining: RATE_LIMIT_MAX_REQUESTS - limit.count };
 }
 
 function getClientIP(request: NextRequest): string {
@@ -59,12 +62,21 @@ export async function POST(request: NextRequest) {
   try {
     // Check rate limit
     const clientIP = getClientIP(request);
-    if (!checkRateLimit(clientIP)) {
+    const rateLimit = checkRateLimit(clientIP);
+
+    if (!rateLimit.success) {
       const response: ContactApiResponse = {
         success: false,
         error: "Too many requests. Please try again later.",
       };
-      return NextResponse.json(response, { status: 429 });
+      return NextResponse.json(response, {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': String(RATE_LIMIT_MAX_REQUESTS),
+          'X-RateLimit-Remaining': '0',
+          'Retry-After': '900', // 15 minutes in seconds
+        }
+      });
     }
 
     // Parse the request body
@@ -76,12 +88,12 @@ export async function POST(request: NextRequest) {
     if (!result.success) {
       // Return validation errors
       const formattedErrors: Record<string, string[]> = {};
-      result.error.issues.forEach((error: any) => {
-        const path = error.path.join('.');
+      result.error.issues.forEach((issue) => {
+        const path = issue.path.join('.');
         if (!formattedErrors[path]) {
           formattedErrors[path] = [];
         }
-        formattedErrors[path].push(error.message);
+        formattedErrors[path].push(issue.message);
       });
 
       const response: ContactApiResponse = {
@@ -95,9 +107,9 @@ export async function POST(request: NextRequest) {
     const { name, email, inquiryType, subject, message } = result.data;
 
     // Send email using Resend
-    const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || "soufiane.chaoufi@gmail.com",
-      to: process.env.RESEND_TO_EMAIL || "soufiane.chaoufi@gmail.com",
+    const { error } = await resend.emails.send({
+      from: env.RESEND_FROM_EMAIL,
+      to: env.RESEND_TO_EMAIL,
       subject: `${subject} - Contact from ${name}`,
       react: EmailTemplate({
         name,
@@ -122,7 +134,12 @@ export async function POST(request: NextRequest) {
       success: true,
       data: { message: "Email sent successfully!" },
     };
-    return NextResponse.json(response);
+    return NextResponse.json(response, {
+      headers: {
+        'X-RateLimit-Limit': String(RATE_LIMIT_MAX_REQUESTS),
+        'X-RateLimit-Remaining': String(rateLimit.remaining),
+      }
+    });
   } catch (error) {
     console.error("Server error:", error);
     const response: ContactApiResponse = {

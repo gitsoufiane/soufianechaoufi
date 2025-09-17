@@ -173,6 +173,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 src={post.imageUrl}
                 alt={post.title}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
                 className="object-cover"
                 priority
               />
@@ -228,6 +229,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   src="/profil.png"
                   alt={post.author}
                   fill
+                  sizes="64px"
                   className="object-cover"
                 />
               </div>

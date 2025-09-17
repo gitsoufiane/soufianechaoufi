@@ -11,6 +11,7 @@ import {
   websiteSchema,
   professionalServiceSchema,
 } from "@/components/StructuredData";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -103,15 +104,31 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Skip Navigation Links for Accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        >
+          Skip to main content
+        </a>
+        <a
+          href="#navigation"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-32 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        >
+          Skip to navigation
+        </a>
+
         <ThemeProvider>
-          <Navbar />
-          <main className="min-h-screen">
-            <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              {children}
-            </div>
-          </main>
-          <Footer />
-          <Toaster />
+          <ErrorBoundary>
+            <Navbar />
+            <main id="main-content" className="min-h-screen">
+              <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                {children}
+              </div>
+            </main>
+            <Footer />
+            <Toaster />
+          </ErrorBoundary>
         </ThemeProvider>
       </body>
     </html>
