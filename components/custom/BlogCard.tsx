@@ -18,7 +18,7 @@ export default function BlogCard({ post }: BlogCardProps) {
           <p className="text-muted-foreground">{post.description}</p>
           <div className="mt-4 flex items-center justify-between">
             <span className="text-muted-foreground text-sm">
-              {formatDate(post.date)}
+              {formatDate(post.publishedAt)}
             </span>
             <div className="flex gap-2">
               {post.tags.map((tag) => (

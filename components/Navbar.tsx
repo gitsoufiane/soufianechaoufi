@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -19,9 +19,7 @@ interface NavbarProps {
 
 const defaultNavItems: NavItem[] = [
   { name: "Home", href: "/" },
-  { name: "Work", href: "/projects" },
   { name: "Articles", href: "/blog" },
-  { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
 

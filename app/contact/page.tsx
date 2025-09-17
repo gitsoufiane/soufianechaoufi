@@ -1,5 +1,11 @@
 import { ContactForm } from "@/components/ContactForm";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Mail, MapPin, Calendar } from "lucide-react";
@@ -13,28 +19,27 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-2xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-            Let's Connect
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-lg mx-auto">
-            I'm always interested in hearing about new opportunities, collaborations, 
-            or just having a conversation about frontend development.
+        <div className="mb-12 text-center">
+          <h1 className="mb-4 text-4xl font-bold sm:text-5xl">Let's Connect</h1>
+          <p className="text-muted-foreground mx-auto max-w-lg text-xl">
+            I'm always interested in hearing about new opportunities,
+            collaborations, or just having a conversation about frontend
+            development.
           </p>
         </div>
 
         {/* Contact Info Cards */}
-        <div className="grid gap-6 mb-12 sm:grid-cols-2">
+        <div className="mb-12 grid gap-6 sm:grid-cols-2">
           <Card className="text-center">
             <CardContent className="pt-6">
-              <div className="w-12 h-12 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                <Mail className="w-6 h-6 text-primary" />
+              <div className="bg-primary/10 mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full">
+                <Mail className="text-primary h-6 w-6" />
               </div>
-              <h3 className="font-semibold mb-2">Email Me</h3>
-              <p className="text-sm text-muted-foreground mb-3">
+              <h3 className="mb-2 font-semibold">Email Me</h3>
+              <p className="text-muted-foreground mb-3 text-sm">
                 I typically respond within 24 hours
               </p>
               <Button asChild variant="outline" size="sm">
@@ -47,14 +52,14 @@ export default function ContactPage() {
 
           <Card className="text-center">
             <CardContent className="pt-6">
-              <div className="w-12 h-12 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                <MapPin className="w-6 h-6 text-primary" />
+              <div className="bg-primary/10 mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full">
+                <MapPin className="text-primary h-6 w-6" />
               </div>
-              <h3 className="font-semibold mb-2">Location</h3>
-              <p className="text-sm text-muted-foreground mb-3">
+              <h3 className="mb-2 font-semibold">Location</h3>
+              <p className="text-muted-foreground mb-3 text-sm">
                 Based in Vancouver, Canada
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Open to remote opportunities
               </p>
             </CardContent>
@@ -66,8 +71,8 @@ export default function ContactPage() {
           <CardHeader className="text-center">
             <CardTitle className="text-2xl">Send a Message</CardTitle>
             <CardDescription>
-              Whether you have a project in mind, want to collaborate, or just want to say hi, 
-              I'd love to hear from you.
+              Whether you have a project in mind, want to collaborate, or just
+              want to say hi, I'd love to hear from you.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -78,24 +83,18 @@ export default function ContactPage() {
         {/* Additional Info */}
         <div className="mt-12 text-center">
           <div className="bg-muted/50 rounded-lg p-6">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Calendar className="w-5 h-5 text-muted-foreground" />
+            <div className="mb-3 flex items-center justify-center gap-2">
+              <Calendar className="text-muted-foreground h-5 w-5" />
               <span className="font-medium">Current Availability</span>
             </div>
             <p className="text-muted-foreground mb-4">
-              I'm currently available for new projects and opportunities. 
-              Looking for freelance work, full-time positions, or interesting collaborations.
+              I'm currently available for new projects and opportunities.
+              Looking for freelance work, full-time positions, or interesting
+              collaborations.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild variant="outline">
-                <Link href="/about">
-                  Learn More About Me
-                </Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/projects">
-                  View My Work
-                </Link>
+                <Link href="/blog">Read Articles</Link>
               </Button>
             </div>
           </div>
@@ -108,12 +107,16 @@ export default function ContactPage() {
           </p>
           <div className="flex justify-center gap-4">
             <Button asChild variant="outline" size="sm">
-              <Link href="https://github.com/gitsoufiane" target="_blank">
+              <Link href="https://github.com/gitsoufiane" target="_blank" rel="noopener noreferrer">
                 GitHub
               </Link>
             </Button>
             <Button asChild variant="outline" size="sm">
-              <Link href="https://www.linkedin.com/in/soufianechaoufi/" target="_blank">
+              <Link
+                href="https://www.linkedin.com/in/soufianechaoufi/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 LinkedIn
               </Link>
             </Button>

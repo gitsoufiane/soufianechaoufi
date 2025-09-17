@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations/contact";
 import { EmailTemplate } from "@/components/email-template";
+import type { ContactApiResponse } from "@/types/api";
 
 // Initialize Resend with API key
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -16,42 +17,51 @@ export async function POST(request: NextRequest) {
 
     if (!result.success) {
       // Return validation errors
-      return NextResponse.json(
-        {
-          error: "Validation failed",
-          issues: result.error.format(),
-        },
-        { status: 400 },
-      );
+      const response: ContactApiResponse = {
+        success: false,
+        error: "Validation failed",
+        issues: result.error.format(),
+      };
+      return NextResponse.json(response, { status: 400 });
     }
 
-    const { name, email, message } = result.data;
+    const { name, email, inquiryType, subject, message } = result.data;
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: "soufiane.chaoufi@gmail.com", // Use your verified domain if you have one
-      to: "soufiane.chaoufi@gmail.com", // Your email address
-      subject: `New message from ${name}`,
+      from: process.env.RESEND_FROM_EMAIL || "soufiane.chaoufi@gmail.com",
+      to: process.env.RESEND_TO_EMAIL || "soufiane.chaoufi@gmail.com",
+      subject: `${subject} - Contact from ${name}`,
       react: EmailTemplate({
         name,
         email,
+        inquiryType,
+        subject,
+        message,
       }),
     });
 
     if (error) {
-      return NextResponse.json(
-        { error: "Failed to send email" },
-        { status: 500 },
-      );
+      console.error("Resend error:", error);
+      const response: ContactApiResponse = {
+        success: false,
+        error: "Failed to send email. Please try again later.",
+      };
+      return NextResponse.json(response, { status: 500 });
     }
 
     // Return success response
-    return NextResponse.json({ success: true, data });
+    const response: ContactApiResponse = {
+      success: true,
+      data: data,
+    };
+    return NextResponse.json(response);
   } catch (error) {
     console.error("Server error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    );
+    const response: ContactApiResponse = {
+      success: false,
+      error: "Internal server error. Please try again later.",
+    };
+    return NextResponse.json(response, { status: 500 });
   }
 }

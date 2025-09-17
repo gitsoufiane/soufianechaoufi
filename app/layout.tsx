@@ -5,7 +5,12 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { StructuredData, personSchema, websiteSchema, professionalServiceSchema } from "@/components/StructuredData";
+import {
+  StructuredData,
+  personSchema,
+  websiteSchema,
+  professionalServiceSchema,
+} from "@/components/StructuredData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,12 +25,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     default: "Soufiane Chaoufi | Senior Frontend Developer",
-    template: "%s | Soufiane Chaoufi"
+    template: "%s | Soufiane Chaoufi",
   },
-  description: "Senior Frontend Developer with 5+ years of experience building scalable web applications with React, TypeScript, and modern technologies. Available for collaboration and consulting.",
+  description:
+    "Senior Frontend Developer with 5+ years of experience building scalable web applications with React, TypeScript, and modern technologies. Available for collaboration and consulting.",
   keywords: [
     "Frontend Developer",
-    "React Developer", 
+    "React Developer",
     "TypeScript",
     "JavaScript",
     "Next.js",
@@ -33,7 +39,7 @@ export const metadata: Metadata = {
     "UI/UX",
     "Remote Developer",
     "Vancouver",
-    "Canada"
+    "Canada",
   ],
   authors: [{ name: "Soufiane Chaoufi" }],
   creator: "Soufiane Chaoufi",
@@ -50,20 +56,22 @@ export const metadata: Metadata = {
     url: "https://soufianechaoufi.com",
     siteName: "Soufiane Chaoufi",
     title: "Soufiane Chaoufi | Senior Frontend Developer",
-    description: "Senior Frontend Developer with 5+ years of experience building scalable web applications with React, TypeScript, and modern technologies.",
+    description:
+      "Senior Frontend Developer with 5+ years of experience building scalable web applications with React, TypeScript, and modern technologies.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Soufiane Chaoufi - Senior Frontend Developer",
-      }
+      },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Soufiane Chaoufi | Senior Frontend Developer",
-    description: "Senior Frontend Developer with 5+ years of experience building scalable web applications with React, TypeScript, and modern technologies.",
+    description:
+      "Senior Frontend Developer with 5+ years of experience building scalable web applications with React, TypeScript, and modern technologies.",
     images: ["/og-image.jpg"],
     creator: "@soufianechaoufi",
   },

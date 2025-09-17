@@ -8,9 +8,9 @@ import { Calendar, Clock, ArrowLeft, ArrowRight, Share2 } from "lucide-react";
 import { posts } from "../posts";
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -20,7 +20,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
-  const post = posts.find((post) => post.slug === params.slug);
+  const { slug } = await params;
+  const post = posts.find((post) => post.slug === slug);
 
   if (!post) {
     return {
@@ -42,47 +43,51 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   };
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = posts.find((post) => post.slug === params.slug);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = posts.find((post) => post.slug === slug);
 
   if (!post) {
     notFound();
   }
 
-  const postIndex = posts.findIndex((p) => p.slug === params.slug);
+  const postIndex = posts.findIndex((p) => p.slug === slug);
   const previousPost = posts[postIndex + 1];
   const nextPost = posts[postIndex - 1];
 
   // Simple markdown-to-JSX renderer for demonstration
   // In a real app, you'd use a proper markdown parser like react-markdown
   const renderContent = (content: string) => {
-    const lines = content.trim().split('\n');
+    const lines = content.trim().split("\n");
     const elements = [];
     let currentElement = [];
     let inCodeBlock = false;
-    let codeLanguage = '';
+    let codeLanguage = "";
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
 
       // Handle code blocks
-      if (line.startsWith('```')) {
+      if (line.startsWith("```")) {
         if (inCodeBlock) {
           // End code block
           elements.push(
-            <pre key={i} className="bg-muted p-4 rounded-lg overflow-x-auto my-6">
+            <pre
+              key={i}
+              className="bg-muted my-6 overflow-x-auto rounded-lg p-4"
+            >
               <code className={`language-${codeLanguage}`}>
-                {currentElement.join('\n')}
+                {currentElement.join("\n")}
               </code>
-            </pre>
+            </pre>,
           );
           currentElement = [];
           inCodeBlock = false;
-          codeLanguage = '';
+          codeLanguage = "";
         } else {
           // Start code block
           inCodeBlock = true;
-          codeLanguage = line.replace('```', '');
+          codeLanguage = line.replace("```", "");
         }
         continue;
       }
@@ -93,47 +98,49 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       }
 
       // Handle headers
-      if (line.startsWith('# ')) {
+      if (line.startsWith("# ")) {
         elements.push(
-          <h1 key={i} className="text-4xl font-bold mt-8 mb-4">
-            {line.replace('# ', '')}
-          </h1>
+          <h1 key={i} className="mt-8 mb-4 text-4xl font-bold">
+            {line.replace("# ", "")}
+          </h1>,
         );
-      } else if (line.startsWith('## ')) {
+      } else if (line.startsWith("## ")) {
         elements.push(
-          <h2 key={i} className="text-3xl font-bold mt-8 mb-4">
-            {line.replace('## ', '')}
-          </h2>
+          <h2 key={i} className="mt-8 mb-4 text-3xl font-bold">
+            {line.replace("## ", "")}
+          </h2>,
         );
-      } else if (line.startsWith('### ')) {
+      } else if (line.startsWith("### ")) {
         elements.push(
-          <h3 key={i} className="text-2xl font-bold mt-6 mb-3">
-            {line.replace('### ', '')}
-          </h3>
+          <h3 key={i} className="mt-6 mb-3 text-2xl font-bold">
+            {line.replace("### ", "")}
+          </h3>,
         );
       }
       // Handle inline code
-      else if (line.includes('`') && !line.startsWith('```')) {
-        const parts = line.split('`');
-        const formatted = parts.map((part, index) => 
+      else if (line.includes("`") && !line.startsWith("```")) {
+        const parts = line.split("`");
+        const formatted = parts.map((part, index) =>
           index % 2 === 1 ? (
-            <code key={index} className="bg-muted px-1 py-0.5 rounded text-sm">
+            <code key={index} className="bg-muted rounded px-1 py-0.5 text-sm">
               {part}
             </code>
-          ) : part
+          ) : (
+            part
+          ),
         );
         elements.push(
           <p key={i} className="mb-4 leading-relaxed">
             {formatted}
-          </p>
+          </p>,
         );
       }
       // Handle regular paragraphs
-      else if (line.trim() && !line.startsWith('#')) {
+      else if (line.trim() && !line.startsWith("#")) {
         elements.push(
           <p key={i} className="mb-4 leading-relaxed">
             {line}
-          </p>
+          </p>,
         );
       }
       // Handle empty lines (spacing)
@@ -146,13 +153,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   };
 
   return (
-    <article className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+    <article className="min-h-screen px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl">
         {/* Back Navigation */}
         <div className="mb-8">
           <Button asChild variant="ghost" className="gap-2">
             <Link href="/blog">
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="h-4 w-4" />
               Back to Articles
             </Link>
           </Button>
@@ -161,7 +168,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Article Header */}
         <header className="mb-12">
           {post.imageUrl && (
-            <div className="relative h-64 sm:h-80 mb-8 rounded-xl overflow-hidden">
+            <div className="relative mb-8 h-64 overflow-hidden rounded-xl sm:h-80">
               <Image
                 src={post.imageUrl}
                 alt={post.title}
@@ -174,26 +181,24 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
           <div className="space-y-4">
             <Badge variant="secondary">{post.category}</Badge>
-            <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
+            <h1 className="text-4xl leading-tight font-bold sm:text-5xl">
               {post.title}
             </h1>
-            <p className="text-xl text-muted-foreground">
-              {post.description}
-            </p>
-            
-            <div className="flex items-center justify-between pt-4 border-t">
-              <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-xl">{post.description}</p>
+
+            <div className="flex items-center justify-between border-t pt-4">
+              <div className="text-muted-foreground flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className="h-4 w-4" />
                   <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
+                  <Clock className="h-4 w-4" />
                   <span>{post.readingTime} min read</span>
                 </div>
               </div>
               <Button variant="outline" size="sm" className="gap-2">
-                <Share2 className="w-4 h-4" />
+                <Share2 className="h-4 w-4" />
                 Share
               </Button>
             </div>
@@ -201,12 +206,12 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
 
         {/* Article Content */}
-        <div className="prose prose-lg max-w-none mb-12">
+        <div className="prose prose-lg mb-12 max-w-none">
           {renderContent(post.content)}
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-12 pt-8 border-t">
+        <div className="mb-12 flex flex-wrap gap-2 border-t pt-8">
           {post.tags.map((tag) => (
             <Badge key={tag} variant="outline">
               {tag}
@@ -218,7 +223,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <Card className="mb-12">
           <CardContent className="p-6">
             <div className="flex items-start gap-4">
-              <div className="relative w-16 h-16 rounded-full overflow-hidden">
+              <div className="relative h-16 w-16 overflow-hidden rounded-full">
                 <Image
                   src="/profil.png"
                   alt={post.author}
@@ -227,21 +232,18 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold mb-2">{post.author}</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Senior Frontend Developer with 5+ years of experience building scalable web applications. 
-                  Passionate about React, TypeScript, and sharing knowledge with the developer community.
+                <h3 className="mb-2 font-semibold">{post.author}</h3>
+                <p className="text-muted-foreground mb-4 text-sm">
+                  Senior Frontend Developer with 5+ years of experience building
+                  scalable web applications. Passionate about React, TypeScript,
+                  and sharing knowledge with the developer community.
                 </p>
                 <div className="flex gap-2">
                   <Button asChild variant="outline" size="sm">
-                    <Link href="/about">
-                      Learn More
-                    </Link>
+                    <Link href="/blog">More Articles</Link>
                   </Button>
                   <Button asChild variant="outline" size="sm">
-                    <Link href="/contact">
-                      Contact
-                    </Link>
+                    <Link href="/contact">Contact</Link>
                   </Button>
                 </div>
               </div>
@@ -251,32 +253,36 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Navigation */}
         {(previousPost || nextPost) && (
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid gap-6 md:grid-cols-2">
             {previousPost && (
-              <Card className="group hover:shadow-lg transition-shadow">
+              <Card className="group transition-shadow hover:shadow-lg">
                 <CardContent className="p-6">
-                  <div className="text-sm text-muted-foreground mb-2">Previous Article</div>
-                  <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                  <div className="text-muted-foreground mb-2 text-sm">
+                    Previous Article
+                  </div>
+                  <h3 className="group-hover:text-primary mb-2 font-semibold transition-colors">
                     <Link href={`/blog/${previousPost.slug}`}>
                       {previousPost.title}
                     </Link>
                   </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2">
+                  <p className="text-muted-foreground line-clamp-2 text-sm">
                     {previousPost.description}
                   </p>
                 </CardContent>
               </Card>
             )}
             {nextPost && (
-              <Card className="group hover:shadow-lg transition-shadow">
+              <Card className="group transition-shadow hover:shadow-lg">
                 <CardContent className="p-6">
-                  <div className="text-sm text-muted-foreground mb-2">Next Article</div>
-                  <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                  <div className="text-muted-foreground mb-2 text-sm">
+                    Next Article
+                  </div>
+                  <h3 className="group-hover:text-primary mb-2 font-semibold transition-colors">
                     <Link href={`/blog/${nextPost.slug}`}>
                       {nextPost.title}
                     </Link>
                   </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2">
+                  <p className="text-muted-foreground line-clamp-2 text-sm">
                     {nextPost.description}
                   </p>
                 </CardContent>
@@ -286,23 +292,18 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* Call to Action */}
-        <Card className="mt-12 p-8 bg-gradient-to-r from-primary/10 to-primary/5 text-center">
-          <h3 className="text-2xl font-bold mb-4">
-            Enjoyed this article?
-          </h3>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            If you found this helpful, check out my other articles or get in touch to discuss your next project.
+        <Card className="from-primary/10 to-primary/5 mt-12 bg-gradient-to-r p-8 text-center">
+          <h3 className="mb-4 text-2xl font-bold">Enjoyed this article?</h3>
+          <p className="text-muted-foreground mx-auto mb-6 max-w-2xl">
+            If you found this helpful, check out my other articles or get in
+            touch to discuss your next project.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Button asChild>
-              <Link href="/blog">
-                More Articles
-              </Link>
+              <Link href="/blog">More Articles</Link>
             </Button>
             <Button asChild variant="outline">
-              <Link href="/contact">
-                Get In Touch
-              </Link>
+              <Link href="/contact">Get In Touch</Link>
             </Button>
           </div>
         </Card>
