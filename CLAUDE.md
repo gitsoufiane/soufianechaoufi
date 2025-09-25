@@ -23,6 +23,12 @@ yarn lint
 
 # Code formatting
 yarn format
+
+# Type checking
+yarn type-check
+
+# Bundle analysis
+yarn build:analyze
 ```
 
 ## Package Management
@@ -85,7 +91,6 @@ All content managed through TypeScript files, no CMS:
 
 /components/
 ├── ui/                   # shadcn/ui components
-├── custom/               # Custom components
 ├── Navbar.tsx            # Navigation with theme toggle
 ├── ContactForm.tsx       # Contact form component
 ├── email-template.tsx    # Email template
@@ -223,5 +228,12 @@ Next.js config includes Three.js transpilation:
 
 ```typescript
 transpilePackages: ["three"];
+experimental: {
+  optimizePackageImports: ["lucide-react"],
+};
 ```
-- always use shaddcn mcp for new design and component before create any custom component
+
+## Development Guidelines
+
+- Always use shadcn MCP for new design and component creation before building custom components
+- Bundle analyzer available via `yarn build:analyze` when ANALYZE=true is set

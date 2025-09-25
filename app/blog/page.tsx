@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search } from "lucide-react";
 import { posts, categories } from "./posts";
-import BlogCard from "@/components/custom/BlogCard";
+import BlogCard from "./BlogCard";
 
 export const metadata = {
   title: "Articles | Soufiane Chaoufi",
