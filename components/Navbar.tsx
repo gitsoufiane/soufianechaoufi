@@ -19,7 +19,8 @@ interface NavbarProps {
 
 const defaultNavItems: NavItem[] = [
   { name: "Home", href: "/" },
-  { name: "Articles", href: "/blog" },
+  { name: "Blog", href: "/blog" },
+  { name: "Projects", href: "/projects" },
   { name: "Contact", href: "/contact" },
 ];
 

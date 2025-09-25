@@ -2,8 +2,20 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  longDescription?: string;
   technologies: string[];
-  contributions: string[];
-  githubUrl: string;
-  liveUrl: string;
+  githubUrl?: string;
+  liveUrl?: string;
+  imageUrl?: string;
+  featured: boolean;
+  category: 'web-app' | 'mobile-app' | 'library' | 'tool' | 'other';
+  status: 'completed' | 'ongoing' | 'maintained';
+  publishedAt: string;
+  highlights?: string[];
+}
+
+export interface ProjectCategory {
+  name: string;
+  slug: string;
+  description: string;
 }
