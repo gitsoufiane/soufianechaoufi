@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations/contact";
 import { EmailTemplate } from "@/components/email-template";
+import { EmailConfirmationTemplate } from "@/components/email-template-confirmation";
 import type { ContactApiResponse } from "@/types/api";
 import { LRUCache } from 'lru-cache';
 import { env } from '@/lib/env';
@@ -106,22 +107,36 @@ export async function POST(request: NextRequest) {
 
     const { name, email, inquiryType, subject, message } = result.data;
 
-    // Send email using Resend
-    const { error } = await resend.emails.send({
-      from: env.RESEND_FROM_EMAIL,
-      to: env.RESEND_TO_EMAIL,
-      subject: `${subject} - Contact from ${name}`,
-      react: EmailTemplate({
-        name,
-        email,
-        inquiryType,
-        subject,
-        message,
-      }),
-    });
+    // Send emails using Resend batch API
+    const { data, error } = await resend.batch.send([
+      // Email to the site owner (you)
+      {
+        from: env.RESEND_FROM_EMAIL,
+        to: env.RESEND_TO_EMAIL,
+        subject: `${subject} - Contact from ${name}`,
+        react: EmailTemplate({
+          name,
+          email,
+          inquiryType,
+          subject,
+          message,
+        }),
+      },
+      // Confirmation email to the user
+      {
+        from: env.RESEND_FROM_EMAIL,
+        to: email,
+        subject: `Thank you for contacting me - ${name}`,
+        react: EmailConfirmationTemplate({
+          name,
+          inquiryType,
+          subject,
+        }),
+      },
+    ]);
 
     if (error) {
-      console.error("Resend error:", error);
+      console.error("Resend batch error:", error);
       const response: ContactApiResponse = {
         success: false,
         error: "Failed to send email. Please try again later.",
@@ -132,7 +147,7 @@ export async function POST(request: NextRequest) {
     // Return success response
     const response: ContactApiResponse = {
       success: true,
-      data: { message: "Email sent successfully!" },
+      data: { message: "Message sent successfully! You'll receive a confirmation email shortly." },
     };
     return NextResponse.json(response, {
       headers: {

@@ -43,8 +43,8 @@ export default function ContactPage() {
                 I typically respond within 24 hours
               </p>
               <Button asChild variant="outline" size="sm">
-                <Link href="mailto:contact@soufianechaoufi.com">
-                  contact@soufianechaoufi.com
+                <Link href="mailto:schaoufi@icloud.com">
+                  schaoufi@icloud.com
                 </Link>
               </Button>
             </CardContent>
