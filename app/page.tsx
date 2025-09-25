@@ -40,26 +40,21 @@ export default function Home() {
               <h1 className="from-primary to-primary/70 bg-gradient-to-r bg-clip-text text-5xl font-bold text-transparent capitalize sm:text-6xl">
                 soufiane chaoufi
               </h1>
-              <div className="text-muted-foreground text-2xl sm:text-3xl">
-                <span className="inline-block">Senior Frontend Developer</span>
-              </div>
               <p className="text-muted-foreground mx-auto max-w-3xl text-lg leading-relaxed sm:text-xl">
-                Building scalable web experiences that users love. 5+ years
-                crafting exceptional digital products with React, TypeScript,
-                and modern web technologies.
+                Hi! I'm Soufiane. I write code, build interfaces, and love sharing what I learn along the way. This space is equal parts portfolio, blog, and digital notebook where I document my ongoing adventure in web development.
               </p>
             </div>
 
             <div className="flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="gap-2">
                 <Link href="/projects">
-                  View My Work
+                  See What I've Built
                   <Code className="h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="gap-2">
                 <Link href="/blog">
-                  Read Articles
+                  Read My Thoughts
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
@@ -146,63 +141,6 @@ export default function Home() {
           </div>
         </section>
       )}
-
-      {/* Skills Highlight */}
-      <section className="px-4 py-16 sm:px-6 lg:px-8 bg-muted/50">
-        <div className="mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 sm:text-4xl">What I Do Best</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="bg-primary/10 p-2 rounded-lg">
-                    <Code className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle>Frontend Development</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Building responsive, accessible, and performant web applications using React, TypeScript, and modern CSS techniques. Focused on creating exceptional user experiences.
-                </CardDescription>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  <Badge variant="outline">React</Badge>
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">Next.js</Badge>
-                  <Badge variant="outline">Tailwind CSS</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="bg-primary/10 p-2 rounded-lg">
-                    <Zap className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle>Performance & Optimization</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Optimizing applications for speed and scalability through code splitting, lazy loading, and efficient state management. Making web apps fast and user-friendly.
-                </CardDescription>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  <Badge variant="outline">Performance</Badge>
-                  <Badge variant="outline">SEO</Badge>
-                  <Badge variant="outline">Accessibility</Badge>
-                  <Badge variant="outline">Testing</Badge>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-
-
 
       {/* Call to Action */}
       <section className="px-4 py-20 sm:px-6 lg:px-8">
