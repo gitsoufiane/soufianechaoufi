@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Sun, Moon, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import AnimatedThemeToggle from "@/components/AnimatedThemeToggle";
+import AnimatedNavLink from "@/components/AnimatedNavLink";
+import AnimatedMenuButton from "@/components/AnimatedMenuButton";
+import AnimatedLogo from "@/components/AnimatedLogo";
 
 interface NavItem {
   name: string;
@@ -26,7 +26,6 @@ const defaultNavItems: NavItem[] = [
 
 export default function Navbar({ className }: NavbarProps) {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -45,63 +44,31 @@ export default function Navbar({ className }: NavbarProps) {
       )}
     >
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between">
-        {/* SC Icon */}
-        <div className="flex items-center">
-          <span className="text-xl font-bold">SC</span>
-        </div>
+        {/* SC Logo */}
+        <AnimatedLogo />
 
         {/* Desktop navigation */}
         <div className="mx-auto hidden items-center space-x-6 md:flex">
           {defaultNavItems.map((item) => (
-            <div key={item.href} className="relative">
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "text-sm font-medium transition-colors",
-                  pathname === item.href
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {item.name}
-                {pathname === item.href && (
-                  <span className="bg-foreground animate-underline absolute -bottom-1 left-0 h-0.5 w-full" />
-                )}
-              </Link>
-            </div>
+            <AnimatedNavLink
+              key={item.href}
+              href={item.href}
+              isActive={pathname === item.href}
+            >
+              {item.name}
+            </AnimatedNavLink>
           ))}
         </div>
 
         <div className="flex items-center gap-2">
           {/* Mobile menu toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
+          <AnimatedMenuButton
+            isOpen={isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-          </Button>
+          />
 
           {/* Theme toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </Button>
+          <AnimatedThemeToggle />
         </div>
 
         {/* Mobile menu */}
@@ -109,23 +76,15 @@ export default function Navbar({ className }: NavbarProps) {
           <div className="bg-background absolute top-16 right-0 left-0 border-t md:hidden">
             <div className="flex flex-col space-y-2 p-4 pb-6">
               {defaultNavItems.map((item) => (
-                <div key={item.href} className="relative">
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "py-2 text-sm font-medium transition-colors",
-                      pathname === item.href
-                        ? "text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                    {pathname === item.href && (
-                      <span className="bg-foreground animate-underline absolute -bottom-1 left-0 h-0.5 w-full" />
-                    )}
-                  </Link>
-                </div>
+                <AnimatedNavLink
+                  key={item.href}
+                  href={item.href}
+                  isActive={pathname === item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="py-2"
+                >
+                  {item.name}
+                </AnimatedNavLink>
               ))}
             </div>
           </div>
