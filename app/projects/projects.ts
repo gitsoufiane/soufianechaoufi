@@ -2,7 +2,42 @@ import { Project } from "@/types/project";
 
 // Projects array - currently empty for clean slate
 // Add new projects by following the Project interface structure
-export const projects: Project[] = [];
+export const projects: Project[] = [
+  {
+    id: "sheswap",
+    title: "SheSwap",
+    description:
+      "A React Native app empowering women to swap items and give freely in a money-free social economy",
+    longDescription:
+      "SheSwap is a social economy mobile application built with React Native and Expo Router that enables women to exchange items or give them away for free, fostering a community-driven sharing economy without monetary transactions. The app features real-time messaging, location-based discovery, swap proposal management, and a complete authentication system. Built with Firebase for backend services, it includes advanced features like proximity filtering, real-time notifications, and promotes sustainable consumption through sharing.",
+    technologies: [
+      "React Native",
+      "TypeScript",
+      "Expo Router",
+      "Firebase",
+      "NativeWind",
+      "React Hook Form",
+      "Zod",
+      "React Native Reanimated",
+      "Expo Location",
+      "Geofire Common",
+    ],
+    githubUrl: "https://github.com/gitsoufiane/sheswap", // Update with actual GitHub URL
+    imageUrl: "/projects/sheswap.png", // Add project screenshot
+    featured: true,
+    category: "mobile-app",
+    status: "ongoing",
+    publishedAt: "2024-12-01", // Update with actual date
+    highlights: [
+      "Money-free social economy platform for women",
+      "Item swapping and free giving community",
+      "Real-time messaging and notifications",
+      "Location-based discovery with proximity filtering",
+      "Atomic proposal system for item exchanges",
+      "Promotes sustainable consumption and sharing",
+    ],
+  },
+];
 
 /*
 Example Project structure for future reference:
@@ -29,9 +64,21 @@ Example Project structure for future reference:
 
 export const categories = [
   { name: "All", slug: "all", description: "All projects" },
-  { name: "Web Applications", slug: "web-app", description: "Full-stack web applications" },
+  {
+    name: "Web Applications",
+    slug: "web-app",
+    description: "Full-stack web applications",
+  },
   { name: "Tools", slug: "tool", description: "Developer tools and utilities" },
-  { name: "Libraries", slug: "library", description: "Open source libraries and packages" },
-  { name: "Mobile Apps", slug: "mobile-app", description: "Mobile applications" },
+  {
+    name: "Libraries",
+    slug: "library",
+    description: "Open source libraries and packages",
+  },
+  {
+    name: "Mobile Apps",
+    slug: "mobile-app",
+    description: "Mobile applications",
+  },
   { name: "Other", slug: "other", description: "Miscellaneous projects" },
 ];
