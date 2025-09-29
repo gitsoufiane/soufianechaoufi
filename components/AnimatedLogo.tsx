@@ -22,7 +22,7 @@ export default function AnimatedLogo() {
       scale: [1, 1.1, 1.1, 1],
       transition: {
         duration: 0.6,
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
         times: [0, 0.3, 0.7, 1],
       },
     },
@@ -38,7 +38,7 @@ export default function AnimatedLogo() {
       scale: [0.8, 1.2, 1.4],
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };
@@ -80,7 +80,7 @@ export default function AnimatedLogo() {
             opacity: 1,
             transition: {
               duration: 0.4,
-              ease: "easeOut",
+              ease: "easeOut" as const,
             },
           }}
         />

@@ -61,7 +61,7 @@ export default function AnimatedNavLink({
       x: ["-100%", "100%"],
       transition: {
         duration: 2,
-        ease: "linear",
+        ease: "linear" as const,
         repeat: Infinity,
         repeatDelay: 1,
       },
