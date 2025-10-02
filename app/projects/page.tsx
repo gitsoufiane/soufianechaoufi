@@ -1,17 +1,14 @@
-import { Metadata } from "next";
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import ProjectCard from "@/components/ProjectCard";
 import { Project } from "@/types/project";
+import AnimatedNumber from "@/components/AnimatedNumber";
 
 // Import projects data (we'll create this file next)
 import { projects } from "./projects";
-
-export const metadata: Metadata = {
-  title: "Projects",
-  description: "Showcase of my recent projects and contributions in frontend development.",
-};
 
 const categories = [
   { name: "All", slug: "all", description: "All projects" },
@@ -42,7 +39,7 @@ export default function ProjectsPage() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-2xl font-bold text-center">
-              {projects.length}
+              <AnimatedNumber value={projects.length} />
             </CardTitle>
             <CardDescription className="text-center">
               Total Projects
@@ -52,7 +49,7 @@ export default function ProjectsPage() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-2xl font-bold text-center">
-              {featuredProjects.length}
+              <AnimatedNumber value={featuredProjects.length} />
             </CardTitle>
             <CardDescription className="text-center">
               Featured Projects
@@ -62,7 +59,7 @@ export default function ProjectsPage() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-2xl font-bold text-center">
-              {projects.filter(p => p.status === 'maintained').length}
+              <AnimatedNumber value={projects.filter(p => p.status === 'maintained').length} />
             </CardTitle>
             <CardDescription className="text-center">
               Actively Maintained
@@ -77,7 +74,7 @@ export default function ProjectsPage() {
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-bold tracking-tight">Featured Projects</h2>
             <Badge variant="secondary">
-              {featuredProjects.length} project{featuredProjects.length !== 1 ? 's' : ''}
+              <AnimatedNumber value={featuredProjects.length} /> project{featuredProjects.length !== 1 ? 's' : ''}
             </Badge>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -94,7 +91,7 @@ export default function ProjectsPage() {
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-bold tracking-tight">Other Projects</h2>
             <Badge variant="outline">
-              {otherProjects.length} project{otherProjects.length !== 1 ? 's' : ''}
+              <AnimatedNumber value={otherProjects.length} /> project{otherProjects.length !== 1 ? 's' : ''}
             </Badge>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

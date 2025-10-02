@@ -5,6 +5,7 @@ import { books } from "./books";
 import BookCard from "@/components/BookCard";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Book as BookIcon } from "lucide-react";
+import AnimatedNumber from "@/components/AnimatedNumber";
 
 export default function BooksPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -48,16 +49,16 @@ export default function BooksPage() {
         <Tabs defaultValue="all" className="mb-8" onValueChange={setSelectedStatus}>
           <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4">
             <TabsTrigger value="all">
-              All ({counts.all})
+              All (<AnimatedNumber value={counts.all} />)
             </TabsTrigger>
             <TabsTrigger value="reading">
-              Reading ({counts.reading})
+              Reading (<AnimatedNumber value={counts.reading} />)
             </TabsTrigger>
             <TabsTrigger value="completed">
-              Completed ({counts.completed})
+              Completed (<AnimatedNumber value={counts.completed} />)
             </TabsTrigger>
             <TabsTrigger value="want-to-read">
-              Want to Read ({counts["want-to-read"]})
+              Want to Read (<AnimatedNumber value={counts["want-to-read"]} />)
             </TabsTrigger>
           </TabsList>
         </Tabs>
