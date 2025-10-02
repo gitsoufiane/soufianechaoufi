@@ -103,6 +103,28 @@ Add to `app/blog/posts.ts` following the BlogPost interface:
 
 Categories: technical, career, tools, industry
 
+### Projects
+
+Add to `app/projects/projects.ts` following the Project interface:
+
+```typescript
+{
+  id: string;
+  title: string;
+  description: string;
+  longDescription?: string;
+  technologies: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  imageUrl?: string;
+  featured?: boolean;     // Shows on homepage
+  category: string;       // 'web-app' | 'mobile-app' | 'library' | 'tool' | 'other'
+  status: string;         // 'completed' | 'ongoing' | 'maintained'
+  publishedAt: string;    // YYYY-MM-DD format
+  highlights?: string[];  // Key features
+}
+```
+
 ## Form Validation
 
 Contact form uses Zod schema (`lib/validations/contact.ts`):
@@ -115,3 +137,23 @@ Contact form uses Zod schema (`lib/validations/contact.ts`):
 ## Three.js Configuration
 
 Next.js config transpiles Three.js packages and optimizes lucide-react imports for performance.
+
+## Package Management
+
+Always use **yarn** for package installation:
+```bash
+# ✅ Correct
+yarn add package-name
+yarn add -D dev-package
+
+# ❌ Incorrect
+npm install package-name
+```
+
+## TypeScript Guidelines
+
+- Always use TypeScript (.ts, .tsx) - never JavaScript
+- Maintain strict type checking
+- Avoid `any` type
+- Define proper return types for functions and components
+- Create shared types in `/types` directory
