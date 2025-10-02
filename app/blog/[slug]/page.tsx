@@ -4,8 +4,12 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Clock, ArrowLeft, ArrowRight, Share2 } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { posts } from "../posts";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -55,102 +59,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const previousPost = posts[postIndex + 1];
   const nextPost = posts[postIndex - 1];
 
-  // Simple markdown-to-JSX renderer for demonstration
-  // In a real app, you'd use a proper markdown parser like react-markdown
-  const renderContent = (content: string) => {
-    const lines = content.trim().split("\n");
-    const elements = [];
-    let currentElement = [];
-    let inCodeBlock = false;
-    let codeLanguage = "";
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-
-      // Handle code blocks
-      if (line.startsWith("```")) {
-        if (inCodeBlock) {
-          // End code block
-          elements.push(
-            <pre
-              key={i}
-              className="bg-muted my-6 overflow-x-auto rounded-lg p-4"
-            >
-              <code className={`language-${codeLanguage}`}>
-                {currentElement.join("\n")}
-              </code>
-            </pre>,
-          );
-          currentElement = [];
-          inCodeBlock = false;
-          codeLanguage = "";
-        } else {
-          // Start code block
-          inCodeBlock = true;
-          codeLanguage = line.replace("```", "");
-        }
-        continue;
-      }
-
-      if (inCodeBlock) {
-        currentElement.push(line);
-        continue;
-      }
-
-      // Handle headers
-      if (line.startsWith("# ")) {
-        elements.push(
-          <h1 key={i} className="mt-8 mb-4 text-4xl font-bold">
-            {line.replace("# ", "")}
-          </h1>,
-        );
-      } else if (line.startsWith("## ")) {
-        elements.push(
-          <h2 key={i} className="mt-8 mb-4 text-3xl font-bold">
-            {line.replace("## ", "")}
-          </h2>,
-        );
-      } else if (line.startsWith("### ")) {
-        elements.push(
-          <h3 key={i} className="mt-6 mb-3 text-2xl font-bold">
-            {line.replace("### ", "")}
-          </h3>,
-        );
-      }
-      // Handle inline code
-      else if (line.includes("`") && !line.startsWith("```")) {
-        const parts = line.split("`");
-        const formatted = parts.map((part, index) =>
-          index % 2 === 1 ? (
-            <code key={index} className="bg-muted rounded px-1 py-0.5 text-sm">
-              {part}
-            </code>
-          ) : (
-            part
-          ),
-        );
-        elements.push(
-          <p key={i} className="mb-4 leading-relaxed">
-            {formatted}
-          </p>,
-        );
-      }
-      // Handle regular paragraphs
-      else if (line.trim() && !line.startsWith("#")) {
-        elements.push(
-          <p key={i} className="mb-4 leading-relaxed">
-            {line}
-          </p>,
-        );
-      }
-      // Handle empty lines (spacing)
-      else if (!line.trim()) {
-        // Skip empty lines, spacing is handled by margins
-      }
-    }
-
-    return elements;
-  };
 
   return (
     <article className="min-h-screen px-4 py-12 sm:px-6 lg:px-8">
@@ -187,28 +95,107 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </h1>
             <p className="text-muted-foreground text-xl">{post.description}</p>
 
-            <div className="flex items-center justify-between border-t pt-4">
-              <div className="text-muted-foreground flex items-center gap-6 text-sm">
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  <span>{post.readingTime} min read</span>
-                </div>
+            <div className="flex items-center gap-6 text-sm border-t pt-4 text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4" />
+                <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
               </div>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Share2 className="h-4 w-4" />
-                Share
-              </Button>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4" />
+                <span>{post.readingTime} min read</span>
+              </div>
             </div>
           </div>
         </header>
 
         {/* Article Content */}
-        <div className="prose prose-lg mb-12 max-w-none">
-          {renderContent(post.content)}
+        <div className="prose prose-lg dark:prose-invert mb-12 max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              code({ node, inline, className, children, ...props }: any) {
+                const match = /language-(\w+)/.exec(className || "");
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    style={vscDarkPlus}
+                    language={match[1]}
+                    PreTag="div"
+                    className="rounded-lg"
+                    {...props}
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              },
+              h1: ({ children }) => (
+                <h1 className="mt-8 mb-4 text-4xl font-bold">{children}</h1>
+              ),
+              h2: ({ children }) => (
+                <h2 className="mt-8 mb-4 text-3xl font-bold">{children}</h2>
+              ),
+              h3: ({ children }) => (
+                <h3 className="mt-6 mb-3 text-2xl font-bold">{children}</h3>
+              ),
+              p: ({ children }) => (
+                <p className="mb-4 leading-relaxed text-base">{children}</p>
+              ),
+              ul: ({ children }) => (
+                <ul className="mb-4 ml-6 list-disc space-y-2">{children}</ul>
+              ),
+              ol: ({ children }) => (
+                <ol className="mb-4 ml-6 list-decimal space-y-2">{children}</ol>
+              ),
+              li: ({ children }) => (
+                <li className="leading-relaxed">{children}</li>
+              ),
+              table: ({ children }) => (
+                <div className="my-6 overflow-x-auto">
+                  <table className="w-full border-collapse border border-border">
+                    {children}
+                  </table>
+                </div>
+              ),
+              thead: ({ children }) => (
+                <thead className="bg-muted">{children}</thead>
+              ),
+              th: ({ children }) => (
+                <th className="border border-border px-4 py-2 text-left font-semibold">
+                  {children}
+                </th>
+              ),
+              td: ({ children }) => (
+                <td className="border border-border px-4 py-2">{children}</td>
+              ),
+              strong: ({ children }) => (
+                <strong className="font-semibold text-foreground">
+                  {children}
+                </strong>
+              ),
+              a: ({ href, children }) => (
+                <a
+                  href={href}
+                  className="text-primary underline hover:text-primary/80"
+                  target={href?.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    href?.startsWith("http") ? "noopener noreferrer" : undefined
+                  }
+                >
+                  {children}
+                </a>
+              ),
+              blockquote: ({ children }) => (
+                <blockquote className="border-l-4 border-primary pl-4 italic my-4 text-muted-foreground">
+                  {children}
+                </blockquote>
+              ),
+            }}
+          >
+            {post.content}
+          </ReactMarkdown>
         </div>
 
         {/* Tags */}
