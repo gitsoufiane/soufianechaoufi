@@ -51,6 +51,7 @@ cross-env ANALYZE=true yarn build
 Content managed through TypeScript files:
 - `app/blog/posts.ts` - Blog articles with markdown content (currently empty)
 - `app/projects/projects.ts` - Project showcase data
+- `app/books/books.ts` - Reading list with book metadata
 
 ### Email System Architecture
 
@@ -125,6 +126,27 @@ Add to `app/projects/projects.ts` following the Project interface:
 }
 ```
 
+### Books
+
+Add to `app/books/books.ts` following the Book interface:
+
+```typescript
+{
+  id: string;
+  title: string;
+  author: string;
+  status: 'reading' | 'completed' | 'want-to-read';
+  rating?: number;        // 1-5 stars
+  coverUrl?: string;      // Store images in /public/books/
+  category: 'technical' | 'leadership' | 'design' | 'career' | 'other';
+  notes?: string;
+  finishedDate?: string;  // YYYY-MM-DD format
+  startedDate?: string;   // YYYY-MM-DD format
+  amazonUrl?: string;
+  goodreadsUrl?: string;
+}
+```
+
 ## Form Validation
 
 Contact form uses Zod schema (`lib/validations/contact.ts`):
@@ -150,6 +172,30 @@ yarn add -D dev-package
 npm install package-name
 ```
 
+## Component Patterns
+
+### Animation Components
+
+The project uses Framer Motion for animations. Several animated components are available:
+
+- **AnimatedNumber** (`components/AnimatedNumber.tsx`) - Incremental number counter that animates on viewport entry
+  - Usage: `<AnimatedNumber value={42} duration={2000} decimals={0} className="..." />`
+  - Triggers once when element enters viewport
+  - Uses ease-out animation curve
+
+- **Animated Navigation** - Menu button, nav links, logo, and theme toggle with Framer Motion
+  - Consistent animation patterns across navigation elements
+  - Hover and active states handled via motion variants
+
+### Layout Structure
+
+- **Root Layout** (`app/layout.tsx`) includes:
+  - Theme provider with next-themes
+  - Error boundary wrapper
+  - Skip navigation links for accessibility
+  - Structured data (JSON-LD) for SEO
+  - Global navbar and footer
+
 ## TypeScript Guidelines
 
 - Always use TypeScript (.ts, .tsx) - never JavaScript
@@ -157,3 +203,5 @@ npm install package-name
 - Avoid `any` type
 - Define proper return types for functions and components
 - Create shared types in `/types` directory
+- Use interface for object definitions that can be extended
+- Use type for unions, intersections, and primitive types
