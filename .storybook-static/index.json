@@ -1,1 +1,1 @@
-{"v":5,"entries":{}}
+{"v":5,"entries":{"design-system-colors--default":{"type":"story","id":"design-system-colors--default","name":"Default","title":"Design System/Colors","importPath":"./stories/Colors.stories.tsx","componentPath":"./stories/Colors.tsx","tags":["dev","test","autodocs"]}}}
