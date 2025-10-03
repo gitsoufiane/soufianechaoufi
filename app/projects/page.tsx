@@ -112,8 +112,21 @@ export default function ProjectsPage() {
         </div>
       )}
 
+      {/* Storybook Link */}
+      <div className="mt-16 p-8 border rounded-lg text-center">
+        <h3 className="text-xl font-semibold mb-2">Component Library</h3>
+        <p className="text-muted-foreground mb-4">
+          Explore the UI components and design system used in this portfolio.
+        </p>
+        <Button asChild variant="outline">
+          <a href="http://localhost:6006" target="_blank" rel="noopener noreferrer">
+            View Storybook
+          </a>
+        </Button>
+      </div>
+
       {/* Call to Action */}
-      <div className="mt-16 p-8 bg-muted rounded-lg text-center">
+      <div className="mt-8 p-8 bg-muted rounded-lg text-center">
         <h3 className="text-xl font-semibold mb-2">Interested in collaborating?</h3>
         <p className="text-muted-foreground mb-4">
           I'm always open to discussing new projects and opportunities.

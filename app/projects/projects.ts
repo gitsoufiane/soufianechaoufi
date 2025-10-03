@@ -4,6 +4,34 @@ import { Project } from "@/types/project";
 // Add new projects by following the Project interface structure
 export const projects: Project[] = [
   {
+    id: "storybook-ui-library",
+    title: "UI Component Library",
+    description:
+      "Interactive component library documentation built with Storybook for exploring and developing React components",
+    longDescription:
+      "A component library development environment built with Storybook 9. Configured for interactive component documentation, theme support, and accessibility testing. Ready for adding shadcn/ui components and custom React components.",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Storybook",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Radix UI",
+    ],
+    liveUrl: "/storybook",
+    featured: true,
+    category: "tool",
+    status: "maintained",
+    publishedAt: "2025-10-02",
+    highlights: [
+      "Interactive component development with Storybook 9",
+      "Light/dark theme support configured",
+      "Accessibility testing with a11y addon",
+      "Ready for shadcn/ui component documentation",
+      "Type-safe components with TypeScript",
+    ],
+  },
+  {
     id: "sheswap",
     title: "SheSwap",
     description:
