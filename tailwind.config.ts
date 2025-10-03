@@ -199,7 +199,7 @@ const config: Config = {
         },
       },
       screens: {
-        "xs": "475px",
+        xs: "475px",
         "3xl": "1600px",
       },
       backdropBlur: {

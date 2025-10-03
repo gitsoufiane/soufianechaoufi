@@ -396,14 +396,6 @@ npm install @welldone-software/why-did-you-render
 
 9. **Composition over optimization** - Restructuring your component tree is often simpler and more effective than adding memoization everywhere.
 
-## Next Steps
-
-In the next article, we'll explore React's rendering optimization techniques in depth, including:
-- Virtual DOM and reconciliation algorithm
-- React 18's automatic batching
-- Concurrent rendering and \`useTransition\`
-- Server Components and their impact on re-renders
-
 Understanding re-renders is fundamental to writing performant React applications. Use this knowledge wisely, but remember: premature optimization is the root of all evil. Profile first, then optimize!`,
     author: "Soufiane Chaoufi",
     publishedAt: "2025-02-10",
@@ -598,6 +590,322 @@ Happy coding!`,
     readingTime: 7,
     category: "tools",
     tags: ["npm", "yarn", "pnpm", "bun", "JavaScript", "Node.js"],
+    featured: true,
+  },
+  {
+    slug: "react-elements-components-rerender",
+    title: "Elements, Components, and Re-renders",
+    description: "Learn the difference between React elements and components, and how understanding this unlocks powerful optimization patterns.",
+    content: `# Elements, Components, and Re-renders
+
+Understanding the difference between elements and components is fundamental to mastering React performance. Let's break it down with simple examples.
+
+## What is a Component?
+
+A Component is just a function. Here's the simplest one:
+
+\`\`\`jsx
+const Parent = () => {
+  return <Child />;
+};
+\`\`\`
+
+That's it! A component is a function that returns Elements. If it has props, those are just the first argument:
+
+\`\`\`jsx
+const Parent = (props) => {
+  return <Child />;
+};
+\`\`\`
+
+## What is an Element?
+
+Every time we use those angle brackets, we create an Element:
+
+\`\`\`jsx
+<Child />  // This is an Element
+<Parent /> // This is also an Element
+\`\`\`
+
+An Element is simply an object that describes what needs to be rendered on the screen. The nice HTML-like syntax is just sugar for the \`React.createElement\` function.
+
+These two are exactly the same:
+
+\`\`\`jsx
+// JSX syntax
+<Child />
+
+// What it actually becomes
+React.createElement(Child, null, null)
+\`\`\`
+
+## Understanding Object.is()
+
+Before we dive into re-renders, we need to understand how React compares objects. React uses \`Object.is()\` to check if two element objects are the same.
+
+\`Object.is()\` checks **reference equality**, not value equality:
+
+\`\`\`jsx
+// Primitives - compares values
+Object.is(5, 5);           // true
+Object.is('hello', 'hello'); // true
+
+// Objects - compares references
+const obj1 = { name: 'React' };
+const obj2 = { name: 'React' };
+const obj3 = obj1;
+
+Object.is(obj1, obj2); // false - different objects, same content
+Object.is(obj1, obj3); // true - same reference
+\`\`\`
+
+**Key point**: Even if two objects have identical content, \`Object.is()\` returns false if they're different objects in memory.
+
+Learn more about [\`Object.is()\` on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is).
+
+## How React Re-renders
+
+When we talk about "re-render," we mean React calling your component function and executing everything inside (including hooks).
+
+Here's what happens:
+
+1. **React calls your function** - Executes the component code
+2. **Builds a tree of elements** - Called the Fiber Tree (or Virtual DOM)
+3. **Creates two trees** - Before and after re-render
+4. **Compares them (diffing)** - Finds what changed
+5. **Updates the DOM (reconciliation)** - Only updates what's necessary
+
+\`\`\`jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  console.log('Component re-rendered'); // Runs on every render
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+\`\`\`
+
+## The Key Rule
+
+Here's the magic: **If the element object before and after re-render is exactly the same (according to \`Object.is()\`), React skips re-rendering that component and its children.**
+
+React doesn't do deep comparison. It only checks if it's the same object reference.
+
+## The Problem: Direct Child Rendering
+
+Let's see what happens when a Parent component has state:
+
+\`\`\`jsx
+const Parent = () => {
+  const [state, setState] = useState(0);
+
+  return <Child />; // Element created here
+};
+\`\`\`
+
+When \`setState\` is called:
+
+1. React re-renders Parent
+2. Parent function is called again
+3. \`<Child />\` element is **created again** (new object)
+4. \`Object.is(oldChild, newChild)\` returns **false**
+5. Child re-renders (even though nothing changed!)
+
+\`\`\`jsx
+// On first render
+const elementRender1 = <Child />; // Object created in memory
+
+// On second render (after setState)
+const elementRender2 = <Child />; // NEW object created in memory
+
+Object.is(elementRender1, elementRender2); // false! 🔴
+\`\`\`
+
+**Result**: Every time Parent re-renders, Child also re-renders.
+
+## The Solution: Children as Props
+
+Now watch what happens when we pass the child as a prop:
+
+\`\`\`jsx
+const Parent = ({ child }) => {
+  const [state, setState] = useState(0);
+
+  return child; // Just returns the prop
+};
+
+// Somewhere else in your app
+<Parent child={<Child />} />
+\`\`\`
+
+When \`setState\` is called:
+
+1. React re-renders Parent
+2. Parent function is called again
+3. Returns \`child\` prop (same object reference!)
+4. \`Object.is(oldChild, newChild)\` returns **true** ✅
+5. Child re-render is **skipped**!
+
+\`\`\`jsx
+// Child element created ONCE, outside Parent
+const childElement = <Child />;
+
+// First render
+<Parent child={childElement} /> // Uses same reference
+
+// Second render (after setState)
+<Parent child={childElement} /> // STILL same reference
+
+Object.is(childElement, childElement); // true! ✅
+\`\`\`
+
+**Result**: Parent re-renders, but Child doesn't!
+
+## Practical Example: Before and After
+
+### ❌ Before (Child re-renders unnecessarily)
+
+\`\`\`jsx
+function Layout() {
+  const [theme, setTheme] = useState('light');
+
+  return (
+    <div className={theme}>
+      <Header />
+      <ExpensiveSidebar /> {/* Re-renders when theme changes */}
+      <ExpensiveContent /> {/* Re-renders when theme changes */}
+      <Footer />
+      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Toggle Theme
+      </button>
+    </div>
+  );
+}
+\`\`\`
+
+### ✅ After (Child doesn't re-render)
+
+\`\`\`jsx
+function Layout({ children }) {
+  const [theme, setTheme] = useState('light');
+
+  return (
+    <div className={theme}>
+      {children} {/* Doesn't re-render when theme changes! */}
+      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Toggle Theme
+      </button>
+    </div>
+  );
+}
+
+// Usage
+function App() {
+  return (
+    <Layout>
+      <Header />
+      <ExpensiveSidebar />
+      <ExpensiveContent />
+      <Footer />
+    </Layout>
+  );
+}
+\`\`\`
+
+Now when theme changes, only the Layout re-renders. The children stay untouched!
+
+## Understanding the Children Prop
+
+Here's something that surprises many developers: \`children\` is just a regular prop!
+
+These two are identical:
+
+\`\`\`jsx
+// Nesting syntax
+<Parent>
+  <Child />
+</Parent>
+
+// Explicit prop syntax
+<Parent children={<Child />} />
+\`\`\`
+
+Both pass the \`<Child />\` element as a prop named \`children\`. That's why the optimization works!
+
+## Real-World Pattern: Modal Component
+
+\`\`\`jsx
+function Modal({ isOpen, children }) {
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Animation logic that triggers re-renders
+  useEffect(() => {
+    if (isOpen) {
+      setIsAnimating(true);
+      setTimeout(() => setIsAnimating(false), 300);
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className={\`modal \${isAnimating ? 'animating' : ''}\`}>
+      {children} {/* Won't re-render during animation! */}
+    </div>
+  );
+}
+
+// Usage
+<Modal isOpen={showModal}>
+  <ComplexForm /> {/* Only renders once, not during animations */}
+</Modal>
+\`\`\`
+
+## Key Takeaways
+
+Let's recap everything:
+
+1. **Component** = A function that accepts props and returns Elements
+   \`\`\`jsx
+   const A = () => <B />
+   \`\`\`
+
+2. **Element** = An object that describes what to render
+   \`\`\`jsx
+   const b = <B />
+   \`\`\`
+
+3. **Re-render** = React calling your component function
+
+4. **Re-render trigger** = When element object reference changes (\`Object.is()\` comparison)
+
+5. **Optimization** = Elements passed as props don't re-render when parent state updates
+
+6. **Children** = Just a prop! These are the same:
+   \`\`\`jsx
+   <Parent><Child /></Parent>
+   <Parent children={<Child />} />
+   \`\`\`
+
+## When to Use This Pattern
+
+Use children as props when:
+- Parent has state that changes frequently
+- Children are expensive to render
+- Children don't need parent's state
+
+Don't over-optimize! Use this pattern when you actually have performance issues, not preemptively.
+
+Understanding elements vs components is the foundation. Master this, and React performance becomes much clearer!`,
+    author: "Soufiane Chaoufi",
+    publishedAt: "2025-03-01",
+    readingTime: 8,
+    category: "technical",
+    tags: ["React", "Performance", "JavaScript", "Frontend", "Optimization"],
     featured: true,
   },
 ];

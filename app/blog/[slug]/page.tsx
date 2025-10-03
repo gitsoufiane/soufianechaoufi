@@ -62,7 +62,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <article className="min-h-screen px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-7xl">
         {/* Back Navigation */}
         <div className="mb-8">
           <Button asChild variant="ghost" className="gap-2">
@@ -75,19 +75,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Article Header */}
         <header className="mb-12">
-          {post.imageUrl && (
-            <div className="relative mb-8 h-64 overflow-hidden rounded-xl sm:h-80">
-              <Image
-                src={post.imageUrl}
-                alt={post.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
-                className="object-cover"
-                priority
-              />
-            </div>
-          )}
-
           <div className="space-y-4">
             <Badge variant="secondary">{post.category}</Badge>
             <h1 className="text-4xl leading-tight font-bold sm:text-5xl">
@@ -109,7 +96,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
 
         {/* Article Content */}
-        <div className="prose prose-lg dark:prose-invert mb-12 max-w-none">
+        <div className="mb-12 max-w-none">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{

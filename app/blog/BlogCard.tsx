@@ -11,7 +11,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -35,40 +34,10 @@ export default function BlogCard({
         className
       )}
     >
-      <div className={cn(
-        "relative overflow-hidden",
-        isFeatured ? "h-48" : "h-32"
-      )}>
-        {post.imageUrl ? (
-          <Image
-            src={post.imageUrl}
-            alt={post.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-            loading="lazy"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-            <div className="text-2xl font-bold text-primary/40">
-              {post.title.charAt(0).toUpperCase()}
-            </div>
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className={cn(
-          "absolute",
-          isFeatured ? "right-4 bottom-4 left-4" : "right-2 bottom-2 left-2"
-        )}>
-          <Badge variant="secondary" className={cn(
-            isFeatured ? "mb-2 text-xs" : "text-xs"
-          )}>
-            {post.category}
-          </Badge>
-        </div>
-      </div>
-
       <CardHeader className={isFeatured ? "" : "pb-3"}>
+        <Badge variant="secondary" className="w-fit text-xs mb-2">
+          {post.category}
+        </Badge>
         <CardTitle className={cn(
           "group-hover:text-primary line-clamp-2 transition-colors",
           isFeatured ? "" : "text-lg"
