@@ -21,7 +21,7 @@ export const projects: Project[] = [
     liveUrl: "/storybook",
     featured: true,
     category: "tool",
-    status: "maintained",
+    status: "ongoing",
     publishedAt: "2025-10-02",
     highlights: [
       "Interactive component development with Storybook 9",
