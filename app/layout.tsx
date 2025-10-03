@@ -25,11 +25,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Soufiane Chaoufi | Senior Frontend Developer",
+    default: "Soufiane Chaoufi | Frontend Developer",
     template: "%s | Soufiane Chaoufi",
   },
   description:
-    "Senior Frontend Developer with 5+ years of experience building scalable web applications with React, TypeScript, and modern technologies. Available for collaboration and consulting.",
+    "Frontend developer building fast, accessible web applications with React, TypeScript, and modern technologies. Available for collaboration and consulting.",
   keywords: [
     "Frontend Developer",
     "React Developer",
@@ -56,23 +56,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://soufianechaoufi.com",
     siteName: "Soufiane Chaoufi",
-    title: "Soufiane Chaoufi | Senior Frontend Developer",
+    title: "Soufiane Chaoufi | Frontend Developer",
     description:
-      "Senior Frontend Developer with 5+ years of experience building scalable web applications with React, TypeScript, and modern technologies.",
+      "Frontend developer building fast, accessible web applications with React, TypeScript, and modern technologies.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Soufiane Chaoufi - Senior Frontend Developer",
+        alt: "Soufiane Chaoufi - Frontend Developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Soufiane Chaoufi | Senior Frontend Developer",
+    title: "Soufiane Chaoufi | Frontend Developer",
     description:
-      "Senior Frontend Developer with 5+ years of experience building scalable web applications with React, TypeScript, and modern technologies.",
+      "Frontend developer building fast, accessible web applications with React, TypeScript, and modern technologies.",
     images: ["/og-image.jpg"],
     creator: "@soufianechaoufi",
   },

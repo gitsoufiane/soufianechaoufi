@@ -20,14 +20,14 @@ export const personSchema = {
   name: "Soufiane Chaoufi",
   alternateName: "Soufiane",
   description:
-    "Senior Frontend Developer with 5+ years of experience building scalable web applications",
+    "Frontend developer specializing in React, TypeScript, and modern web applications",
   image: "https://soufianechaoufi.com/profil.png",
   url: "https://soufianechaoufi.com",
   sameAs: [
     "https://github.com/gitsoufiane",
     "https://linkedin.com/in/soufianechaoufi",
   ],
-  jobTitle: "Senior Frontend Developer",
+  jobTitle: "Frontend Developer",
   workLocation: {
     "@type": "Place",
     name: "Vancouver, Canada",
@@ -53,7 +53,7 @@ export const websiteSchema = {
   "@type": "WebSite",
   name: "Soufiane Chaoufi",
   description:
-    "Portfolio and blog of Soufiane Chaoufi, Senior Frontend Developer",
+    "Portfolio and blog of Soufiane Chaoufi, Frontend Developer",
   url: "https://soufianechaoufi.com",
   author: {
     "@type": "Person",

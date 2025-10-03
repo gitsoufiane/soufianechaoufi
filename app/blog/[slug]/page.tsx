@@ -210,9 +210,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="flex-1">
                 <h3 className="mb-2 font-semibold">{post.author}</h3>
                 <p className="text-muted-foreground mb-4 text-sm">
-                  Senior Frontend Developer with 5+ years of experience building
-                  scalable web applications. Passionate about React, TypeScript,
-                  and sharing knowledge with the developer community.
+                  Frontend developer who loves building fast, accessible web apps.
+                  I write about React, TypeScript, and the things I learn along the way.
                 </p>
                 <div className="flex gap-2">
                   <Button asChild variant="outline" size="sm">
