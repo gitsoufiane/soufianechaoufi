@@ -11,22 +11,20 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface BlogCardProps {
   post: BlogPost;
-  variant?: "featured" | "regular";
   className?: string;
+  onTagClick?: (tag: string) => void;
 }
 
 export default function BlogCard({
   post,
-  variant = "regular",
-  className
+  className,
+  onTagClick
 }: BlogCardProps) {
-  const isFeatured = variant === "featured";
-
   return (
     <Card
       className={cn(
@@ -34,47 +32,43 @@ export default function BlogCard({
         className
       )}
     >
-      <CardHeader className={isFeatured ? "" : "pb-3"}>
+      <CardHeader className="pb-3">
         <Badge variant="secondary" className="w-fit text-xs mb-2">
           {post.category}
         </Badge>
-        <CardTitle className={cn(
-          "group-hover:text-primary line-clamp-2 transition-colors",
-          isFeatured ? "" : "text-lg"
-        )}>
+        <CardTitle className="group-hover:text-primary line-clamp-2 transition-colors text-lg">
           <Link href={`/blog/${post.slug}`}>{post.title}</Link>
         </CardTitle>
-        <CardDescription className={cn(
-          "line-clamp-2",
-          isFeatured ? "" : "text-sm"
-        )}>
+        <CardDescription className="line-clamp-2 text-sm">
           {post.description}
         </CardDescription>
       </CardHeader>
 
       <CardContent>
-        <div className={cn(
-          "text-muted-foreground mb-4 flex items-center gap-4",
-          isFeatured ? "justify-between text-sm" : "gap-3 text-xs"
-        )}>
+        <div className="text-muted-foreground mb-4 flex items-center gap-3 text-xs">
           <div className="flex items-center gap-1">
-            <Calendar className={isFeatured ? "h-4 w-4" : "h-3 w-3"} />
+            <Calendar className="h-3 w-3" />
             <span>
               {new Date(post.publishedAt).toLocaleDateString()}
             </span>
           </div>
           <div className="flex items-center gap-1">
-            <Clock className={isFeatured ? "h-4 w-4" : "h-3 w-3"} />
-            <span>{post.readingTime} min{isFeatured ? " read" : ""}</span>
+            <Clock className="h-3 w-3" />
+            <span>{post.readingTime} min</span>
           </div>
         </div>
 
-        <div className={cn(
-          "mb-4 flex flex-wrap",
-          isFeatured ? "gap-2" : "gap-1 mb-3"
-        )}>
-          {post.tags.slice(0, isFeatured ? 3 : 2).map((tag) => (
-            <Badge key={tag} variant="outline" className="text-xs">
+        <div className="mb-3 flex flex-wrap gap-1">
+          {post.tags.map((tag) => (
+            <Badge
+              key={tag}
+              variant="outline"
+              className="text-xs cursor-pointer hover:bg-secondary"
+              onClick={(e) => {
+                e.preventDefault();
+                onTagClick?.(tag);
+              }}
+            >
               {tag}
             </Badge>
           ))}
@@ -83,17 +77,11 @@ export default function BlogCard({
         <Button
           asChild
           variant="outline"
-          size={isFeatured ? "default" : "sm"}
-          className={cn(
-            "w-full",
-            isFeatured && "group"
-          )}
+          size="sm"
+          className="w-full"
         >
           <Link href={`/blog/${post.slug}`}>
-            {isFeatured ? "Read Article" : "Read More"}
-            {isFeatured && (
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            )}
+            Read More
           </Link>
         </Button>
       </CardContent>

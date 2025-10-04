@@ -128,7 +128,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {featuredPosts.map((post) => (
-                <BlogCard key={post.slug} post={post} variant="featured" />
+                <BlogCard key={post.slug} post={post} />
               ))}
             </div>
             <div className="text-center">
