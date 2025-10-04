@@ -2,8 +2,10 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search } from "lucide-react";
-import { posts, categories } from "./posts";
+import { getAllPosts, categories } from "@/lib/blog";
 import BlogCard from "./BlogCard";
+
+const posts = getAllPosts();
 
 export const metadata = {
   title: "Articles | Soufiane Chaoufi",

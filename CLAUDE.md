@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio website for Soufiane Chaoufi, Senior Frontend Developer. Built with Next.js 15, TypeScript, and Tailwind CSS 4.1. Features static content management, blog system, and email integration via Resend.
+Personal portfolio website for Soufiane Chaoufi, Frontend Developer. Built with Next.js 15, TypeScript, and Tailwind CSS 4.1. Features static content management, blog system, and email integration via Resend.
 
 ## Development Commands
 
@@ -49,7 +49,7 @@ cross-env ANALYZE=true yarn build
 ### Static Content Management
 
 Content managed through TypeScript files:
-- `app/blog/posts.ts` - Blog articles with markdown content (currently empty)
+- `app/blog/posts.ts` - Blog articles with markdown content
 - `app/projects/projects.ts` - Project showcase data
 - `app/books/books.ts` - Reading list with book metadata
 

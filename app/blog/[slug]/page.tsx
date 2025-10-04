@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
-import { posts } from "../posts";
+import { getAllPosts } from "@/lib/blog";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -18,6 +18,7 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
+  const posts = getAllPosts();
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -25,6 +26,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const { slug } = await params;
+  const posts = getAllPosts();
   const post = posts.find((post) => post.slug === slug);
 
   if (!post) {
@@ -49,6 +51,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
+  const posts = getAllPosts();
   const post = posts.find((post) => post.slug === slug);
 
   if (!post) {

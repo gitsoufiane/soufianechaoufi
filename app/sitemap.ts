@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
-import { posts } from "./blog/posts";
+import { getAllPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://soufianechaoufi.com";
+  const posts = getAllPosts();
 
   // Static pages
   const staticPages = [

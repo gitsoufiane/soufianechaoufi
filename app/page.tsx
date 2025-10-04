@@ -13,10 +13,11 @@ import { ArrowRight, Github, Linkedin, Mail, ExternalLink, Code, Zap } from "luc
 import ProjectCard from "@/components/ProjectCard";
 import BlogCard from "@/app/blog/BlogCard";
 import { projects } from "@/app/projects/projects";
-import { posts } from "@/app/blog/posts";
+import { getAllPosts } from "@/lib/blog";
 
 export default function Home() {
   const featuredProjects = projects.filter(project => project.featured).slice(0, 3);
+  const posts = getAllPosts();
   const featuredPosts = posts.filter(post => post.featured).slice(0, 3);
 
   return (
