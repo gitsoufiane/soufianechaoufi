@@ -333,3 +333,11 @@ Hope this made sense and you're now confident with the "components as props" and
 These patterns aren't just for performance—they're useful for composing components in flexible ways. Understanding the difference between elements and components is fundamental to mastering React.
 
 For more on React composition patterns, check out the [React documentation on composition](https://react.dev/learn/passing-props-to-a-component).
+
+## References
+
+- [Passing Props to a Component](https://react.dev/learn/passing-props-to-a-component) - Official React documentation
+- [Object.is() Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) - MDN documentation
+- [React.createElement](https://react.dev/reference/react/createElement) - Official React documentation on JSX transformation
+- [React Developer Tools](https://react.dev/learn/react-developer-tools) - Profiling and debugging tools
+- "Advanced React" by Nadia Makarevich - Deep dive into React elements, components, and re-render patterns

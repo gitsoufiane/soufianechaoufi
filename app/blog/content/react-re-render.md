@@ -194,3 +194,10 @@ This is just the beginning of understanding React re-renders. Here are the funda
 Understanding these fundamentals is essential before diving into optimization techniques like `React.memo`, `useMemo`, and `useCallback`. These concepts form the foundation of how React works and will help you build better applications.
 
 For more advanced topics on React performance optimization, check out the [React documentation on performance](https://react.dev/learn/render-and-commit).
+
+## References
+
+- [useState Hook Reference](https://react.dev/reference/react/useState) - Official React documentation
+- [Render and Commit](https://react.dev/learn/render-and-commit) - Official React documentation on the render cycle
+- [React Developer Tools](https://react.dev/learn/react-developer-tools) - Profiling and debugging tools
+- "Advanced React" by Nadia Makarevich - Deep dive into React re-render patterns and performance
