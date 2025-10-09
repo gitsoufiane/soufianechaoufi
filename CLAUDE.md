@@ -12,8 +12,14 @@ Personal portfolio website for Soufiane Chaoufi, Frontend Developer. Built with 
 # Development with Turbopack (fast refresh)
 yarn dev
 
-# Production build
+# Storybook development server (port 6006)
+yarn storybook
+
+# Production build (builds Storybook first, then Next.js)
 yarn build
+
+# Build Storybook only (outputs to .storybook-static, then copies to public/)
+yarn build-storybook
 
 # Production server
 yarn start
@@ -27,8 +33,8 @@ yarn format
 # Type checking
 yarn type-check
 
-# Bundle analysis (requires ANALYZE=true environment variable)
-cross-env ANALYZE=true yarn build
+# Bundle analysis
+yarn build:analyze
 ```
 
 ## Architecture
@@ -45,6 +51,7 @@ cross-env ANALYZE=true yarn build
 - **next-themes** - theme switching
 - **Framer Motion** - animations
 - **LRU Cache** - rate limiting for API endpoints
+- **Storybook 9.1** - component development and documentation (with a11y addon)
 
 ### Static Content Management
 
@@ -369,6 +376,16 @@ The project uses Framer Motion for animations. Several animated components are a
   - Skip navigation links for accessibility
   - Structured data (JSON-LD) for SEO
   - Global navbar and footer
+
+## Storybook Integration
+
+The project includes Storybook for component development and documentation:
+
+- **Location**: Stories are in `/stories` directory
+- **Addons**: Theme switching and accessibility testing enabled
+- **Build Process**: Storybook builds to `.storybook-static/` and is copied to `public/.storybook-static/`
+- **Embedded View**: Access via `/storybook` route (configured with CSP headers for iframe embedding)
+- **Development**: Run `yarn storybook` to access at `http://localhost:6006`
 
 ## TypeScript Guidelines
 
