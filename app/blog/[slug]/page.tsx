@@ -221,7 +221,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <Link href="/blog">More Articles</Link>
                   </Button>
                   <Button asChild variant="outline" size="sm">
-                    <Link href="/contact">Contact</Link>
+                    <Link href="/projects">View Projects</Link>
                   </Button>
                 </div>
               </div>
@@ -273,15 +273,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <Card className="from-primary/10 to-primary/5 mt-12 bg-gradient-to-r p-8 text-center">
           <h3 className="mb-4 text-2xl font-bold">Enjoyed this article?</h3>
           <p className="text-muted-foreground mx-auto mb-6 max-w-2xl">
-            If you found this helpful, check out my other articles or get in
-            touch to discuss your next project.
+            If you found this helpful, check out my other articles or explore
+            the projects I've built.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Button asChild>
               <Link href="/blog">More Articles</Link>
             </Button>
             <Button asChild variant="outline">
-              <Link href="/contact">Get In Touch</Link>
+              <Link href="/projects">View Projects</Link>
             </Button>
           </div>
         </Card>

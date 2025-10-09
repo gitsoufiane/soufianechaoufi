@@ -91,9 +91,4 @@ export const professionalServiceSchema = {
     "Technical Consultation",
   ],
   url: "https://soufianechaoufi.com",
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer service",
-    url: "https://soufianechaoufi.com/contact",
-  },
 };

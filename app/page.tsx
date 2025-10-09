@@ -147,23 +147,23 @@ export default function Home() {
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
-            Ready to discuss your next project?
+            Explore My Work
           </h2>
           <p className="text-muted-foreground mx-auto mb-8 max-w-2xl text-xl">
-            I'm always interested in hearing about new opportunities and
-            challenging projects. Let's create something amazing together.
+            Discover the projects I've built and the articles I've written
+            about modern web development.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" className="gap-2">
-              <Link href="/contact">
-                Get In Touch
-                <Mail className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="gap-2">
               <Link href="/projects">
                 View My Work
                 <Code className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="gap-2">
+              <Link href="/blog">
+                Read My Articles
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>

@@ -22,7 +22,6 @@ const defaultNavItems: NavItem[] = [
   { name: "Blog", href: "/blog" },
   { name: "Books", href: "/books" },
   { name: "Projects", href: "/projects" },
-  { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar({ className }: NavbarProps) {

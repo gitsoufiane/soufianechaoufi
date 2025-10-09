@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio website for Soufiane Chaoufi, Frontend Developer. Built with Next.js 15, TypeScript, and Tailwind CSS 4.1. Features static content management, blog system, and email integration via Resend.
+Personal portfolio website for Soufiane Chaoufi, Frontend Developer. Built with Next.js 15, TypeScript, and Tailwind CSS 4.1. Features static content management and blog system.
 
 ## Development Commands
 
@@ -46,11 +46,9 @@ yarn build:analyze
 - **Tailwind CSS 4.1** with custom design system
 - **shadcn/ui + Radix UI** - component primitives
 - **React Hook Form + Zod** - form validation
-- **Resend** - email API with batch sending support
 - **Three.js** - 3D graphics (React Three Fiber)
 - **next-themes** - theme switching
 - **Framer Motion** - animations
-- **LRU Cache** - rate limiting for API endpoints
 - **Storybook 9.1** - component development and documentation (with a11y addon)
 
 ### Static Content Management
@@ -60,15 +58,6 @@ Content managed through markdown and TypeScript files:
 - `app/projects/projects.ts` - Project showcase data
 - `app/books/books.ts` - Reading list with book metadata
 - `lib/blog.ts` - Blog post reading and parsing utilities
-
-### Email System Architecture
-
-- **API Route**: `app/api/send-email/route.ts` with rate limiting (5 requests per 15 minutes per IP)
-- **Environment Validation**: `lib/env.ts` validates required environment variables at startup
-- **Email Templates**:
-  - `components/email-template.tsx` - Admin notification
-  - `components/email-template-confirmation.tsx` - User confirmation
-- **Batch Sending**: Uses Resend batch API to send both admin and confirmation emails
 
 ### SEO & Metadata
 
@@ -82,9 +71,6 @@ Content managed through markdown and TypeScript files:
 Required environment variables (validated via `lib/env.ts`):
 
 ```env
-RESEND_API_KEY=re_xxxxx         # Must start with 're_'
-RESEND_FROM_EMAIL=email@domain  # Valid email for sending
-RESEND_TO_EMAIL=email@domain    # Valid email for receiving
 NODE_ENV=development|production|test
 ```
 
@@ -327,15 +313,6 @@ Summarize the main points:
 
 Suggest related topics or next steps for learning.
 ```
-
-## Form Validation
-
-Contact form uses Zod schema (`lib/validations/contact.ts`):
-- Name: min 2 characters
-- Email: valid format
-- Inquiry Type: required
-- Subject: min 5 characters
-- Message: 20-1000 characters
 
 ## Three.js Configuration
 

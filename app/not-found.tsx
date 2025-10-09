@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Home, FileQuestion, Search, BookOpen, Mail } from "lucide-react";
+import { Home, FileQuestion, Search, BookOpen, Code } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -59,13 +59,13 @@ export default function NotFound() {
                   </Link>
                 </Button>
                 <Button asChild variant="ghost" className="h-auto p-4 justify-start">
-                  <Link href="/contact" className="flex flex-col items-start space-y-1">
+                  <Link href="/projects" className="flex flex-col items-start space-y-1">
                     <div className="flex items-center">
-                      <Mail className="mr-2 h-4 w-4" />
-                      <span className="font-medium">Contact</span>
+                      <Code className="mr-2 h-4 w-4" />
+                      <span className="font-medium">Projects</span>
                     </div>
                     <span className="text-xs text-muted-foreground">
-                      Get in touch
+                      View my work
                     </span>
                   </Link>
                 </Button>
