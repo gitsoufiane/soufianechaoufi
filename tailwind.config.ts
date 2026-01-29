@@ -27,22 +27,16 @@ const config: Config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "rgb(0, 129, 137)",
-          foreground: "rgb(255, 255, 255)",
-          mid: "rgb(153, 205, 208)",
-          light: "rgb(204, 236, 238)",
-          lightest: "rgb(230, 246, 247)",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "rgb(0, 61, 55)",
-          foreground: "rgb(255, 255, 255)",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
-          DEFAULT: "rgb(176, 0, 32)",
-          foreground: "rgb(255, 255, 255)",
-          mid: "rgb(227, 172, 165)",
-          light: "rgb(237, 203, 198)",
-          lightest: "rgb(248, 234, 232)",
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -59,75 +53,6 @@ const config: Config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
-        // Custom Color Palette
-        success: {
-          DEFAULT: "rgb(1, 131, 79)",
-          foreground: "rgb(255, 255, 255)",
-          mid: "rgb(139, 201, 176)",
-          light: "rgb(182, 221, 205)",
-          lightest: "rgb(225, 241, 235)",
-        },
-        warning: {
-          DEFAULT: "rgb(247, 155, 0)",
-          foreground: "rgb(51, 51, 51)",
-          mid: "rgb(255, 204, 130)",
-          light: "rgb(253, 235, 204)",
-          lightest: "rgb(254, 245, 230)",
-        },
-        info: {
-          DEFAULT: "rgb(24, 115, 204)",
-          foreground: "rgb(255, 255, 255)",
-          mid: "rgb(151, 192, 232)",
-          light: "rgb(190, 215, 241)",
-          lightest: "rgb(228, 239, 249)",
-        },
-        gray: {
-          DEFAULT: "rgb(51, 51, 51)",
-          foreground: "rgb(255, 255, 255)",
-          cool: "rgb(110, 120, 128)",
-        },
-        neutral: {
-          DEFAULT: "rgb(227, 222, 217)",
-          mid: "rgb(235, 232, 228)",
-          light: "rgb(241, 239, 236)",
-          lightest: "rgb(251, 249, 246)",
-        },
-        blue: {
-          DEFAULT: "rgb(154, 187, 218)",
-          light: "rgb(214, 229, 240)",
-        },
-        green: {
-          DEFAULT: "rgb(138, 203, 170)",
-          light: "rgb(197, 234, 219)",
-        },
-        turquoise: {
-          DEFAULT: "rgb(136, 201, 204)",
-          light: "rgb(197, 232, 234)",
-        },
-        orange: {
-          DEFAULT: "rgb(255, 192, 153)",
-          light: "rgb(255, 224, 204)",
-        },
-        red: {
-          DEFAULT: "rgb(255, 170, 158)",
-          light: "rgb(255, 214, 214)",
-        },
-        pink: {
-          DEFAULT: "rgb(226, 164, 199)",
-          light: "rgb(245, 214, 230)",
-        },
-        purple: {
-          DEFAULT: "rgb(190, 165, 209)",
-          light: "rgb(224, 213, 232)",
-        },
-        brown: {
-          DEFAULT: "rgb(196, 169, 146)",
-          light: "rgb(229, 215, 204)",
-        },
-        yellow: {
-          DEFAULT: "rgb(232, 203, 123)",
-          light: "rgb(248, 237, 201)",
         },
       },
       borderRadius: {

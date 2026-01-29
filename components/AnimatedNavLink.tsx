@@ -97,12 +97,12 @@ export default function AnimatedNavLink({
                 variants={underlineVariants}
                 initial="initial"
                 animate="active"
-                className="h-full w-full bg-primary origin-left"
+                className="h-full w-full bg-foreground origin-left"
               />
               <motion.div
                 variants={progressVariants}
                 animate="animate"
-                className="absolute top-0 h-full w-1/3 bg-gradient-to-r from-transparent via-primary-foreground/40 to-transparent"
+                className="absolute top-0 h-full w-1/3 bg-gradient-to-r from-transparent via-background/40 to-transparent"
               />
             </div>
           )}

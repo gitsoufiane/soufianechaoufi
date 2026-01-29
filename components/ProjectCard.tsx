@@ -14,7 +14,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     <Card className="flex flex-col h-full transition-all hover:shadow-lg group">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <CardTitle className="text-xl font-bold leading-tight group-hover:text-primary transition-colors">
+          <CardTitle className="text-xl font-bold leading-tight group-hover:text-foreground transition-colors">
             {project.title}
           </CardTitle>
           <Badge variant={project.status === "completed" ? "default" : "secondary"} className="ml-2 shrink-0">
@@ -60,7 +60,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             <ul className="text-sm text-muted-foreground space-y-1">
               {project.highlights.slice(0, 3).map((highlight, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0" />
+                  <span className="w-1 h-1 bg-foreground rounded-full mt-2 flex-shrink-0" />
                   <span className="line-clamp-1">{highlight}</span>
                 </li>
               ))}

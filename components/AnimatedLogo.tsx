@@ -54,7 +54,7 @@ export default function AnimatedLogo() {
         {/* Glow effect */}
         <motion.div
           variants={glowVariants}
-          className="absolute inset-0 bg-primary/20 blur-lg rounded-full"
+          className="absolute inset-0 bg-foreground/10 blur-lg rounded-full"
         />
 
         {/* Letters */}
@@ -73,7 +73,7 @@ export default function AnimatedLogo() {
 
         {/* Connecting line animation */}
         <motion.div
-          className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary to-primary/60"
+          className="absolute -bottom-1 left-0 h-0.5 bg-foreground"
           initial={{ width: 0, opacity: 0 }}
           whileHover={{
             width: "100%",

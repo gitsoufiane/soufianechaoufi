@@ -168,7 +168,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               a: ({ href, children }) => (
                 <a
                   href={href}
-                  className="text-primary underline hover:text-primary/80"
+                  className="text-foreground underline hover:text-muted-foreground transition-colors"
                   target={href?.startsWith("http") ? "_blank" : undefined}
                   rel={
                     href?.startsWith("http") ? "noopener noreferrer" : undefined
@@ -178,7 +178,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </a>
               ),
               blockquote: ({ children }) => (
-                <blockquote className="border-l-4 border-primary pl-4 italic my-4 text-muted-foreground">
+                <blockquote className="border-l-4 border-foreground pl-4 italic my-4 text-muted-foreground">
                   {children}
                 </blockquote>
               ),
@@ -238,7 +238,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <div className="text-muted-foreground mb-2 text-sm">
                     Previous Article
                   </div>
-                  <h3 className="group-hover:text-primary mb-2 font-semibold transition-colors">
+                  <h3 className="group-hover:text-foreground mb-2 font-semibold transition-colors">
                     <Link href={`/blog/${previousPost.slug}`}>
                       {previousPost.title}
                     </Link>
@@ -255,7 +255,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <div className="text-muted-foreground mb-2 text-sm">
                     Next Article
                   </div>
-                  <h3 className="group-hover:text-primary mb-2 font-semibold transition-colors">
+                  <h3 className="group-hover:text-foreground mb-2 font-semibold transition-colors">
                     <Link href={`/blog/${nextPost.slug}`}>
                       {nextPost.title}
                     </Link>
@@ -270,7 +270,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* Call to Action */}
-        <Card className="from-primary/10 to-primary/5 mt-12 bg-gradient-to-r p-8 text-center">
+        <Card className="mt-12 bg-muted p-8 text-center">
           <h3 className="mb-4 text-2xl font-bold">Enjoyed this article?</h3>
           <p className="text-muted-foreground mx-auto mb-6 max-w-2xl">
             If you found this helpful, check out my other articles or explore

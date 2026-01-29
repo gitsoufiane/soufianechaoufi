@@ -36,7 +36,7 @@ export default function BlogCard({
         <Badge variant="secondary" className="w-fit text-xs mb-2">
           {post.category}
         </Badge>
-        <CardTitle className="group-hover:text-primary line-clamp-2 transition-colors text-lg">
+        <CardTitle className="group-hover:text-foreground line-clamp-2 transition-colors text-lg">
           <Link href={`/blog/${post.slug}`}>{post.title}</Link>
         </CardTitle>
         <CardDescription className="line-clamp-2 text-sm">

@@ -38,7 +38,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <h1 className="from-primary to-primary/70 bg-gradient-to-r bg-clip-text text-5xl font-bold text-transparent capitalize sm:text-6xl">
+              <h1 className="text-5xl font-bold text-foreground capitalize sm:text-6xl">
                 soufiane chaoufi
               </h1>
               <p className="text-muted-foreground mx-auto max-w-3xl text-lg leading-relaxed sm:text-xl">
@@ -66,7 +66,7 @@ export default function Home() {
                 href="https://github.com/gitsoufiane"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Github className="h-6 w-6" />
               </Link>
@@ -74,13 +74,13 @@ export default function Home() {
                 href="https://www.linkedin.com/in/soufianechaoufi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Linkedin className="h-6 w-6" />
               </Link>
               <Link
                 href="mailto:contact@soufianechaoufi.com"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail className="h-6 w-6" />
               </Link>
@@ -91,7 +91,7 @@ export default function Home() {
 
       {/* Featured Projects Section */}
       {featuredProjects.length > 0 && (
-        <section className="px-4 py-16 sm:px-6 lg:px-8 bg-muted/50">
+        <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4 sm:text-4xl">Featured Projects</h2>

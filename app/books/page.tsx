@@ -35,8 +35,8 @@ export default function BooksPage() {
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-12 text-center">
-          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-            <BookIcon className="h-8 w-8 text-primary" />
+          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+            <BookIcon className="h-8 w-8 text-foreground" />
           </div>
           <h1 className="mb-4 text-4xl font-bold sm:text-5xl">Reading List</h1>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
