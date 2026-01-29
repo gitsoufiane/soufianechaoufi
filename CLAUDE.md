@@ -9,32 +9,12 @@ Personal portfolio website for Soufiane Chaoufi, Frontend Developer. Built with 
 ## Development Commands
 
 ```bash
-# Development with Turbopack (fast refresh)
-yarn dev
-
-# Storybook development server (port 6006)
-yarn storybook
-
-# Production build (builds Storybook first, then Next.js)
-yarn build
-
-# Build Storybook only (outputs to .storybook-static, then copies to public/)
-yarn build-storybook
-
-# Production server
-yarn start
-
-# Linting
-yarn lint
-
-# Code formatting
-yarn format
-
-# Type checking
-yarn type-check
-
-# Bundle analysis
-yarn build:analyze
+yarn dev              # Development with Turbopack (port 3000)
+yarn build            # Production build
+yarn lint             # ESLint
+yarn format           # Prettier
+yarn type-check       # TypeScript validation
+yarn build:analyze    # Bundle analysis
 ```
 
 ## Architecture
@@ -49,15 +29,36 @@ yarn build:analyze
 - **Three.js** - 3D graphics (React Three Fiber)
 - **next-themes** - theme switching
 - **Framer Motion** - animations
-- **Storybook 9.1** - component development and documentation (with a11y addon)
+
+### Import Aliases
+
+- `@/*` - Maps to project root (e.g., `@/components/Button`)
+
+### Routes
+
+| Route | Description |
+|-------|-------------|
+| `/` | Homepage |
+| `/blog` | Blog listing with category filters |
+| `/blog/[slug]` | Individual blog post |
+| `/projects` | Project showcase |
+| `/books` | Reading list |
 
 ### Static Content Management
 
 Content managed through markdown and TypeScript files:
 - `app/blog/content/*.md` - Blog articles as markdown files with frontmatter
-- `app/projects/projects.ts` - Project showcase data
-- `app/books/books.ts` - Reading list with book metadata
+- `app/projects/projects.ts` - Project showcase data (uses `Project` from `/types/project.ts`)
+- `app/books/books.ts` - Reading list with book metadata (Book interface defined locally)
 - `lib/blog.ts` - Blog post reading and parsing utilities
+
+### Type Definitions
+
+Shared types are in `/types` directory:
+- `types/blog.ts` - BlogPost, BlogCategory interfaces
+- `types/project.ts` - Project, ProjectCategory interfaces
+- `types/book.ts` - Alternative Book interface (not currently used by books page)
+- `types/api.ts` - API-related types
 
 ### SEO & Metadata
 
@@ -133,7 +134,7 @@ Add to `app/projects/projects.ts` following the Project interface:
 
 ### Books
 
-Add to `app/books/books.ts` following the Book interface:
+Add to `app/books/books.ts` following the Book interface (defined in the same file):
 
 ```typescript
 {
@@ -151,6 +152,8 @@ Add to `app/books/books.ts` following the Book interface:
   goodreadsUrl?: string;
 }
 ```
+
+Note: The Book interface is defined locally in `app/books/books.ts`, not in `/types/book.ts`.
 
 ## Blog Writing Guidelines
 
@@ -353,16 +356,6 @@ The project uses Framer Motion for animations. Several animated components are a
   - Skip navigation links for accessibility
   - Structured data (JSON-LD) for SEO
   - Global navbar and footer
-
-## Storybook Integration
-
-The project includes Storybook for component development and documentation:
-
-- **Location**: Stories are in `/stories` directory
-- **Addons**: Theme switching and accessibility testing enabled
-- **Build Process**: Storybook builds to `.storybook-static/` and is copied to `public/.storybook-static/`
-- **Embedded View**: Access via `/storybook` route (configured with CSP headers for iframe embedding)
-- **Development**: Run `yarn storybook` to access at `http://localhost:6006`
 
 ## TypeScript Guidelines
 
