@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio website for Soufiane Chaoufi, Frontend Developer. Built with Next.js 15, TypeScript, and Tailwind CSS 4.1. Features static content management and blog system.
+Personal portfolio website for Soufiane Chaoufi, Frontend Developer. Built with Next.js 16, React 19.2, TypeScript, and Tailwind CSS 4.1. Features static content management and blog system.
 
 ## Development Commands
 
@@ -21,7 +21,7 @@ yarn build:analyze    # Bundle analysis
 
 ### Core Stack
 
-- **Next.js 15** with App Router and Turbopack
+- **Next.js 16** with App Router and Turbopack (default)
 - **TypeScript** - strict mode enabled
 - **Tailwind CSS 4.1** with custom design system
 - **shadcn/ui + Radix UI** - component primitives
@@ -59,6 +59,10 @@ Shared types are in `/types` directory:
 - `types/project.ts` - Project, ProjectCategory interfaces
 - `types/book.ts` - Alternative Book interface (not currently used by books page)
 - `types/api.ts` - API-related types
+
+### Security
+
+- **Proxy**: `proxy.ts` sets security headers (CSP, HSTS, X-Frame-Options, etc.)
 
 ### SEO & Metadata
 

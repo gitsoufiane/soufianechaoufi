@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // Clone the request headers
   const requestHeaders = new Headers(request.headers);
 
@@ -11,8 +11,6 @@ export function middleware(request: NextRequest) {
     },
   });
 
-  const isStorybookRoute = request.nextUrl.pathname === '/storybook';
-
   // Security headers
   const securityHeaders = {
     'X-DNS-Prefetch-Control': 'on',
@@ -21,6 +19,7 @@ export function middleware(request: NextRequest) {
     'X-XSS-Protection': '1; mode=block',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+    'X-Frame-Options': 'SAMEORIGIN',
   };
 
   // Apply security headers
@@ -28,38 +27,19 @@ export function middleware(request: NextRequest) {
     response.headers.set(key, value);
   });
 
-  // Don't set X-Frame-Options for Storybook route (allows iframe embedding)
-  if (!isStorybookRoute) {
-    response.headers.set('X-Frame-Options', 'SAMEORIGIN');
-  }
-
   // Content Security Policy
-  const cspHeader = isStorybookRoute
-    ? `
-      default-src 'self';
-      script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.vercel.app https://vercel.live;
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' blob: data: https:;
-      font-src 'self' data:;
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self';
-      frame-src 'self' http://localhost:6006;
-      frame-ancestors 'self';
-      upgrade-insecure-requests;
-    `.replace(/\s{2,}/g, ' ').trim()
-    : `
-      default-src 'self';
-      script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.vercel.app https://vercel.live;
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' blob: data: https:;
-      font-src 'self' data:;
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self';
-      frame-ancestors 'none';
-      upgrade-insecure-requests;
-    `.replace(/\s{2,}/g, ' ').trim();
+  const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.vercel.app https://vercel.live;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data: https:;
+    font-src 'self' data:;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    upgrade-insecure-requests;
+  `.replace(/\s{2,}/g, ' ').trim();
 
   response.headers.set('Content-Security-Policy', cspHeader);
 
