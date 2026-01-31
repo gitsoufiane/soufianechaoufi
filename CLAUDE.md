@@ -57,8 +57,9 @@ Content managed through markdown and TypeScript files:
 Shared types are in `/types` directory:
 - `types/blog.ts` - BlogPost, BlogCategory interfaces
 - `types/project.ts` - Project, ProjectCategory interfaces
-- `types/book.ts` - Alternative Book interface (not currently used by books page)
 - `types/api.ts` - API-related types
+
+Note: Book interface is co-located with data in `app/books/books.ts`.
 
 ### Security
 

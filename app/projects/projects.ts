@@ -4,6 +4,38 @@ import { Project } from "@/types/project";
 // Add new projects by following the Project interface structure
 export const projects: Project[] = [
   {
+    id: "portfolio",
+    title: "Personal Portfolio",
+    description:
+      "Modern portfolio website built with Next.js 16, React 19, and Tailwind CSS featuring a blog system, project showcase, and reading list",
+    longDescription:
+      "A performant, accessible portfolio website showcasing my work as a Frontend Developer. Built with the latest Next.js 16 App Router and React 19, featuring static content management with markdown blog posts, project showcase with category filtering, and a reading list. Includes comprehensive SEO with structured data, dark/light theme support, and smooth Framer Motion animations throughout.",
+    technologies: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Framer Motion",
+      "shadcn/ui",
+      "Radix UI",
+      "MDX",
+    ],
+    githubUrl: "https://github.com/gitsoufiane/soufianechaoufi",
+    liveUrl: "https://soufianechaoufi.com",
+    featured: true,
+    category: "web-app",
+    status: "maintained",
+    publishedAt: "2025-03-01",
+    highlights: [
+      "Next.js 16 App Router with Turbopack",
+      "Markdown blog with auto-calculated reading time",
+      "Dark/light theme with system preference detection",
+      "SEO optimized with structured data (JSON-LD)",
+      "Accessible design with skip navigation links",
+      "Smooth page transitions with Framer Motion",
+    ],
+  },
+  {
     id: "sheswap",
     title: "SheSwap",
     description:
