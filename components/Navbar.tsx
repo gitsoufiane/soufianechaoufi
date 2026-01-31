@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import AnimatedThemeToggle from "@/components/AnimatedThemeToggle";
 import AnimatedNavLink from "@/components/AnimatedNavLink";
 import AnimatedMenuButton from "@/components/AnimatedMenuButton";
 import AnimatedLogo from "@/components/AnimatedLogo";
@@ -60,16 +59,11 @@ export default function Navbar({ className }: NavbarProps) {
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
-          {/* Mobile menu toggle */}
-          <AnimatedMenuButton
-            isOpen={isMobileMenuOpen}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          />
-
-          {/* Theme toggle */}
-          <AnimatedThemeToggle />
-        </div>
+        {/* Mobile menu toggle */}
+        <AnimatedMenuButton
+          isOpen={isMobileMenuOpen}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        />
 
         {/* Mobile menu */}
         {isMobileMenuOpen && (
