@@ -23,20 +23,20 @@ interface BlogCardProps {
 export default function BlogCard({
   post,
   className,
-  onTagClick
+  onTagClick,
 }: BlogCardProps) {
   return (
     <Card
       className={cn(
         "group overflow-hidden transition-all duration-300 hover:shadow-lg",
-        className
+        className,
       )}
     >
       <CardHeader className="pb-3">
-        <Badge variant="secondary" className="w-fit text-xs mb-2">
+        <Badge variant="secondary" className="mb-2 w-fit text-xs">
           {post.category}
         </Badge>
-        <CardTitle className="group-hover:text-foreground line-clamp-2 transition-colors text-lg">
+        <CardTitle className="group-hover:text-foreground line-clamp-2 text-lg transition-colors">
           <Link href={`/blog/${post.slug}`}>{post.title}</Link>
         </CardTitle>
         <CardDescription className="line-clamp-2 text-sm">
@@ -48,9 +48,7 @@ export default function BlogCard({
         <div className="text-muted-foreground mb-4 flex items-center gap-3 text-xs">
           <div className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            <span>
-              {new Date(post.publishedAt).toLocaleDateString()}
-            </span>
+            <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
           </div>
           <div className="flex items-center gap-1">
             <Clock className="h-3 w-3" />
@@ -63,7 +61,7 @@ export default function BlogCard({
             <Badge
               key={tag}
               variant="outline"
-              className="text-xs cursor-pointer hover:bg-secondary"
+              className="hover:bg-secondary cursor-pointer text-xs"
               onClick={(e) => {
                 e.preventDefault();
                 onTagClick?.(tag);
@@ -74,15 +72,8 @@ export default function BlogCard({
           ))}
         </div>
 
-        <Button
-          asChild
-          variant="outline"
-          size="sm"
-          className="w-full"
-        >
-          <Link href={`/blog/${post.slug}`}>
-            Read More
-          </Link>
+        <Button asChild variant="outline" size="sm" className="w-full">
+          <Link href={`/blog/${post.slug}`}>Read More</Link>
         </Button>
       </CardContent>
     </Card>

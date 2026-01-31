@@ -28,11 +28,13 @@ All four tools (npm, Yarn, pnpm, Bun) do this same basic job. The differences? S
 This is the OG. It comes with [Node.js](https://nodejs.org), so if you've installed Node, you already have [npm](https://docs.npmjs.com). No extra setup needed.
 
 **Why it's good:**
+
 - Already on your machine (probably)
 - Massive community - every tutorial uses npm
 - Works everywhere without any fuss
 
 **The downsides:**
+
 - Slowest of the bunch (we're talking minutes vs seconds)
 - Eats disk space like crazy (duplicates the same packages across projects)
 - Sometimes different team members get different results (annoying!)
@@ -42,12 +44,14 @@ This is the OG. It comes with [Node.js](https://nodejs.org), so if you've instal
 Facebook built [Yarn](https://yarnpkg.com) when npm was having issues. There are two versions: Yarn Classic (v1) is rock-solid and what most people use. Yarn Berry (v2+) is a total rewrite with wild new features.
 
 **Why I like it:**
+
 - Way faster than npm
 - Works offline! (Downloaded packages before? No internet needed)
 - More secure (verifies packages weren't tampered with)
 - Great for managing multiple related packages ([workspaces](https://yarnpkg.com/features/workspaces))
 
 **The gotchas:**
+
 - Yarn Berry is powerful but weird (it's a whole thing)
 - Some packages don't play nice with it
 - You have to install it separately
@@ -59,12 +63,14 @@ Facebook built [Yarn](https://yarnpkg.com) when npm was having issues. There are
 Here's the clever part: [pnpm](https://pnpm.io) doesn't copy packages to every project. It stores each package once on your computer and creates shortcuts (symlinks) to them. Got 50 projects using React? Only one copy on disk.
 
 **Why it's awesome:**
+
 - Lightning fast installs
 - Saved me 50GB+ of disk space (seriously)
 - Strict about dependencies (catches mistakes other tools miss)
 - Perfect for big projects with multiple packages ([monorepos](https://monorepo.tools))
 
 **The trade-offs:**
+
 - Shortcuts can confuse some older tools
 - Smaller community (but growing fast!)
 - Strictness can break badly-written packages
@@ -76,12 +82,14 @@ Here's the clever part: [pnpm](https://pnpm.io) doesn't copy packages to every p
 [Bun](https://bun.sh) is the new hotness. It's not just a package manager—it runs your code, bundles it, and even has built-in testing. Built from scratch for pure speed.
 
 **The hype is real:**
+
 - FAST. Like, scary fast (10-20x faster than npm)
 - Does everything - run code, install packages, bundle apps, run tests
 - Works with existing npm packages (mostly)
 - One tool instead of five
 
 **But hold on:**
+
 - Still new (released in 2023)
 - Some npm packages don't work yet
 - Smaller community means fewer Stack Overflow answers
@@ -90,14 +98,14 @@ Here's the clever part: [pnpm](https://pnpm.io) doesn't copy packages to every p
 
 ## Quick Comparison
 
-| Feature | npm | Yarn | pnpm | Bun |
-|---------|-----|------|------|-----|
-| **Speed** | Slowest | Fast | Very Fast | Fastest |
-| **Disk Space** | Most | Moderate | Least | Low |
-| **Setup** | Built-in | Install separately | Install separately | Install separately |
-| **Monorepo Support** | Basic | Excellent | Excellent | Good |
-| **Offline Mode** | Limited | Yes | Yes | Yes |
-| **Maturity** | Very Mature | Mature | Mature | New |
+| Feature              | npm         | Yarn               | pnpm               | Bun                |
+| -------------------- | ----------- | ------------------ | ------------------ | ------------------ |
+| **Speed**            | Slowest     | Fast               | Very Fast          | Fastest            |
+| **Disk Space**       | Most        | Moderate           | Least              | Low                |
+| **Setup**            | Built-in    | Install separately | Install separately | Install separately |
+| **Monorepo Support** | Basic       | Excellent          | Excellent          | Good               |
+| **Offline Mode**     | Limited     | Yes                | Yes                | Yes                |
+| **Maturity**         | Very Mature | Mature             | Mature             | New                |
 
 ## Common Commands
 
@@ -140,24 +148,28 @@ bun dev
 Let me give you the real answer, not the "it depends" cop-out:
 
 **Use npm if:**
+
 - You're just learning JavaScript (stick with what tutorials use)
 - You want zero friction (it's already installed)
 - You work on simple side projects
 - Compatibility is your top priority
 
 **Use Yarn if:**
+
 - You're on a team that already uses it (don't fight the team)
 - You manage a big project with multiple packages
 - You need offline installs (sketchy wifi? I feel you)
 - You want reliable speed without learning something new
 
 **Use pnpm if:**
+
 - You work on a laptop with limited disk space
 - You have tons of projects on one machine
 - You want the fastest possible installs
 - You're building a monorepo (multiple related packages)
 
 **Use Bun if:**
+
 - You love trying new tech
 - You're starting a greenfield project
 - You want one tool for everything
@@ -178,6 +190,7 @@ Let me give you the real answer, not the "it depends" cop-out:
 Want to try a different package manager? Here's the complete guide:
 
 1. **Delete the old stuff:**
+
    ```bash
    rm -rf node_modules           # Delete all installed packages
    rm package-lock.json          # npm's lock file
@@ -187,6 +200,7 @@ Want to try a different package manager? Here's the complete guide:
    ```
 
 2. **Install with your new tool:**
+
    ```bash
    pnpm install  # or: yarn install, bun install, etc.
    ```

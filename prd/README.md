@@ -4,14 +4,14 @@ Product Requirements Documents for soufianechaoufi.com enhancements.
 
 ## Priority Matrix
 
-| Pri | PRD | Effort | Status | Description |
-|-----|-----|--------|--------|-------------|
-| P1 | [Project Category Filter](02-features/project-category-filter.md) | S | Pending | Filter UI for projects page |
-| P1 | [Book Interface Consolidation](03-tech-debt/book-interface-consolidation.md) | S | ✅ Complete | Fix type mismatch |
-| P2 | [Blog Articles](04-content-roadmap/blog-articles.md) | Ongoing | 📝 In Progress | Content strategy (4 articles) |
-| P2 | [Projects Expansion](04-content-roadmap/projects-expansion.md) | Ongoing | 📝 In Progress | Content strategy (2 projects) |
-| P3 | [Testimonials](02-features/testimonials.md) | M | Pending | Social proof section |
-| P3 | [Three.js Integration](02-features/three-js-integration.md) | L | Pending | Visual polish |
+| Pri | PRD                                                                          | Effort  | Status         | Description                   |
+| --- | ---------------------------------------------------------------------------- | ------- | -------------- | ----------------------------- |
+| P1  | [Project Category Filter](02-features/project-category-filter.md)            | S       | Pending        | Filter UI for projects page   |
+| P1  | [Book Interface Consolidation](03-tech-debt/book-interface-consolidation.md) | S       | ✅ Complete    | Fix type mismatch             |
+| P2  | [Blog Articles](04-content-roadmap/blog-articles.md)                         | Ongoing | 📝 In Progress | Content strategy (4 articles) |
+| P2  | [Projects Expansion](04-content-roadmap/projects-expansion.md)               | Ongoing | 📝 In Progress | Content strategy (2 projects) |
+| P3  | [Testimonials](02-features/testimonials.md)                                  | M       | Pending        | Social proof section          |
+| P3  | [Three.js Integration](02-features/three-js-integration.md)                  | L       | Pending        | Visual polish                 |
 
 ## Effort Key
 
@@ -60,7 +60,7 @@ Each PRD follows this structure:
 
 ## Decisions Log
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
+| Decision     | Choice            | Rationale                                 |
+| ------------ | ----------------- | ----------------------------------------- |
 | Contact page | Social links only | Low maintenance, sufficient for portfolio |
-| Analytics | Skip for now | Can add later if needed |
+| Analytics    | Skip for now      | Can add later if needed                   |

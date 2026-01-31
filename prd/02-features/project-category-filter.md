@@ -12,7 +12,11 @@ Projects page has category data defined but no filter UI:
 // app/projects/page.tsx lines 13-18
 const categories = [
   { name: "All", slug: "all", description: "All projects" },
-  { name: "Web Apps", slug: "web-app", description: "Full-stack web applications" },
+  {
+    name: "Web Apps",
+    slug: "web-app",
+    description: "Full-stack web applications",
+  },
   { name: "Tools", slug: "tool", description: "Developer tools and utilities" },
   { name: "Libraries", slug: "library", description: "Open source libraries" },
 ];
@@ -33,11 +37,11 @@ const [selectedCategory, setSelectedCategory] = useState<string>("all");
 // Filter logic
 const filteredProjects = useMemo(() => {
   if (selectedCategory === "all") return projects;
-  return projects.filter(p => p.category === selectedCategory);
+  return projects.filter((p) => p.category === selectedCategory);
 }, [projects, selectedCategory]);
 
 // UI
-<div className="flex flex-wrap items-center gap-2 justify-center">
+<div className="flex flex-wrap items-center justify-center gap-2">
   {categories.map((cat) => (
     <Badge
       key={cat.slug}
@@ -48,7 +52,7 @@ const filteredProjects = useMemo(() => {
       {cat.name}
     </Badge>
   ))}
-</div>
+</div>;
 ```
 
 ### Placement

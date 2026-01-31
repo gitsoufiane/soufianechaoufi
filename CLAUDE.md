@@ -36,17 +36,18 @@ yarn build:analyze    # Bundle analysis
 
 ### Routes
 
-| Route | Description |
-|-------|-------------|
-| `/` | Homepage |
-| `/blog` | Blog listing with category filters |
-| `/blog/[slug]` | Individual blog post |
-| `/projects` | Project showcase |
-| `/books` | Reading list |
+| Route          | Description                        |
+| -------------- | ---------------------------------- |
+| `/`            | Homepage                           |
+| `/blog`        | Blog listing with category filters |
+| `/blog/[slug]` | Individual blog post               |
+| `/projects`    | Project showcase                   |
+| `/books`       | Reading list                       |
 
 ### Static Content Management
 
 Content managed through markdown and TypeScript files:
+
 - `app/blog/content/*.md` - Blog articles as markdown files with frontmatter
 - `app/projects/projects.ts` - Project showcase data (uses `Project` from `/types/project.ts`)
 - `app/books/books.ts` - Reading list with book metadata (Book interface defined locally)
@@ -55,6 +56,7 @@ Content managed through markdown and TypeScript files:
 ### Type Definitions
 
 Shared types are in `/types` directory:
+
 - `types/blog.ts` - BlogPost, BlogCategory interfaces
 - `types/project.ts` - Project, ProjectCategory interfaces
 - `types/api.ts` - API-related types
@@ -87,6 +89,7 @@ NODE_ENV=development|production|test
 Blog posts are markdown files with YAML frontmatter stored in `app/blog/content/`.
 
 **File Structure:**
+
 - Location: `app/blog/content/your-slug.md`
 - Filename: Must be in kebab-case and match the slug
 - Reading time is auto-calculated by the `reading-time` package
@@ -100,14 +103,15 @@ title: "Article Title"
 description: "Brief summary for cards and SEO (1-2 sentences)"
 author: "Soufiane Chaoufi"
 publishedAt: "YYYY-MM-DD"
-category: "technical"  # Must be: technical, career, tools, or industry
-tags: ["React", "Performance", "JavaScript"]  # 3-6 tags recommended
-featured: true  # Optional: set to true for homepage display
-imageUrl: "/blog/image.jpg"  # Optional: hero image path
+category: "technical" # Must be: technical, career, tools, or industry
+tags: ["React", "Performance", "JavaScript"] # 3-6 tags recommended
+featured: true # Optional: set to true for homepage display
+imageUrl: "/blog/image.jpg" # Optional: hero image path
 ---
 ```
 
 **Categories:**
+
 - `technical` - Technical deep dives and tutorials
 - `career` - Career development and industry insights
 - `tools` - Tool reviews and comparisons
@@ -167,12 +171,14 @@ Note: The Book interface is defined locally in `app/books/books.ts`, not in `/ty
 Blog articles should follow these established patterns to maintain consistency:
 
 **Voice and Perspective:**
+
 - Use **first-person perspective** ("I", "my") to share personal experiences
 - Be **conversational and approachable**, not academic or formal
 - Share **honest opinions** and real-world insights ("Real talk:", "My take:", "But hold on:")
 - Focus on **practical applications** over theoretical concepts
 
 **IMPORTANT - Original Content Policy:**
+
 - **NEVER copy-paste** content directly from source materials, documentation, or other articles
 - **Always rephrase and rewrite** in your own words with fresh phrasing
 - **Create new, original examples** - do not reuse examples from documentation or tutorials
@@ -182,6 +188,7 @@ Blog articles should follow these established patterns to maintain consistency:
 - Ensure all code examples are freshly written and relevant to the specific point being made
 
 **Content Structure:**
+
 - **Hook Opening** - Start with a relatable problem, story, or surprising fact
 - **Clear Sections** - Use descriptive H2/H3 headers that tell a story
 - **Code Examples** - Show complete, runnable examples with explanations
@@ -193,12 +200,14 @@ Blog articles should follow these established patterns to maintain consistency:
 ### Markdown Formatting Standards
 
 **Headers:**
+
 - Use sentence case: "Understanding React re-renders" (not "Understanding React Re-Renders")
 - H1 for article title (auto-generated from frontmatter)
 - H2 for main sections
 - H3 for subsections
 
 **Code Blocks:**
+
 ```jsx
 // Always specify language (jsx, typescript, bash, etc.)
 // Include inline comments explaining key points
@@ -207,45 +216,53 @@ Blog articles should follow these established patterns to maintain consistency:
 ```
 
 **Inline Formatting:**
+
 - Use `backticks` for technical terms, function names, commands, package names
 - Use **bold** for emphasis on key concepts or takeaways
-- Use *italics* sparingly for subtle emphasis
+- Use _italics_ sparingly for subtle emphasis
 - Use ✅/❌ emoji for comparing good vs bad approaches
 
 **Links:**
+
 - Link to official documentation when referencing libraries or APIs
 - Use descriptive link text: `[useState hook](https://react.dev/reference/react/useState)` not "click here"
 - External links automatically open in new tabs
 
 **Lists:**
+
 - Bullet points for features, benefits, or unordered items
 - Numbered lists for sequential steps or ranked items
 - Keep list items concise and scannable
 
 **Tables:**
+
 - Use for comparing features, tools, or options
 - Include header row with clear column names
 - Keep cells concise
 
 **Blockquotes:**
+
 - Use for important callouts or key concepts
 - Not for regular paragraphs
 
 ### Technical Content Best Practices
 
 **Code Examples:**
+
 - Show both "before" and "after" examples when explaining improvements
 - Include comments explaining non-obvious code
 - Use realistic variable names and scenarios
 - Demonstrate the problem before showing the solution
 
 **Explanations:**
+
 - Break down complex topics into numbered points
 - Use analogies to explain technical concepts
 - Provide context before diving into implementation details
 - Explain the "why" not just the "what"
 
 **Technical Terms:**
+
 - Link to official documentation on first mention
 - Use consistent terminology throughout
 - Define acronyms on first use
@@ -274,7 +291,7 @@ Before publishing, verify:
 
 ### Example Article Structure
 
-```markdown
+````markdown
 ---
 slug: "example-article"
 title: "Your Compelling Title"
@@ -300,6 +317,7 @@ function Example() {
   return <div>Hello World</div>;
 }
 ```
+````
 
 ## Main Section 2
 
@@ -320,7 +338,8 @@ Summarize the main points:
 ## What's Next?
 
 Suggest related topics or next steps for learning.
-```
+
+````
 
 ## Three.js Configuration
 
@@ -336,7 +355,7 @@ yarn add -D dev-package
 
 # ❌ Incorrect
 npm install package-name
-```
+````
 
 ## Component Patterns
 
@@ -345,6 +364,7 @@ npm install package-name
 The project uses Framer Motion for animations. Several animated components are available:
 
 - **AnimatedNumber** (`components/AnimatedNumber.tsx`) - Incremental number counter that animates on viewport entry
+
   - Usage: `<AnimatedNumber value={42} duration={2000} decimals={0} className="..." />`
   - Triggers once when element enters viewport
   - Uses ease-out animation curve

@@ -62,7 +62,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const previousPost = posts[postIndex + 1];
   const nextPost = posts[postIndex - 1];
 
-
   return (
     <article className="min-h-screen px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
@@ -85,7 +84,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </h1>
             <p className="text-muted-foreground text-xl">{post.description}</p>
 
-            <div className="flex items-center gap-6 text-sm border-t pt-4 text-muted-foreground">
+            <div className="text-muted-foreground flex items-center gap-6 border-t pt-4 text-sm">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
                 <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
@@ -131,7 +130,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <h3 className="mt-6 mb-3 text-2xl font-bold">{children}</h3>
               ),
               p: ({ children }) => (
-                <p className="mb-4 leading-relaxed text-base">{children}</p>
+                <p className="mb-4 text-base leading-relaxed">{children}</p>
               ),
               ul: ({ children }) => (
                 <ul className="mb-4 ml-6 list-disc space-y-2">{children}</ul>
@@ -144,7 +143,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               ),
               table: ({ children }) => (
                 <div className="my-6 overflow-x-auto">
-                  <table className="w-full border-collapse border border-border">
+                  <table className="border-border w-full border-collapse border">
                     {children}
                   </table>
                 </div>
@@ -153,22 +152,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <thead className="bg-muted">{children}</thead>
               ),
               th: ({ children }) => (
-                <th className="border border-border px-4 py-2 text-left font-semibold">
+                <th className="border-border border px-4 py-2 text-left font-semibold">
                   {children}
                 </th>
               ),
               td: ({ children }) => (
-                <td className="border border-border px-4 py-2">{children}</td>
+                <td className="border-border border px-4 py-2">{children}</td>
               ),
               strong: ({ children }) => (
-                <strong className="font-semibold text-foreground">
+                <strong className="text-foreground font-semibold">
                   {children}
                 </strong>
               ),
               a: ({ href, children }) => (
                 <a
                   href={href}
-                  className="text-foreground underline hover:text-muted-foreground transition-colors"
+                  className="text-foreground hover:text-muted-foreground underline transition-colors"
                   target={href?.startsWith("http") ? "_blank" : undefined}
                   rel={
                     href?.startsWith("http") ? "noopener noreferrer" : undefined
@@ -178,7 +177,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </a>
               ),
               blockquote: ({ children }) => (
-                <blockquote className="border-l-4 border-foreground pl-4 italic my-4 text-muted-foreground">
+                <blockquote className="border-foreground text-muted-foreground my-4 border-l-4 pl-4 italic">
                   {children}
                 </blockquote>
               ),
@@ -213,8 +212,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="flex-1">
                 <h3 className="mb-2 font-semibold">{post.author}</h3>
                 <p className="text-muted-foreground mb-4 text-sm">
-                  Frontend developer who loves building fast, accessible web apps.
-                  I write about React, TypeScript, and the things I learn along the way.
+                  Frontend developer who loves building fast, accessible web
+                  apps. I write about React, TypeScript, and the things I learn
+                  along the way.
                 </p>
                 <div className="flex gap-2">
                   <Button asChild variant="outline" size="sm">
@@ -270,7 +270,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* Call to Action */}
-        <Card className="mt-12 bg-muted p-8 text-center">
+        <Card className="bg-muted mt-12 p-8 text-center">
           <h3 className="mb-4 text-2xl font-bold">Enjoyed this article?</h3>
           <p className="text-muted-foreground mx-auto mb-6 max-w-2xl">
             If you found this helpful, check out my other articles or explore

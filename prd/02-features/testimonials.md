@@ -7,6 +7,7 @@
 ## Problem
 
 No social proof on the site. Potential clients/employers can't see:
+
 - What others say about working with me
 - Professional reputation
 - Collaboration style
@@ -18,6 +19,7 @@ Add testimonials section (likely on homepage or About page).
 ### Layout Options
 
 **Option A: Carousel**
+
 ```
 What People Say
 ═══════════════════════════════════════
@@ -31,6 +33,7 @@ What People Say
 ```
 
 **Option B: Grid**
+
 ```
 What People Say
 ═══════════════════════════════════════
@@ -69,17 +72,17 @@ interface Testimonial {
   company: string;
   avatarUrl?: string;
   linkedinUrl?: string;
-  relationship?: 'colleague' | 'manager' | 'client' | 'mentee';
+  relationship?: "colleague" | "manager" | "client" | "mentee";
 }
 
 export const testimonials: Testimonial[] = [
   {
-    id: '1',
-    quote: 'Soufiane is an exceptional developer...',
-    author: 'Jane Doe',
-    role: 'Engineering Manager',
-    company: 'Tech Corp',
-    relationship: 'manager',
+    id: "1",
+    quote: "Soufiane is an exceptional developer...",
+    author: "Jane Doe",
+    role: "Engineering Manager",
+    company: "Tech Corp",
+    relationship: "manager",
   },
 ];
 ```
@@ -97,6 +100,7 @@ Unresolved question from plan:
 > **Testimonials source**: LinkedIn recommendations? Colleague quotes?
 
 Options:
+
 1. LinkedIn recommendations (ask permission to quote)
 2. Direct quotes from colleagues
 3. Client feedback (if applicable)

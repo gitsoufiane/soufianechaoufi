@@ -9,16 +9,26 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowRight, Github, Linkedin, Mail, ExternalLink, Code, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  Github,
+  Linkedin,
+  Mail,
+  ExternalLink,
+  Code,
+  Zap,
+} from "lucide-react";
 import ProjectCard from "@/components/ProjectCard";
 import BlogCard from "@/app/blog/BlogCard";
 import { projects } from "@/app/projects/projects";
 import { getAllPosts } from "@/lib/blog";
 
 export default function Home() {
-  const featuredProjects = projects.filter(project => project.featured).slice(0, 3);
+  const featuredProjects = projects
+    .filter((project) => project.featured)
+    .slice(0, 3);
   const posts = getAllPosts();
-  const featuredPosts = posts.filter(post => post.featured).slice(0, 3);
+  const featuredPosts = posts.filter((post) => post.featured).slice(0, 3);
 
   return (
     <main className="min-h-screen">
@@ -38,11 +48,14 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-5xl font-bold text-foreground capitalize sm:text-6xl">
+              <h1 className="text-foreground text-5xl font-bold capitalize sm:text-6xl">
                 soufiane chaoufi
               </h1>
               <p className="text-muted-foreground mx-auto max-w-3xl text-lg leading-relaxed sm:text-xl">
-                Hi! I'm Soufiane. I write code, build interfaces, and love sharing what I learn along the way. This space is equal parts portfolio, blog, and digital notebook where I document my ongoing adventure in web development.
+                Hi! I'm Soufiane. I write code, build interfaces, and love
+                sharing what I learn along the way. This space is equal parts
+                portfolio, blog, and digital notebook where I document my
+                ongoing adventure in web development.
               </p>
             </div>
 
@@ -93,13 +106,16 @@ export default function Home() {
       {featuredProjects.length > 0 && (
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4 sm:text-4xl">Featured Projects</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                A selection of my recent work showcasing different technologies and approaches to modern web development.
+            <div className="mb-12 text-center">
+              <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+                Featured Projects
+              </h2>
+              <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+                A selection of my recent work showcasing different technologies
+                and approaches to modern web development.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {featuredProjects.map((project) => (
                 <ProjectCard key={project.id} project={project} />
               ))}
@@ -120,13 +136,16 @@ export default function Home() {
       {featuredPosts.length > 0 && (
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4 sm:text-4xl">Latest Articles</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Insights, tutorials, and thoughts on modern web development, career growth, and the evolving tech landscape.
+            <div className="mb-12 text-center">
+              <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+                Latest Articles
+              </h2>
+              <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+                Insights, tutorials, and thoughts on modern web development,
+                career growth, and the evolving tech landscape.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {featuredPosts.map((post) => (
                 <BlogCard key={post.slug} post={post} />
               ))}
@@ -150,8 +169,8 @@ export default function Home() {
             Explore My Work
           </h2>
           <p className="text-muted-foreground mx-auto mb-8 max-w-2xl text-xl">
-            Discover the projects I've built and the articles I've written
-            about modern web development.
+            Discover the projects I've built and the articles I've written about
+            modern web development.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" className="gap-2">

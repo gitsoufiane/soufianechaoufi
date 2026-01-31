@@ -1,4 +1,4 @@
-import { Thing, WithContext } from 'schema-dts';
+import { Thing, WithContext } from "schema-dts";
 
 interface StructuredDataProps {
   data: WithContext<Thing> | Record<string, any>;
@@ -52,8 +52,7 @@ export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Soufiane Chaoufi",
-  description:
-    "Portfolio and blog of Soufiane Chaoufi, Frontend Developer",
+  description: "Portfolio and blog of Soufiane Chaoufi, Frontend Developer",
   url: "https://soufianechaoufi.com",
   author: {
     "@type": "Person",

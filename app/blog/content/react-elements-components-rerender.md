@@ -51,10 +51,10 @@ These are identical:
 
 ```jsx
 // What you write (JSX)
-<Child name="Alice" />
+<Child name="Alice" />;
 
 // What it becomes (plain JavaScript)
-React.createElement(Child, { name: "Alice" }, null)
+React.createElement(Child, { name: "Alice" }, null);
 ```
 
 JSX is syntax sugar. Behind the scenes, it creates Element objects.
@@ -69,13 +69,9 @@ That's all it is. When React re-renders a component, it calls your component fun
 function Counter() {
   const [count, setCount] = useState(0);
 
-  console.log('Component function called - this is a render!');
+  console.log("Component function called - this is a render!");
 
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Count: {count}
-    </button>
-  );
+  return <button onClick={() => setCount(count + 1)}>Count: {count}</button>;
 }
 ```
 
@@ -91,13 +87,13 @@ This is the key to understanding React's re-render behavior. React uses `Object.
 
 ```jsx
 // Primitives work as expected
-Object.is(5, 5);              // true
-Object.is('hello', 'hello');  // true
+Object.is(5, 5); // true
+Object.is("hello", "hello"); // true
 
 // Objects are compared by reference
-const obj1 = { name: 'React' };
-const obj2 = { name: 'React' };  // Same content, different object
-const obj3 = obj1;               // Same reference
+const obj1 = { name: "React" };
+const obj2 = { name: "React" }; // Same content, different object
+const obj3 = obj1; // Same reference
 
 Object.is(obj1, obj2); // false! Different objects in memory
 Object.is(obj1, obj3); // true! Same object reference
@@ -163,7 +159,7 @@ const Parent = ({ child }) => {
 };
 
 // Create the child element OUTSIDE Parent
-<Parent child={<Child />} />
+<Parent child={<Child />} />;
 ```
 
 Now when state updates:
@@ -218,13 +214,13 @@ Here's a practical example:
 ```jsx
 // ❌ Children re-render on every theme change
 function BadLayout() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
 
   return (
     <div className={theme}>
       <HeavySidebar /> {/* Re-renders on theme toggle */}
       <HeavyContent /> {/* Re-renders on theme toggle */}
-      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
         Toggle Theme
       </button>
     </div>
@@ -233,12 +229,12 @@ function BadLayout() {
 
 // ✅ Children DON'T re-render - passed as props!
 function GoodLayout({ children }) {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
 
   return (
     <div className={theme}>
       {children} {/* Doesn't re-render! */}
-      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
         Toggle Theme
       </button>
     </div>
@@ -277,7 +273,7 @@ function Modal({ isOpen, children }) {
   if (!isOpen) return null;
 
   return (
-    <div className={`modal ${isAnimating ? 'animating' : ''}`}>
+    <div className={`modal ${isAnimating ? "animating" : ""}`}>
       {children} {/* Element passed as prop - doesn't re-render! */}
     </div>
   );
@@ -286,7 +282,7 @@ function Modal({ isOpen, children }) {
 // Usage
 <Modal isOpen={showModal}>
   <HeavyForm /> {/* Created outside Modal, won't re-render during animation */}
-</Modal>
+</Modal>;
 ```
 
 The `<HeavyForm />` element is created outside the `Modal` component. When `isAnimating` state updates, `Modal` re-renders, but `children` (the `HeavyForm` element) has the same object reference, so it doesn't re-render.
@@ -298,11 +294,13 @@ Result: Smooth animations without unnecessary form re-renders!
 Hope this made sense and you're now confident with the "components as props" and "children as props" patterns. Here are the essential concepts to remember:
 
 1. **A Component is just a function** that accepts an argument (props) and returns Elements that should be rendered when this Component renders on the screen.
+
    ```jsx
    const A = () => <B />; // This is a Component
    ```
 
 2. **An Element is an object** that describes what needs to be rendered on the screen, with the type either a string for DOM elements or a reference to a Component for components.
+
    ```jsx
    const b = <B />; // This is an Element
    ```
@@ -312,6 +310,7 @@ Hope this made sense and you're now confident with the "components as props" and
 4. **A component re-renders when its element object changes**, as determined by `Object.is` comparison of it before and after re-render.
 
 5. **When elements are passed as props to a component, and this component triggers a re-render through a state update, elements that are passed as props won't re-render.**
+
    ```jsx
    function Parent({ child }) {
      const [state, setState] = useState(0);

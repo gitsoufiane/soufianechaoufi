@@ -8,8 +8,8 @@ export interface Project {
   liveUrl?: string;
   imageUrl?: string;
   featured: boolean;
-  category: 'web-app' | 'mobile-app' | 'library' | 'tool' | 'other';
-  status: 'completed' | 'ongoing' | 'maintained';
+  category: "web-app" | "mobile-app" | "library" | "tool" | "other";
+  status: "completed" | "ongoing" | "maintained";
   publishedAt: string;
   highlights?: string[];
 }

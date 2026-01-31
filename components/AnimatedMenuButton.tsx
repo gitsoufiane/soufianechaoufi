@@ -8,7 +8,10 @@ interface AnimatedMenuButtonProps {
   onClick: () => void;
 }
 
-export default function AnimatedMenuButton({ isOpen, onClick }: AnimatedMenuButtonProps) {
+export default function AnimatedMenuButton({
+  isOpen,
+  onClick,
+}: AnimatedMenuButtonProps) {
   const buttonVariants = {
     hover: {
       scale: 1.05,
@@ -105,15 +108,11 @@ export default function AnimatedMenuButton({ isOpen, onClick }: AnimatedMenuButt
   };
 
   return (
-    <motion.div
-      variants={buttonVariants}
-      whileHover="hover"
-      whileTap="tap"
-    >
+    <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
       <Button
         variant="ghost"
         size="icon"
-        className="md:hidden relative"
+        className="relative md:hidden"
         onClick={onClick}
         aria-label="Toggle mobile menu"
       >
@@ -172,7 +171,8 @@ export default function AnimatedMenuButton({ isOpen, onClick }: AnimatedMenuButt
         <motion.div
           className="absolute inset-0 rounded-lg"
           whileTap={{
-            background: "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, hsl(var(--primary)/0.15) 0%, transparent 70%)",
             transition: { duration: 0.3 },
           }}
         />

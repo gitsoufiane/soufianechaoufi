@@ -72,11 +72,7 @@ export default function AnimatedThemeToggle() {
   };
 
   return (
-    <motion.div
-      variants={buttonVariants}
-      whileHover="hover"
-      whileTap="tap"
-    >
+    <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
       <Button
         variant="ghost"
         size="icon"

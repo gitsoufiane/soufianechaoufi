@@ -49,31 +49,31 @@ export default function AnimatedLogo() {
         variants={containerVariants}
         initial="initial"
         whileHover="hover"
-        className="relative flex items-center cursor-pointer"
+        className="relative flex cursor-pointer items-center"
       >
         {/* Glow effect */}
         <motion.div
           variants={glowVariants}
-          className="absolute inset-0 bg-foreground/10 blur-lg rounded-full"
+          className="bg-foreground/10 absolute inset-0 rounded-full blur-lg"
         />
 
         {/* Letters */}
         <motion.span
           variants={letterVariants}
-          className="text-xl font-bold text-foreground relative z-10"
+          className="text-foreground relative z-10 text-xl font-bold"
         >
           S
         </motion.span>
         <motion.span
           variants={letterVariants}
-          className="text-xl font-bold text-foreground relative z-10"
+          className="text-foreground relative z-10 text-xl font-bold"
         >
           C
         </motion.span>
 
         {/* Connecting line animation */}
         <motion.div
-          className="absolute -bottom-1 left-0 h-0.5 bg-foreground"
+          className="bg-foreground absolute -bottom-1 left-0 h-0.5"
           initial={{ width: 0, opacity: 0 }}
           whileHover={{
             width: "100%",

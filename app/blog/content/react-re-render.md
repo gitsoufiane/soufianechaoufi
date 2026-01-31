@@ -149,7 +149,7 @@ function useInnerHook() {
   const [innerState, setInnerState] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => setInnerState(s => s + 1), 1000);
+    const timer = setInterval(() => setInnerState((s) => s + 1), 1000);
     return () => clearInterval(timer);
   }, []);
 

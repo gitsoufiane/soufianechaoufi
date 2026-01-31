@@ -20,6 +20,7 @@ Let me share what I've learned about React memoization the hard way, so you don'
 Here's the thing that tripped me up for way too long: **React compares objects, arrays, and functions by reference, not by their contents**.
 
 This matters in two critical places:
+
 1. When React checks hook dependencies (like in `useEffect`, `useMemo`, `useCallback`)
 2. When React compares props on components wrapped in `React.memo`
 
@@ -27,7 +28,7 @@ This matters in two critical places:
 // ❌ This will trigger the effect on every render
 function ProfileCard({ user }) {
   useEffect(() => {
-    console.log('User changed!');
+    console.log("User changed!");
   }, [user]); // user is an object - new reference each time
 
   return <div>{user.name}</div>;
@@ -36,7 +37,7 @@ function ProfileCard({ user }) {
 // ✅ Better - depend on specific values
 function ProfileCard({ user }) {
   useEffect(() => {
-    console.log('User ID changed!');
+    console.log("User ID changed!");
   }, [user.id]); // primitive value - stable comparison
 
   return <div>{user.name}</div>;
@@ -63,7 +64,7 @@ function DataDashboard({ transactions }) {
 }
 ```
 
-**But here's the catch**: the function you pass to `useMemo` is still recreated on every render. React just decides whether to *execute* it based on the dependencies.
+**But here's the catch**: the function you pass to `useMemo` is still recreated on every render. React just decides whether to _execute_ it based on the dependencies.
 
 ### When I actually use useMemo
 
@@ -78,8 +79,8 @@ I reach for `useMemo` in these situations:
 function ProductList({ items, filters }) {
   // This filtering might be expensive with thousands of items
   const filteredItems = useMemo(() => {
-    return items.filter(item => {
-      return filters.every(filter => filter.test(item));
+    return items.filter((item) => {
+      return filters.every((filter) => filter.test(item));
     });
   }, [items, filters]);
 
@@ -127,7 +128,7 @@ While `useMemo` caches the result, [`useCallback`](https://react.dev/reference/r
 
 ```jsx
 function SearchInput({ onSearch }) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   // ❌ New function on every render
   const handleSubmit = () => {
@@ -151,7 +152,7 @@ Here's where I wasted hours: wrapping functions in `useCallback` without wrappin
 // ❌ Pointless - SearchButton will re-render anyway
 function SearchForm() {
   const handleClick = useCallback(() => {
-    console.log('clicked');
+    console.log("clicked");
   }, []);
 
   return <SearchButton onClick={handleClick} />;
@@ -159,13 +160,13 @@ function SearchForm() {
 
 // ✅ Now it actually helps
 const SearchButton = React.memo(function SearchButton({ onClick }) {
-  console.log('SearchButton rendered');
+  console.log("SearchButton rendered");
   return <button onClick={onClick}>Search</button>;
 });
 
 function SearchForm() {
   const handleClick = useCallback(() => {
-    console.log('clicked');
+    console.log("clicked");
   }, []);
 
   return <SearchButton onClick={handleClick} />;
@@ -220,6 +221,7 @@ function useMemo(fn, deps) {
 **Critical point**: The function you pass to either hook gets recreated on every render. That's just how JavaScript works. React doesn't prevent that - it just decides whether to use the new function or return the cached value.
 
 This means there's always some overhead. React has to:
+
 1. Recreate the function you passed
 2. Check if dependencies changed
 3. Decide whether to execute it or return cached value
@@ -233,14 +235,22 @@ On initial render, there's no cached value, so React does extra work storing it.
 ```jsx
 // Without React.memo - re-renders whenever parent re-renders
 function UserCard({ name, email }) {
-  console.log('UserCard rendered');
-  return <div>{name} - {email}</div>;
+  console.log("UserCard rendered");
+  return (
+    <div>
+      {name} - {email}
+    </div>
+  );
 }
 
 // With React.memo - only re-renders when name or email change
 const UserCard = React.memo(function UserCard({ name, email }) {
-  console.log('UserCard rendered');
-  return <div>{name} - {email}</div>;
+  console.log("UserCard rendered");
+  return (
+    <div>
+      {name} - {email}
+    </div>
+  );
 });
 ```
 
@@ -251,23 +261,29 @@ const UserCard = React.memo(function UserCard({ name, email }) {
 Here's a mistake I've seen (and made) countless times: you carefully memoize most props, but miss just one. That single unmemoized prop destroys the entire optimization.
 
 ```jsx
-const ExpensiveList = React.memo(function ExpensiveList({ items, onSelect, theme }) {
-  console.log('ExpensiveList rendered');
-  return items.map(item => (
+const ExpensiveList = React.memo(function ExpensiveList({
+  items,
+  onSelect,
+  theme,
+}) {
+  console.log("ExpensiveList rendered");
+  return items.map((item) => (
     <Item key={item.id} data={item} onSelect={onSelect} theme={theme} />
   ));
 });
 
 function Dashboard() {
   const items = useMemo(() => fetchItems(), []);
-  const handleSelect = useCallback((id) => { /* ... */ }, []);
+  const handleSelect = useCallback((id) => {
+    /* ... */
+  }, []);
 
   // ❌ theme is created inline - new object every render
   return (
     <ExpensiveList
       items={items}
       onSelect={handleSelect}
-      theme={{ primary: '#blue', secondary: '#gray' }}
+      theme={{ primary: "#blue", secondary: "#gray" }}
     />
   );
 }
@@ -280,19 +296,18 @@ The fix? Memoize that too:
 ```jsx
 function Dashboard() {
   const items = useMemo(() => fetchItems(), []);
-  const handleSelect = useCallback((id) => { /* ... */ }, []);
-  const theme = useMemo(() => ({
-    primary: '#blue',
-    secondary: '#gray'
-  }), []);
-
-  return (
-    <ExpensiveList
-      items={items}
-      onSelect={handleSelect}
-      theme={theme}
-    />
+  const handleSelect = useCallback((id) => {
+    /* ... */
+  }, []);
+  const theme = useMemo(
+    () => ({
+      primary: "#blue",
+      secondary: "#gray",
+    }),
+    [],
   );
+
+  return <ExpensiveList items={items} onSelect={handleSelect} theme={theme} />;
 }
 ```
 
@@ -311,7 +326,7 @@ function Dashboard() {
 
   return (
     <>
-      <button onClick={() => setCount(c => c + 1)}>{count}</button>
+      <button onClick={() => setCount((c) => c + 1)}>{count}</button>
       <OptimizedCard>
         <p>This is new JSX on every render!</p>
       </OptimizedCard>
@@ -329,7 +344,7 @@ function Dashboard() {
 
   return (
     <>
-      <button onClick={() => setCount(c => c + 1)}>{count}</button>
+      <button onClick={() => setCount((c) => c + 1)}>{count}</button>
       <OptimizedCard>
         <CardContent />
       </OptimizedCard>
@@ -344,7 +359,7 @@ This one cost me hours of debugging. When you spread props through component cha
 
 ```jsx
 const ProductCard = React.memo(function ProductCard(props) {
-  console.log('ProductCard rendered');
+  console.log("ProductCard rendered");
   return <div>{props.name}</div>;
 });
 
@@ -356,7 +371,7 @@ function ProductWrapper(props) {
 function ProductList() {
   const products = useMemo(() => fetchProducts(), []);
 
-  return products.map(product => (
+  return products.map((product) => (
     // ❌ Adding extra data that's not memoized
     <ProductWrapper
       key={product.id}
@@ -383,7 +398,7 @@ Custom hooks are amazing for extracting logic, but they're also a common source 
 
 ```jsx
 const FormCard = React.memo(function FormCard({ onSubmit }) {
-  console.log('FormCard rendered');
+  console.log("FormCard rendered");
   return <form onSubmit={onSubmit}>...</form>;
 });
 
@@ -416,10 +431,13 @@ function useFormHandler() {
   const [data, setData] = useState({});
 
   // ✅ Memoized function with stable reference
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
-    submitData(data);
-  }, [data]);
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      submitData(data);
+    },
+    [data],
+  );
 
   return { handleSubmit, setData };
 }
@@ -433,12 +451,12 @@ Ready for a mind-bender? Even when both parent and child are memoized, you can s
 
 ```jsx
 const ChildCard = React.memo(function ChildCard() {
-  console.log('ChildCard rendered');
+  console.log("ChildCard rendered");
   return <div>Child content</div>;
 });
 
 const ParentCard = React.memo(function ParentCard({ children }) {
-  console.log('ParentCard rendered');
+  console.log("ParentCard rendered");
   return <div className="parent">{children}</div>;
 });
 
@@ -447,7 +465,7 @@ function App() {
 
   return (
     <>
-      <button onClick={() => setCount(c => c + 1)}>{count}</button>
+      <button onClick={() => setCount((c) => c + 1)}>{count}</button>
       {/* ❌ Both are memoized, but both re-render! */}
       <ParentCard>
         <ChildCard />
@@ -469,7 +487,7 @@ function App() {
 
   return (
     <>
-      <button onClick={() => setCount(c => c + 1)}>{count}</button>
+      <button onClick={() => setCount((c) => c + 1)}>{count}</button>
       <ParentCard>{childElement}</ParentCard>
     </>
   );
@@ -490,11 +508,7 @@ const DataContainer = React.memo(function DataContainer({ children }) {
 
 function Dashboard() {
   // ❌ New function every render
-  return (
-    <DataContainer>
-      {(data) => <div>{data.title}</div>}
-    </DataContainer>
-  );
+  return <DataContainer>{(data) => <div>{data.title}</div>}</DataContainer>;
 }
 ```
 
@@ -515,6 +529,7 @@ function Dashboard() {
 Real talk: I probably over-memoized my code for the first year of using hooks. Here's when memoization is a waste:
 
 **1. Cheap renders**
+
 ```jsx
 // ❌ Over-engineering
 const SimpleLabel = React.memo(function Label({ text }) {
@@ -528,19 +543,21 @@ function Label({ text }) {
 ```
 
 **2. Props that always change**
+
 ```jsx
 // ❌ Pointless - data is always a new array
 const List = React.memo(function List({ data }) {
-  return data.map(item => <div key={item.id}>{item.name}</div>);
+  return data.map((item) => <div key={item.id}>{item.name}</div>);
 });
 
 function Dashboard() {
-  const data = items.filter(item => item.active); // New array every render
+  const data = items.filter((item) => item.active); // New array every render
   return <List data={data} />;
 }
 ```
 
 **3. When you can't control all props**
+
 ```jsx
 // ❌ Incomplete memoization - onUpdate is not memoized
 function Parent() {
@@ -549,7 +566,7 @@ function Parent() {
   return (
     <MemoizedChild
       value={state}
-      onUpdate={() => setState(s => s + 1)} // New function every time!
+      onUpdate={() => setState((s) => s + 1)} // New function every time!
     />
   );
 }
@@ -569,10 +586,10 @@ I see code like this all the time:
 function ProductGrid({ products }) {
   // "This filter is expensive, better memoize it!"
   const filteredProducts = useMemo(() => {
-    return products.filter(p => p.inStock);
+    return products.filter((p) => p.inStock);
   }, [products]);
 
-  return filteredProducts.map(p => <ProductCard key={p.id} product={p} />);
+  return filteredProducts.map((p) => <ProductCard key={p.id} product={p} />);
 }
 ```
 
@@ -581,6 +598,7 @@ Is filtering an array expensive? Maybe. Maybe not. **It depends.**
 Here's what I learned after actually profiling: JavaScript operations are usually blazing fast compared to React rendering.
 
 I ran a test on my laptop (with 6x CPU slowdown in DevTools):
+
 - Sorting 300 items: **~2ms**
 - Filtering 1000 items: **~3ms**
 - Rendering those 300 items as simple buttons: **~25ms**
@@ -598,9 +616,9 @@ Before wrapping something in `useMemo`, ask:
 ```jsx
 function Analytics({ data }) {
   // Measure the calculation
-  console.time('process data');
+  console.time("process data");
   const processed = processData(data);
-  console.timeEnd('process data');
+  console.timeEnd("process data");
 
   // If this logs "process data: 2ms" and the component only renders
   // on initial load, useMemo is just adding complexity for nothing
@@ -631,20 +649,17 @@ Here's my hot take: before reaching for `React.memo`, try splitting components a
 // ❌ Complex memoization needed
 function Dashboard() {
   const [selectedId, setSelectedId] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredItems = useMemo(() =>
-    items.filter(item => item.name.includes(searchQuery)),
-    [searchQuery]
+  const filteredItems = useMemo(
+    () => items.filter((item) => item.name.includes(searchQuery)),
+    [searchQuery],
   );
 
   return (
     <>
       <ExpensiveChart data={chartData} />
-      <SearchInput
-        value={searchQuery}
-        onChange={setSearchQuery}
-      />
+      <SearchInput value={searchQuery} onChange={setSearchQuery} />
       <ItemList
         items={filteredItems}
         selectedId={selectedId}
@@ -666,11 +681,11 @@ function Dashboard() {
 
 function SearchableList() {
   const [selectedId, setSelectedId] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredItems = useMemo(() =>
-    items.filter(item => item.name.includes(searchQuery)),
-    [searchQuery]
+  const filteredItems = useMemo(
+    () => items.filter((item) => item.name.includes(searchQuery)),
+    [searchQuery],
   );
 
   return (

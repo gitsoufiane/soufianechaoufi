@@ -1,10 +1,16 @@
 "use client";
 
-import React, { Component, ReactNode } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
-import Link from 'next/link';
+import React, { Component, ReactNode } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { AlertTriangle, RefreshCw, Home } from "lucide-react";
+import Link from "next/link";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -18,7 +24,10 @@ interface ErrorBoundaryState {
   errorInfo: React.ErrorInfo | null;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = {
@@ -42,7 +51,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     });
 
     // Log the error to console or external service
-    console.error('Error caught by ErrorBoundary:', error, errorInfo);
+    console.error("Error caught by ErrorBoundary:", error, errorInfo);
 
     // Call the optional onError callback
     this.props.onError?.(error, errorInfo);
@@ -73,18 +82,19 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               </div>
               <CardTitle className="text-xl">Something went wrong</CardTitle>
               <CardDescription>
-                An unexpected error occurred. Please try refreshing the page or go back to the homepage.
+                An unexpected error occurred. Please try refreshing the page or
+                go back to the homepage.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {process.env.NODE_ENV === "development" && this.state.error && (
                 <details className="rounded border border-red-200 bg-red-50 p-3 text-sm dark:border-red-800 dark:bg-red-900/10">
                   <summary className="cursor-pointer font-medium text-red-800 dark:text-red-400">
                     Error Details (Development Only)
                   </summary>
-                  <pre className="mt-2 overflow-auto whitespace-pre-wrap text-xs text-red-700 dark:text-red-300">
+                  <pre className="mt-2 overflow-auto text-xs whitespace-pre-wrap text-red-700 dark:text-red-300">
                     {this.state.error.name}: {this.state.error.message}
-                    {'\n\n'}
+                    {"\n\n"}
                     {this.state.error.stack}
                   </pre>
                 </details>
@@ -122,7 +132,10 @@ interface ErrorFallbackProps {
   resetErrorBoundary: () => void;
 }
 
-export function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
+export function ErrorFallback({
+  error,
+  resetErrorBoundary,
+}: ErrorFallbackProps) {
   return (
     <div className="flex min-h-[50vh] items-center justify-center p-4">
       <Card className="w-full max-w-lg">
@@ -132,7 +145,7 @@ export function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps)
           </div>
           <CardTitle className="text-xl">Application Error</CardTitle>
           <CardDescription>
-            {error.message || 'An unexpected error occurred'}
+            {error.message || "An unexpected error occurred"}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

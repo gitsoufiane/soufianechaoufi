@@ -10,19 +10,20 @@
 Two conflicting Book interfaces exist:
 
 ### types/book.ts (unused)
+
 ```typescript
 export interface Book {
   id: string;
   title: string;
   author: string;
-  coverImage: string;        // ← Different
-  review?: string;           // ← Different
-  tags?: string[];           // ← Different
-  category: BookCategory;    // ← Different enum
-  rating: number;            // ← Required
+  coverImage: string; // ← Different
+  review?: string; // ← Different
+  tags?: string[]; // ← Different
+  category: BookCategory; // ← Different enum
+  rating: number; // ← Required
   description?: string;
-  readDate?: string;         // ← Different
-  amazonLink?: string;       // ← Different
+  readDate?: string; // ← Different
+  amazonLink?: string; // ← Different
 }
 
 type BookCategory =
@@ -34,20 +35,21 @@ type BookCategory =
 ```
 
 ### app/books/books.ts (actual)
+
 ```typescript
 export interface Book {
   id: string;
   title: string;
   author: string;
-  status: 'reading' | 'completed' | 'want-to-read';  // ← Added
-  rating?: number;           // ← Optional
-  coverUrl?: string;         // ← Different name
-  category: 'technical' | 'leadership' | 'design' | 'career' | 'other';
-  notes?: string;            // ← Different
-  finishedDate?: string;     // ← Different
-  startedDate?: string;      // ← Different
-  amazonUrl?: string;        // ← Different name
-  goodreadsUrl?: string;     // ← Added
+  status: "reading" | "completed" | "want-to-read"; // ← Added
+  rating?: number; // ← Optional
+  coverUrl?: string; // ← Different name
+  category: "technical" | "leadership" | "design" | "career" | "other";
+  notes?: string; // ← Different
+  finishedDate?: string; // ← Different
+  startedDate?: string; // ← Different
+  amazonUrl?: string; // ← Different name
+  goodreadsUrl?: string; // ← Added
 }
 ```
 
@@ -58,11 +60,13 @@ CLAUDE.md documents the `app/books/books.ts` interface, but `types/book.ts` exis
 Delete or update `types/book.ts` to match actual usage.
 
 ### Option A: Delete types/book.ts (Recommended)
+
 - Interface is defined alongside data in `app/books/books.ts`
 - Follows co-location pattern
 - One source of truth
 
 ### Option B: Move interface to types/book.ts
+
 - Export from `types/book.ts`
 - Import in `app/books/books.ts`
 - More separation but requires updates
@@ -100,10 +104,12 @@ None - standalone cleanup task
 **Approach taken:** Option A - deleted unused `types/book.ts`
 
 **Changes made:**
+
 1. Verified no imports of `types/book.ts` existed
 2. Deleted `/types/book.ts`
 3. Updated `CLAUDE.md` to remove reference to deleted file and note Book interface location
 
 **Verification:**
+
 - `yarn type-check` passes
 - Single Book interface now exists in `app/books/books.ts`

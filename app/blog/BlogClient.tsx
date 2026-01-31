@@ -37,7 +37,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
 
   const handleTagClick = (tag: string) => {
     setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 
@@ -75,8 +75,10 @@ export default function BlogClient({ posts }: BlogClientProps) {
 
         {/* Tag Filter */}
         <div className="mb-8">
-          <div className="flex flex-wrap items-center gap-2 justify-center">
-            <span className="text-muted-foreground text-sm">Filter by tag:</span>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="text-muted-foreground text-sm">
+              Filter by tag:
+            </span>
             {allTags.map((tag) => (
               <Badge
                 key={tag}
@@ -94,7 +96,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
                 onClick={clearFilters}
                 className="ml-2"
               >
-                <X className="h-3 w-3 mr-1" />
+                <X className="mr-1 h-3 w-3" />
                 Clear filters
               </Button>
             )}
@@ -128,11 +130,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
                 Try adjusting your search or filters to find what you&apos;re
                 looking for.
               </p>
-              <Button
-                variant="outline"
-                onClick={clearFilters}
-                className="mt-4"
-              >
+              <Button variant="outline" onClick={clearFilters} className="mt-4">
                 Clear filters
               </Button>
             </Card>

@@ -14,8 +14,10 @@ export default function BooksPage() {
   // Filter books
   const filteredBooks = useMemo(() => {
     return books.filter((book) => {
-      const categoryMatch = selectedCategory === "all" || book.category === selectedCategory;
-      const statusMatch = selectedStatus === "all" || book.status === selectedStatus;
+      const categoryMatch =
+        selectedCategory === "all" || book.category === selectedCategory;
+      const statusMatch =
+        selectedStatus === "all" || book.status === selectedStatus;
       return categoryMatch && statusMatch;
     });
   }, [selectedCategory, selectedStatus]);
@@ -35,19 +37,23 @@ export default function BooksPage() {
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-12 text-center">
-          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-muted">
-            <BookIcon className="h-8 w-8 text-foreground" />
+          <div className="bg-muted mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full">
+            <BookIcon className="text-foreground h-8 w-8" />
           </div>
           <h1 className="mb-4 text-4xl font-bold sm:text-5xl">Reading List</h1>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Books I've read or am currently reading. A mix of technical deep-dives,
-            leadership insights, and career development resources.
+          <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+            Books I've read or am currently reading. A mix of technical
+            deep-dives, leadership insights, and career development resources.
           </p>
         </div>
 
         {/* Status Tabs */}
-        <Tabs defaultValue="all" className="mb-8" onValueChange={setSelectedStatus}>
-          <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4">
+        <Tabs
+          defaultValue="all"
+          className="mb-8"
+          onValueChange={setSelectedStatus}
+        >
+          <TabsList className="mx-auto grid w-full max-w-2xl grid-cols-4">
             <TabsTrigger value="all">
               All (<AnimatedNumber value={counts.all} />)
             </TabsTrigger>
@@ -65,19 +71,21 @@ export default function BooksPage() {
 
         {/* Category Filter */}
         <div className="mb-8 flex flex-wrap justify-center gap-2">
-          {["all", "technical", "leadership", "design", "career", "other"].map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                selectedCategory === category
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
-              }`}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
-          ))}
+          {["all", "technical", "leadership", "design", "career", "other"].map(
+            (category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                  selectedCategory === category
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </button>
+            ),
+          )}
         </div>
 
         {/* Books Grid */}
@@ -89,8 +97,8 @@ export default function BooksPage() {
           </div>
         ) : (
           <div className="py-20 text-center">
-            <BookIcon className="mx-auto mb-4 h-12 w-12 text-muted-foreground/50" />
-            <p className="text-lg text-muted-foreground">
+            <BookIcon className="text-muted-foreground/50 mx-auto mb-4 h-12 w-12" />
+            <p className="text-muted-foreground text-lg">
               No books found in this category.
             </p>
           </div>

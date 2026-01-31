@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 export function proxy(request: NextRequest) {
   // Clone the request headers
@@ -13,13 +13,14 @@ export function proxy(request: NextRequest) {
 
   // Security headers
   const securityHeaders = {
-    'X-DNS-Prefetch-Control': 'on',
-    'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
-    'X-Content-Type-Options': 'nosniff',
-    'X-XSS-Protection': '1; mode=block',
-    'Referrer-Policy': 'strict-origin-when-cross-origin',
-    'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
-    'X-Frame-Options': 'SAMEORIGIN',
+    "X-DNS-Prefetch-Control": "on",
+    "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "X-XSS-Protection": "1; mode=block",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy":
+      "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+    "X-Frame-Options": "SAMEORIGIN",
   };
 
   // Apply security headers
@@ -39,9 +40,11 @@ export function proxy(request: NextRequest) {
     form-action 'self';
     frame-ancestors 'none';
     upgrade-insecure-requests;
-  `.replace(/\s{2,}/g, ' ').trim();
+  `
+    .replace(/\s{2,}/g, " ")
+    .trim();
 
-  response.headers.set('Content-Security-Policy', cspHeader);
+  response.headers.set("Content-Security-Policy", cspHeader);
 
   return response;
 }
@@ -56,6 +59,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public files with extensions
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)",
   ],
 };

@@ -19,7 +19,6 @@ export default function AnimatedNavLink({
   onClick,
   className,
 }: AnimatedNavLinkProps) {
-
   const linkVariants = {
     initial: {
       scale: 1,
@@ -92,17 +91,17 @@ export default function AnimatedNavLink({
 
           {/* Active state underline with progress animation */}
           {isActive && (
-            <div className="absolute -bottom-1 left-0 h-0.5 w-full overflow-hidden bg-muted">
+            <div className="bg-muted absolute -bottom-1 left-0 h-0.5 w-full overflow-hidden">
               <motion.div
                 variants={underlineVariants}
                 initial="initial"
                 animate="active"
-                className="h-full w-full bg-foreground origin-left"
+                className="bg-foreground h-full w-full origin-left"
               />
               <motion.div
                 variants={progressVariants}
                 animate="animate"
-                className="absolute top-0 h-full w-1/3 bg-gradient-to-r from-transparent via-background/40 to-transparent"
+                className="via-background/40 absolute top-0 h-full w-1/3 bg-gradient-to-r from-transparent to-transparent"
               />
             </div>
           )}
