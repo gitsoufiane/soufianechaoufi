@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ProjectCard from "@/components/ProjectCard";
-import { Project } from "@/types/project";
 import AnimatedNumber from "@/components/AnimatedNumber";
 
 // Import projects data (we'll create this file next)
@@ -28,9 +27,6 @@ const categories = [
 ];
 
 export default function ProjectsPage() {
-  const featuredProjects = projects.filter((project) => project.featured);
-  const otherProjects = projects.filter((project) => !project.featured);
-
   return (
     <div className="py-12">
       {/* Header */}
@@ -44,7 +40,7 @@ export default function ProjectsPage() {
       </div>
 
       {/* Stats */}
-      <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-center text-2xl font-bold">
@@ -52,16 +48,6 @@ export default function ProjectsPage() {
             </CardTitle>
             <CardDescription className="text-center">
               Total Projects
-            </CardDescription>
-          </CardHeader>
-        </Card>
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-center text-2xl font-bold">
-              <AnimatedNumber value={featuredProjects.length} />
-            </CardTitle>
-            <CardDescription className="text-center">
-              Featured Projects
             </CardDescription>
           </CardHeader>
         </Card>
@@ -79,45 +65,21 @@ export default function ProjectsPage() {
         </Card>
       </div>
 
-      {/* Featured Projects */}
-      {featuredProjects.length > 0 && (
-        <section className="mb-16">
-          <div className="mb-8 flex items-center justify-between">
-            <h2 className="text-2xl font-bold tracking-tight">
-              Featured Projects
-            </h2>
-            <Badge variant="secondary">
-              <AnimatedNumber value={featuredProjects.length} /> project
-              {featuredProjects.length !== 1 ? "s" : ""}
-            </Badge>
-          </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {featuredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Other Projects */}
-      {otherProjects.length > 0 && (
-        <section>
-          <div className="mb-8 flex items-center justify-between">
-            <h2 className="text-2xl font-bold tracking-tight">
-              Other Projects
-            </h2>
-            <Badge variant="outline">
-              <AnimatedNumber value={otherProjects.length} /> project
-              {otherProjects.length !== 1 ? "s" : ""}
-            </Badge>
-          </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {otherProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        </section>
-      )}
+      {/* All Projects */}
+      <section>
+        <div className="mb-8 flex items-center justify-between">
+          <h2 className="text-2xl font-bold tracking-tight">All Projects</h2>
+          <Badge variant="secondary">
+            <AnimatedNumber value={projects.length} /> project
+            {projects.length !== 1 ? "s" : ""}
+          </Badge>
+        </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      </section>
 
       {/* Empty State */}
       {projects.length === 0 && (

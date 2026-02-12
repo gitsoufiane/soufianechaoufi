@@ -7,7 +7,6 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   imageUrl?: string;
-  featured: boolean;
   category: "web-app" | "mobile-app" | "library" | "tool" | "other";
   status: "completed" | "ongoing" | "maintained";
   publishedAt: string;

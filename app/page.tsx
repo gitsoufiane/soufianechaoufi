@@ -24,9 +24,7 @@ import { projects } from "@/app/projects/projects";
 import { getAllPosts } from "@/lib/blog";
 
 export default function Home() {
-  const featuredProjects = projects
-    .filter((project) => project.featured)
-    .slice(0, 3);
+  const latestProjects = projects.slice(0, 3);
   const posts = getAllPosts();
   const featuredPosts = posts.filter((post) => post.featured).slice(0, 3);
 
@@ -102,13 +100,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Projects Section */}
-      {featuredProjects.length > 0 && (
+      {/* Latest Projects Section */}
+      {latestProjects.length > 0 && (
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="mb-12 text-center">
               <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
-                Featured Projects
+                Latest Projects
               </h2>
               <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
                 A selection of my recent work showcasing different technologies
@@ -116,7 +114,7 @@ export default function Home() {
               </p>
             </div>
             <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {featuredProjects.map((project) => (
+              {latestProjects.map((project) => (
                 <ProjectCard key={project.id} project={project} />
               ))}
             </div>

@@ -133,7 +133,6 @@ Add to `app/projects/projects.ts` following the Project interface:
   githubUrl?: string;
   liveUrl?: string;
   imageUrl?: string;
-  featured?: boolean;     // Shows on homepage
   category: string;       // 'web-app' | 'mobile-app' | 'library' | 'tool' | 'other'
   status: string;         // 'completed' | 'ongoing' | 'maintained'
   publishedAt: string;    // YYYY-MM-DD format

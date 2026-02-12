@@ -5,11 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
 import * as THREE from "three";
 
-interface SceneProps {
-  isDark: boolean;
-}
-
-function Scene({ isDark }: SceneProps) {
+function Scene() {
   const starsRef = useRef<THREE.Points>(null);
 
   useFrame((state) => {
@@ -20,26 +16,20 @@ function Scene({ isDark }: SceneProps) {
   });
 
   return (
-    <>
-      <Stars
-        ref={starsRef}
-        radius={100}
-        depth={80}
-        count={5000}
-        factor={isDark ? 6 : 4}
-        saturation={0}
-        fade
-        speed={1.5}
-      />
-    </>
+    <Stars
+      ref={starsRef}
+      radius={100}
+      depth={80}
+      count={5000}
+      factor={6}
+      saturation={0}
+      fade
+      speed={1.5}
+    />
   );
 }
 
-interface NotFoundSceneProps {
-  isDark?: boolean;
-}
-
-export default function NotFoundScene({ isDark = true }: NotFoundSceneProps) {
+export default function NotFoundScene() {
   return (
     <Canvas
       camera={{ position: [0, 0, 1], fov: 75 }}
@@ -54,8 +44,8 @@ export default function NotFoundScene({ isDark = true }: NotFoundSceneProps) {
       gl={{ antialias: true, alpha: true }}
       dpr={[1, 2]}
     >
-      <color attach="background" args={[isDark ? "#000000" : "#f8fafc"]} />
-      <Scene isDark={isDark} />
+      <color attach="background" args={["#000000"]} />
+      <Scene />
     </Canvas>
   );
 }

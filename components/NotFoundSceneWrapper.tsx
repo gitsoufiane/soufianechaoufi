@@ -2,21 +2,18 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 
 const NotFoundScene = dynamic(() => import("./NotFoundScene"), {
   ssr: false,
   loading: () => null,
 });
 
-function StaticFallback({ isDark }: { isDark: boolean }) {
+function StaticFallback() {
   return (
     <div
       className="fixed inset-0"
       style={{
-        background: isDark
-          ? "radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%)"
-          : "radial-gradient(ellipse at center, #f8fafc 0%, #e2e8f0 100%)",
+        background: "radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%)",
       }}
     >
       {/* Static star dots for reduced motion */}
@@ -24,7 +21,7 @@ function StaticFallback({ isDark }: { isDark: boolean }) {
         {[...Array(50)].map((_, i) => (
           <div
             key={i}
-            className={`absolute rounded-full ${isDark ? "bg-white/60" : "bg-slate-400/60"}`}
+            className="absolute rounded-full bg-white/60"
             style={{
               width: Math.random() * 2 + 1,
               height: Math.random() * 2 + 1,
@@ -41,8 +38,6 @@ function StaticFallback({ isDark }: { isDark: boolean }) {
 export default function NotFoundSceneWrapper() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
 
   useEffect(() => {
     setMounted(true);
@@ -58,12 +53,12 @@ export default function NotFoundSceneWrapper() {
   }, []);
 
   if (!mounted) {
-    return <StaticFallback isDark={true} />;
+    return <StaticFallback />;
   }
 
   if (prefersReducedMotion) {
-    return <StaticFallback isDark={isDark} />;
+    return <StaticFallback />;
   }
 
-  return <NotFoundScene isDark={isDark} />;
+  return <NotFoundScene />;
 }
