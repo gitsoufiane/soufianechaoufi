@@ -1,8 +1,38 @@
 import { Project } from "@/types/project";
 
-// Projects array - currently empty for clean slate
-// Add new projects by following the Project interface structure
-export const projects: Project[] = [
+// Projects sorted by publishedAt descending (newest first)
+// Homepage shows the first 3 entries
+const unsortedProjects: Project[] = [
+  {
+    id: "qyra",
+    title: "Qyra",
+    description:
+      "A QR code generator and scanner app with custom color styling, camera scanning, and content-aware actions",
+    longDescription:
+      "Qyra is a two-tab Expo app for generating and scanning QR codes. The generator supports four content types (URL, Text, WiFi, Contact/vCard) with customizable foreground and background colors via swatch pickers, contrast warnings, and save/share functionality. The scanner uses the device camera with content-aware actions — opening URLs, saving contacts, or copying text. Includes persistent history with AsyncStorage for re-generation.",
+    technologies: [
+      "React Native",
+      "TypeScript",
+      "Expo SDK 54",
+      "React 19",
+      "expo-router",
+      "expo-camera",
+      "react-native-qrcode-svg",
+      "react-native-reanimated",
+    ],
+    githubUrl: "https://github.com/gitsoufiane/qyra",
+    category: "mobile-app",
+    status: "ongoing",
+    publishedAt: "2025-02-12",
+    highlights: [
+      "QR generation for URLs, text, WiFi, and vCard contacts",
+      "Custom foreground and background color pickers with contrast warning",
+      "Camera-based QR scanner with content-aware actions",
+      "Persistent history with AsyncStorage",
+      "Dark-only UI with haptic feedback throughout",
+      "Save to gallery and share QR codes as images",
+    ],
+  },
   {
     id: "portfolio",
     title: "Personal Portfolio",
@@ -22,7 +52,6 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/gitsoufiane/soufianechaoufi",
     liveUrl: "https://soufianechaoufi.com",
-    featured: true,
     category: "web-app",
     status: "maintained",
     publishedAt: "2025-03-01",
@@ -33,6 +62,62 @@ export const projects: Project[] = [
       "SEO optimized with structured data (JSON-LD)",
       "Accessible design with skip navigation links",
       "Smooth page transitions with Framer Motion",
+    ],
+  },
+  {
+    id: "truenorth",
+    title: "TrueNorth Citizen",
+    description:
+      "A React Native app for Canadian citizenship test preparation using adaptive spaced repetition learning",
+    longDescription:
+      "TrueNorth Citizen is a mobile app that helps users prepare for the Canadian citizenship test through an adaptive spaced repetition algorithm. Built with an offline-first architecture using SQLite for local storage, it features progress tracking, multiple question categories, and supports both iOS and Android platforms.",
+    technologies: [
+      "React Native",
+      "TypeScript",
+      "Expo",
+      "SQLite",
+      "Zustand",
+      "Zod",
+      "Jest",
+    ],
+    githubUrl: "https://github.com/gitsoufiane/trueNorth",
+    category: "mobile-app",
+    status: "ongoing",
+    publishedAt: "2025-01-01",
+    highlights: [
+      "Adaptive spaced repetition algorithm for optimal learning",
+      "Offline-first architecture with SQLite",
+      "Progress tracking across question categories",
+      "iOS and Android support",
+    ],
+  },
+  {
+    id: "kintra",
+    title: "Kintra",
+    description:
+      "A mobile app for finding players for local activities like bowling, tennis, pickleball, and more",
+    longDescription:
+      "Kintra is a social mobile application that connects people looking for partners to play local activities such as bowling, tennis, pickleball, and more. Built with Expo 54 and React Native, it features location-based discovery, real-time notifications, and a Supabase-powered backend for authentication, database, and storage.",
+    technologies: [
+      "React Native",
+      "TypeScript",
+      "Expo",
+      "Supabase",
+      "Zustand",
+      "TanStack Query",
+      "NativeWind",
+      "React Hook Form",
+      "Zod",
+    ],
+    githubUrl: "https://github.com/gitsoufiane/kintra",
+    category: "mobile-app",
+    status: "ongoing",
+    publishedAt: "2025-01-01",
+    highlights: [
+      "Location-based player discovery with maps",
+      "Supabase backend for auth, database, and storage",
+      "Real-time notifications for activity matching",
+      "NativeWind styling with Tailwind CSS patterns",
     ],
   },
   {
@@ -56,7 +141,6 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/gitsoufiane/sheswap", // Update with actual GitHub URL
     imageUrl: "/projects/sheswap.png", // Add project screenshot
-    featured: true,
     category: "mobile-app",
     status: "ongoing",
     publishedAt: "2024-12-01", // Update with actual date
@@ -71,6 +155,11 @@ export const projects: Project[] = [
   },
 ];
 
+export const projects = unsortedProjects.sort(
+  (a, b) =>
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+);
+
 /*
 Example Project structure for future reference:
 {
@@ -82,7 +171,6 @@ Example Project structure for future reference:
   githubUrl: "https://github.com/username/repo", // optional
   liveUrl: "https://project-demo.com", // optional
   imageUrl: "/projects/project-image.jpg", // optional
-  featured: false, // set to true for featured projects (shows on homepage)
   category: "web-app", // must match one of the categories below: 'web-app' | 'mobile-app' | 'library' | 'tool' | 'other'
   status: "completed", // 'completed' | 'ongoing' | 'maintained'
   publishedAt: "2024-12-01", // YYYY-MM-DD format
