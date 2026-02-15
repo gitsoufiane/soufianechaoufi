@@ -4,6 +4,36 @@ import { Project } from "@/types/project";
 // Homepage shows the first 3 entries
 const unsortedProjects: Project[] = [
   {
+    id: "rendly",
+    title: "Rendly",
+    description:
+      "A remittance comparison tool that fetches live exchange rates from provider APIs to help users find the cheapest way to send money abroad",
+    longDescription:
+      "Rendly compares real exchange rates, fees, and true costs across 8 money transfer providers including Wise, OFX, Remitly, and Western Union. It fetches live quotes from provider APIs where available and clearly labels estimated vs live rates. Features corridor-specific pages with FAQ content, a mid-market currency converter, and SEO-optimized static pages for popular corridors like CAD→MAD, USD→MXN, and GBP→NGN.",
+    technologies: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "shadcn/ui",
+      "Zod",
+      "Recharts",
+    ],
+    githubUrl: "https://github.com/gitsoufiane/rendly",
+    imageUrl: "/projects/rendly.png",
+    category: "web-app",
+    status: "ongoing",
+    publishedAt: "2025-02-14",
+    highlights: [
+      "Live rate fetching from Wise and OFX APIs",
+      "True cost comparison across 8 providers (fees + markup)",
+      "SEO-optimized corridor pages with structured FAQ",
+      "Mid-market currency converter",
+      "Responsive design with desktop table and mobile cards",
+      "Clear labeling of live vs estimated rates",
+    ],
+  },
+  {
     id: "qyra",
     title: "Qyra",
     description:
@@ -21,6 +51,7 @@ const unsortedProjects: Project[] = [
       "react-native-reanimated",
     ],
     githubUrl: "https://github.com/gitsoufiane/qyra",
+    imageUrl: "/projects/qyra.png",
     category: "mobile-app",
     status: "ongoing",
     publishedAt: "2025-02-12",
