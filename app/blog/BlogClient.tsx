@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -13,45 +14,111 @@ interface BlogClientProps {
   posts: BlogPost[];
 }
 
-export default function BlogClient({ posts }: BlogClientProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+interface FilterUpdates {
+  search?: string;
+  tags?: string[];
+  category?: string;
+}
 
-  // Get all unique tags from posts
+function formatCategory(category: string) {
+  return category.charAt(0).toUpperCase() + category.slice(1);
+}
+
+export default function BlogClient({ posts }: BlogClientProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const searchQuery = searchParams.get("search") ?? "";
+  const selectedTags = useMemo(
+    () => searchParams.getAll("tag"),
+    [searchParams],
+  );
+  const selectedCategory = searchParams.get("category") ?? "all";
+
   const allTags = useMemo(() => {
     return Array.from(new Set(posts.flatMap((post) => post.tags))).sort();
   }, [posts]);
 
-  // Filter posts by search query (title only) and selected tags
+  const allCategories = useMemo(() => {
+    return Array.from(new Set(posts.map((post) => post.category))).sort();
+  }, [posts]);
+
+  const updateFilters = (updates: FilterUpdates) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (updates.search !== undefined) {
+      const search = updates.search.trim();
+      if (search) {
+        params.set("search", search);
+      } else {
+        params.delete("search");
+      }
+    }
+
+    if (updates.tags !== undefined) {
+      params.delete("tag");
+      updates.tags.forEach((tag) => params.append("tag", tag));
+    }
+
+    if (updates.category !== undefined) {
+      if (updates.category === "all") {
+        params.delete("category");
+      } else {
+        params.set("category", updates.category);
+      }
+    }
+
+    const queryString = params.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+  };
+
   const filteredPosts = useMemo(() => {
+    const normalizedSearch = searchQuery.toLowerCase().trim();
+
     return posts.filter((post) => {
-      const matchesSearch = post.title
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+      const searchableText = [
+        post.title,
+        post.description,
+        post.category,
+        post.content,
+        ...post.tags,
+      ]
+        .join(" ")
+        .toLowerCase();
+      const matchesSearch =
+        !normalizedSearch || searchableText.includes(normalizedSearch);
       const matchesTags =
         selectedTags.length === 0 ||
         selectedTags.some((tag) => post.tags.includes(tag));
-      return matchesSearch && matchesTags;
+      const matchesCategory =
+        selectedCategory === "all" || post.category === selectedCategory;
+
+      return matchesSearch && matchesTags && matchesCategory;
     });
-  }, [posts, searchQuery, selectedTags]);
+  }, [posts, searchQuery, selectedCategory, selectedTags]);
 
   const handleTagClick = (tag: string) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
-    );
+    const tags = selectedTags.includes(tag)
+      ? selectedTags.filter((selectedTag) => selectedTag !== tag)
+      : [...selectedTags, tag];
+
+    updateFilters({ tags });
   };
 
   const clearFilters = () => {
-    setSearchQuery("");
-    setSelectedTags([]);
+    router.replace(pathname, { scroll: false });
   };
 
-  const hasActiveFilters = searchQuery || selectedTags.length > 0;
+  const hasActiveFilters = Boolean(
+    searchQuery || selectedTags.length > 0 || selectedCategory !== "all",
+  );
 
   return (
     <div className="min-h-screen px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="mb-4 text-4xl font-bold sm:text-5xl">Articles</h1>
           <p className="text-muted-foreground mx-auto max-w-3xl text-xl">
@@ -60,20 +127,51 @@ export default function BlogClient({ posts }: BlogClientProps) {
           </p>
         </div>
 
-        {/* Search */}
         <div className="mb-6">
           <div className="relative mx-auto max-w-md">
-            <Search className="text-muted-foreground absolute top-3 left-3 h-4 w-4" />
+            <Search
+              aria-hidden="true"
+              className="text-muted-foreground absolute top-3 left-3 h-4 w-4"
+            />
             <Input
-              placeholder="Search articles by title..."
+              aria-label="Search articles"
+              placeholder="Search articles..."
               className="pl-9"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(event) =>
+                updateFilters({ search: event.target.value })
+              }
             />
           </div>
         </div>
 
-        {/* Tag Filter */}
+        {allCategories.length > 0 && (
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
+            <span className="text-muted-foreground text-sm">
+              Filter by category:
+            </span>
+            <Button
+              type="button"
+              variant={selectedCategory === "all" ? "default" : "outline"}
+              size="sm"
+              onClick={() => updateFilters({ category: "all" })}
+            >
+              All
+            </Button>
+            {allCategories.map((category) => (
+              <Button
+                key={category}
+                type="button"
+                variant={selectedCategory === category ? "default" : "outline"}
+                size="sm"
+                onClick={() => updateFilters({ category })}
+              >
+                {formatCategory(category)}
+              </Button>
+            ))}
+          </div>
+        )}
+
         <div className="mb-8">
           <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="text-muted-foreground text-sm">
@@ -103,7 +201,6 @@ export default function BlogClient({ posts }: BlogClientProps) {
           </div>
         </div>
 
-        {/* Results count */}
         {hasActiveFilters && (
           <div className="mb-6 text-center">
             <p className="text-muted-foreground text-sm">
@@ -112,7 +209,6 @@ export default function BlogClient({ posts }: BlogClientProps) {
           </div>
         )}
 
-        {/* All Articles */}
         <section>
           {posts.length === 0 ? (
             <Card className="p-12 text-center">
