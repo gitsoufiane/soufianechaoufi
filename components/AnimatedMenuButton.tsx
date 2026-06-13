@@ -31,19 +31,6 @@ export default function AnimatedMenuButton({
     },
   };
 
-  const lineVariants = {
-    closed: {
-      rotate: 0,
-      y: 0,
-      opacity: 1,
-    },
-    open: {
-      rotate: 0,
-      y: 0,
-      opacity: 1,
-    },
-  };
-
   const topLineVariants = {
     closed: {
       rotate: 0,

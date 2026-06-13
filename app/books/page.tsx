@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { books } from "./books";
 import BookCard from "@/components/BookCard";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Book as BookIcon } from "lucide-react";
 import AnimatedNumber from "@/components/AnimatedNumber";
 
