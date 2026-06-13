@@ -1,23 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Github,
-  Linkedin,
-  Mail,
-  ExternalLink,
-  Code,
-  Zap,
-} from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, Code } from "lucide-react";
 import ProjectCard from "@/components/ProjectCard";
 import BlogCard from "@/app/blog/BlogCard";
 import { projects } from "@/app/projects/projects";

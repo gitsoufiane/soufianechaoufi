@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -39,11 +40,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       <CardContent className="flex-1 space-y-4 pt-0">
         {project.imageUrl && (
           <div className="bg-muted relative aspect-video overflow-hidden rounded-md">
-            <img
+            <Image
               src={project.imageUrl}
               alt={project.title}
-              className="h-full w-full object-cover transition-transform group-hover:scale-105"
-              loading="lazy"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-transform group-hover:scale-105"
             />
           </div>
         )}

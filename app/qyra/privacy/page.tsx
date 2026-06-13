@@ -5,7 +5,7 @@ import {
   Eye,
   EyeOff,
   Camera,
-  Image,
+  Image as ImageIcon,
   Lock,
   Trash2,
   Globe,
@@ -113,7 +113,10 @@ export default function QyraPrivacyPolicy() {
             <li className="flex items-start gap-0">
               <span>
                 <span className="text-foreground font-medium">
-                  <Image className="mr-1.5 -mt-0.5 inline size-3.5" />
+                  <ImageIcon
+                    className="mr-1.5 -mt-0.5 inline size-3.5"
+                    aria-hidden="true"
+                  />
                   Photo Library
                 </span>{" "}
                 — Optional. Only used when you save a QR code image. No photos

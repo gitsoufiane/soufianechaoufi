@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import AnimatedNavLink from "@/components/AnimatedNavLink";
 import AnimatedMenuButton from "@/components/AnimatedMenuButton";
@@ -25,14 +25,7 @@ const defaultNavItems: NavItem[] = [
 
 export default function Navbar({ className }: NavbarProps) {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
 
   return (
     <nav
