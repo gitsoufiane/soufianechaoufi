@@ -26,7 +26,7 @@ const defaultSocialLinks: SocialLink[] = [
   },
   {
     name: "Email",
-    url: "mailto:soufiane.chaoufi@gmail.com",
+    url: "mailto:contact@soufianechaoufi.com",
     icon: <Mail className="h-5 w-5 transition-transform hover:scale-110" />,
   },
 ];
