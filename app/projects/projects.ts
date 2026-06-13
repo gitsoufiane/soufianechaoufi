@@ -20,7 +20,6 @@ const unsortedProjects: Project[] = [
       "Recharts",
     ],
     githubUrl: "https://github.com/gitsoufiane/rendly",
-    imageUrl: "/projects/rendly.png",
     category: "web-app",
     status: "ongoing",
     publishedAt: "2025-02-14",
@@ -170,11 +169,11 @@ const unsortedProjects: Project[] = [
       "Expo Location",
       "Geofire Common",
     ],
-    githubUrl: "https://github.com/gitsoufiane/sheswap", // Update with actual GitHub URL
-    imageUrl: "/projects/sheswap.png", // Add project screenshot
+    githubUrl: "https://github.com/gitsoufiane/sheswap",
+    imageUrl: "/projects/sheswap.png",
     category: "mobile-app",
     status: "ongoing",
-    publishedAt: "2024-12-01", // Update with actual date
+    publishedAt: "2024-12-01",
     highlights: [
       "Money-free social economy platform for women",
       "Item swapping and free giving community",
