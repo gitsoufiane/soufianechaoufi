@@ -54,6 +54,12 @@ export default function Home() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
+              <Button asChild variant="outline" size="lg" className="gap-2">
+                <Link href="mailto:contact@soufianechaoufi.com">
+                  Work With Me
+                  <Mail className="h-4 w-4" />
+                </Link>
+              </Button>
             </div>
 
             <div className="flex justify-center gap-6 pt-4">
@@ -62,6 +68,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Visit my GitHub profile"
               >
                 <Github className="h-6 w-6" />
               </Link>
@@ -70,12 +77,14 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Visit my LinkedIn profile"
               >
                 <Linkedin className="h-6 w-6" />
               </Link>
               <Link
                 href="mailto:contact@soufianechaoufi.com"
                 className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Email me"
               >
                 <Mail className="h-6 w-6" />
               </Link>
@@ -148,11 +157,11 @@ export default function Home() {
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
-            Explore My Work
+            Let&apos;s Build Something
           </h2>
           <p className="text-muted-foreground mx-auto mb-8 max-w-2xl text-xl">
-            Discover the projects I've built and the articles I've written about
-            modern web development.
+            Explore my work, then reach out if you want to collaborate on a
+            fast, accessible web experience.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" className="gap-2">
@@ -162,9 +171,9 @@ export default function Home() {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="gap-2">
-              <Link href="/blog">
-                Read My Articles
-                <ArrowRight className="h-4 w-4" />
+              <Link href="mailto:contact@soufianechaoufi.com">
+                Start a Conversation
+                <Mail className="h-4 w-4" />
               </Link>
             </Button>
           </div>
