@@ -1,10 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -14,17 +14,6 @@ import AnimatedNumber from "@/components/AnimatedNumber";
 
 // Import projects data (we'll create this file next)
 import { projects } from "./projects";
-
-const categories = [
-  { name: "All", slug: "all", description: "All projects" },
-  {
-    name: "Web Apps",
-    slug: "web-app",
-    description: "Full-stack web applications",
-  },
-  { name: "Tools", slug: "tool", description: "Developer tools and utilities" },
-  { name: "Libraries", slug: "library", description: "Open source libraries" },
-];
 
 export default function ProjectsPage() {
   return (
@@ -99,7 +88,7 @@ export default function ProjectsPage() {
           development.
         </p>
         <Button asChild>
-          <a href="/blog">Read Articles</a>
+          <Link href="/blog">Read Articles</Link>
         </Button>
       </div>
     </div>

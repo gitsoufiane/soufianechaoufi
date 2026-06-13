@@ -1,3 +1,6 @@
+import containerQueries from "@tailwindcss/container-queries";
+import typography from "@tailwindcss/typography";
+import animate from "tailwindcss-animate";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -148,12 +151,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/typography"),
-    // Add container queries support
-    require("@tailwindcss/container-queries"),
-  ],
+  plugins: [animate, typography, containerQueries],
 } satisfies Config;
 
 export default config;
