@@ -41,10 +41,6 @@ export const personSchema = {
     "Web Development",
     "User Interface Design",
   ],
-  alumniOf: {
-    "@type": "Organization",
-    name: "University/College Name",
-  },
 };
 
 // Website schema

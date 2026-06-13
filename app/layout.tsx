@@ -61,7 +61,7 @@ export const metadata: Metadata = {
       "Frontend developer building fast, accessible web applications with React, TypeScript, and modern technologies.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Soufiane Chaoufi - Frontend Developer",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: "Soufiane Chaoufi | Frontend Developer",
     description:
       "Frontend developer building fast, accessible web applications with React, TypeScript, and modern technologies.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
     creator: "@soufianechaoufi",
   },
   robots: {
